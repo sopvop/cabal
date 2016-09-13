@@ -210,7 +210,7 @@ Building and installing a user package
     $ runhaskell Setup.hs install
 
 The package is installed under the user's home directory and is
-registered in the user's package database (``--user``).
+registered in the user's package database (:option:`setup configure --user`).
 
 Installing packages from Hackage
 --------------------------------
@@ -473,21 +473,21 @@ to be configured. Specified names can be qualified with ``lib:`` or
 package named ``p`` which has a library and an executable named ``p``.)
 This has the following effects:
 
--  Subsequent invocations of ``build``, ``register``, etc. operate only
+-  Subsequent invocations of ``cabal build``, ``register``, etc. operate only
    on the configured component.
 
 -  Cabal requires all "internal" dependencies (e.g., an executable
    depending on a library defined in the same package) must be found in
-   the set of databases via ``--package-db`` (and related flags): these
+   the set of databases via :option:`--package-db` (and related flags): these
    dependencies are assumed to be up-to-date. A dependency can be
-   explicitly specified using ``--dependency`` simply by giving the name
+   explicitly specified using :option:`--dependency` simply by giving the name
    of the internal library; e.g., the dependency for an internal library
    named ``foo`` is given as
    ``--dependency=pkg-internal=pkg-1.0-internal-abcd``.
 
 -  Only the dependencies needed for the requested component are
-   required. Similarly, when ``--exact-configuration`` is specified,
-   it's only necessary to specify ``--dependency`` for the component.
+   required. Similarly, when :option:`--exact-configuration` is specified,
+   it's only necessary to specify :option:`--dependency` for the component.
    (As mentioned previously, you *must* specify internal dependencies as
    well.)
 

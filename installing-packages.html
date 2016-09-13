@@ -348,7 +348,7 @@ results to some permanent place and registers the package with GHC.</p>
 </pre></div>
 </div>
 <p>The package is installed under the user&#8217;s home directory and is
-registered in the user&#8217;s package database (<code class="docutils literal"><span class="pre">--user</span></code>).</p>
+registered in the user&#8217;s package database (<a class="reference internal" href="#cmdoption-setup-configure--user"><code class="xref std std-option docutils literal"><span class="pre">setup</span> <span class="pre">configure</span> <span class="pre">--user</span></code></a>).</p>
 </div>
 <div class="section" id="installing-packages-from-hackage">
 <h2>2.2.3. Installing packages from Hackage<a class="headerlink" href="#installing-packages-from-hackage" title="Permalink to this headline">¶</a></h2>
@@ -572,19 +572,19 @@ to be configured. Specified names can be qualified with <code class="docutils li
 package named <code class="docutils literal"><span class="pre">p</span></code> which has a library and an executable named <code class="docutils literal"><span class="pre">p</span></code>.)
 This has the following effects:</p>
 <ul class="simple">
-<li>Subsequent invocations of <code class="docutils literal"><span class="pre">build</span></code>, <code class="docutils literal"><span class="pre">register</span></code>, etc. operate only
+<li>Subsequent invocations of <code class="docutils literal"><span class="pre">cabal</span> <span class="pre">build</span></code>, <code class="docutils literal"><span class="pre">register</span></code>, etc. operate only
 on the configured component.</li>
 <li>Cabal requires all &#8220;internal&#8221; dependencies (e.g., an executable
 depending on a library defined in the same package) must be found in
-the set of databases via <code class="docutils literal"><span class="pre">--package-db</span></code> (and related flags): these
+the set of databases via <a class="reference internal" href="#cmdoption-setup-configure--package-db"><code class="xref std std-option docutils literal"><span class="pre">--package-db</span></code></a> (and related flags): these
 dependencies are assumed to be up-to-date. A dependency can be
-explicitly specified using <code class="docutils literal"><span class="pre">--dependency</span></code> simply by giving the name
+explicitly specified using <a class="reference internal" href="#cmdoption-setup-configure--dependency"><code class="xref std std-option docutils literal"><span class="pre">--dependency</span></code></a> simply by giving the name
 of the internal library; e.g., the dependency for an internal library
 named <code class="docutils literal"><span class="pre">foo</span></code> is given as
 <code class="docutils literal"><span class="pre">--dependency=pkg-internal=pkg-1.0-internal-abcd</span></code>.</li>
 <li>Only the dependencies needed for the requested component are
-required. Similarly, when <code class="docutils literal"><span class="pre">--exact-configuration</span></code> is specified,
-it&#8217;s only necessary to specify <code class="docutils literal"><span class="pre">--dependency</span></code> for the component.
+required. Similarly, when <a class="reference internal" href="#cmdoption-setup-configure--exact-configuration"><code class="xref std std-option docutils literal"><span class="pre">--exact-configuration</span></code></a> is specified,
+it&#8217;s only necessary to specify <a class="reference internal" href="#cmdoption-setup-configure--dependency"><code class="xref std std-option docutils literal"><span class="pre">--dependency</span></code></a> for the component.
 (As mentioned previously, you <em>must</em> specify internal dependencies as
 well.)</li>
 <li>Internal <code class="docutils literal"><span class="pre">build-tools</span></code> dependencies are expected to be in the
