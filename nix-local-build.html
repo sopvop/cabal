@@ -135,6 +135,7 @@
 
             
           
+  <a href="cabal-projectindex.html">Reference</a>
   <a href="genindex.html">Index</a>
 
         </div>
@@ -458,7 +459,7 @@ this:</p>
              HTTP +warp-tests -warn-as-error -network23 +network-uri -mtl1 -conduit10<span class="p">,</span>
              QuickCheck <span class="o">==</span>2.9.1<span class="p">,</span>
              QuickCheck +templatehaskell<span class="p">,</span>
-<span class="c1">             -- etc...</span>
+<span class="w">             </span><span class="c1">-- etc...</span>
 </pre></div>
 </div>
 <p>For end-user executables, it is recommended that you distribute the
@@ -523,10 +524,18 @@ following sources (later entries override earlier ones):</p>
 <h2>5.4.1. Specifying the local packages<a class="headerlink" href="#specifying-the-local-packages" title="Permalink to this headline">¶</a></h2>
 <p>The following top-level options specify what the local packages of a
 project are:</p>
-<p><code class="docutils literal"><span class="pre">packages:</span></code> <em>package location list</em> (space or comma separated,
-default: <code class="docutils literal"><span class="pre">./*.cabal</span></code>)</p>
-<blockquote>
-<div><p>Specifies the list of package locations which contain the local
+<dl class="cfg-field">
+<dt id="cfg-field-packages">
+<code class="descname">packages</code><code class="descclassname">: </code><em class="property">package location list (space or comma separated)</em><a class="headerlink" href="#cfg-field-packages" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Default value:</th><td class="field-body"><code class="docutils literal"><span class="pre">./*.cabal</span></code></td>
+</tr>
+</tbody>
+</table>
+<p>Specifies the list of package locations which contain the local
 packages to be built by this project. Package locations can take the
 following forms:</p>
 <ol class="arabic simple">
@@ -545,23 +554,36 @@ URL, representing the path to a remote tarball to be downloaded
 and built.] (not implemented yet)</li>
 </ol>
 <p>There is no command line variant of this field; see <a class="reference external" href="https://github.com/haskell/cabal/issues/3585">#3585</a>.</p>
-</div></blockquote>
-<dl class="docutils">
-<dt><code class="docutils literal"><span class="pre">optional-packages:</span></code> <em>package location list</em> (space or comma-separated, default: <code class="docutils literal"><span class="pre">./*/*.cabal</span></code>)</dt>
-<dd><p class="first">Like <code class="docutils literal"><span class="pre">packages:</span></code>, specifies a list of package locations containing
-local packages to be built. Unlike <code class="docutils literal"><span class="pre">packages:</span></code>, if we glob for a
-package, it is permissible for the glob to match against zero
-packages. The intended use-case for <code class="docutils literal"><span class="pre">optional-packages</span></code> is to make
-it so that vendored packages can be automatically picked up if they
-are placed in a subdirectory, but not error if there aren&#8217;t any.</p>
-<p class="last">There is no command line variant of this field.</p>
-</dd>
-<dt><code class="docutils literal"><span class="pre">extra-packages:</span></code> <em>package list with version bounds</em> (comma separated)</dt>
-<dd><p class="first">[STRIKEOUT:Specifies a list of external packages from Hackage which
+</dd></dl>
+
+<dl class="cfg-field">
+<dt id="cfg-field-optional-packages">
+<code class="descname">optional-packages</code><code class="descclassname">: </code><em class="property">package location list (space or comma-separated)</em><a class="headerlink" href="#cfg-field-optional-packages" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Default value:</th><td class="field-body"><code class="docutils literal"><span class="pre">./*/*.cabal</span></code></td>
+</tr>
+</tbody>
+</table>
+<p>Like <a class="reference internal" href="#cfg-field-packages" title="project.cabal packages field "><code class="xref cabal cabal-cfg-field docutils literal"><span class="pre">packages</span></code></a>, specifies a list of package locations
+containing local packages to be built. Unlike <a class="reference internal" href="#cfg-field-packages" title="project.cabal packages field "><code class="xref cabal cabal-cfg-field docutils literal"><span class="pre">packages</span></code></a>,
+if we glob for a package, it is permissible for the glob to match against
+zero packages. The intended use-case for <a class="reference internal" href="#cfg-field-optional-packages" title="project.cabal optional-packages field "><code class="xref cabal cabal-cfg-field docutils literal"><span class="pre">optional-packages</span></code></a>
+is to make it so that vendored packages can be automatically picked up if
+they are placed in a subdirectory, but not error if there aren&#8217;t any.</p>
+<p>There is no command line variant of this field.</p>
+</dd></dl>
+
+<dl class="cfg-field">
+<dt id="cfg-field-extra-packages">
+<code class="descname">extra-packages</code><code class="descclassname">: </code><em class="property">package list with version bounds (comma separated)</em><a class="headerlink" href="#cfg-field-extra-packages" title="Permalink to this definition">¶</a></dt>
+<dd><p>[STRIKEOUT:Specifies a list of external packages from Hackage which
 should be considered local packages.] (Not implemented)</p>
-<p class="last">There is no command line variant of this field.</p>
-</dd>
-</dl>
+<p>There is no command line variant of this field.</p>
+</dd></dl>
+
 <p>[STRIKEOUT:There is also a stanza <code class="docutils literal"><span class="pre">source-repository-package</span></code> for
 specifying packages from an external version control.] (Not
 implemented.)</p>
@@ -616,35 +638,75 @@ and <code class="docutils literal"><span class="pre">pkgs</span></code> subdirec
 <h2>5.4.2. Global configuration options<a class="headerlink" href="#global-configuration-options" title="Permalink to this headline">¶</a></h2>
 <p>The following top-level configuration options are not specific to any
 package, and thus apply globally:</p>
-<dl class="docutils">
-<dt><code class="docutils literal"><span class="pre">verbose:</span></code> <em>nat</em> (default: 1)</dt>
-<dd><p class="first">Control the verbosity of <code class="docutils literal"><span class="pre">cabal</span></code> commands, valid values are from 0
+<dl class="cfg-field">
+<dt id="cfg-field-verbose">
+<code class="descname">verbose</code><code class="descclassname">: </code><em class="property">nat</em><a class="headerlink" href="#cfg-field-verbose" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---verbose">
+<code class="descname">--verbose</code><code class="descclassname">=n</code><code class="descname">, </code><code class="descname">-vn</code><code class="descclassname"> </code><a class="headerlink" href="#cfg-flag---verbose" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Default value:</th><td class="field-body">1</td>
+</tr>
+</tbody>
+</table>
+<p>Control the verbosity of <code class="docutils literal"><span class="pre">cabal</span></code> commands, valid values are from 0
 to 3.</p>
-<p class="last">The command line variant of this field is <code class="docutils literal"><span class="pre">--verbose=2</span></code>; a short
+<p>The command line variant of this field is <code class="docutils literal"><span class="pre">--verbose=2</span></code>; a short
 form <code class="docutils literal"><span class="pre">-v2</span></code> is also supported.</p>
-</dd>
-<dt><code class="docutils literal"><span class="pre">jobs:</span></code> <em>nat</em> or <code class="docutils literal"><span class="pre">$ncpus</span></code> (default: 1)</dt>
-<dd><p class="first">Run <em>nat</em> jobs simultaneously when building. If <code class="docutils literal"><span class="pre">$ncpus</span></code> is
+</dd></dl>
+
+<dl class="cfg-field">
+<dt id="cfg-field-jobs">
+<code class="descname">jobs</code><code class="descclassname">: </code><em class="property">nat or $ncpus</em><a class="headerlink" href="#cfg-field-jobs" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---jobs">
+<code class="descname">--jobs</code><code class="descclassname">=n</code><code class="descname">, </code><code class="descname">-jn</code><code class="descclassname"> </code><code class="descname">, </code><code class="descname">--jobs</code><code class="descclassname">=$ncpus</code><a class="headerlink" href="#cfg-flag---jobs" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Default value:</th><td class="field-body">1</td>
+</tr>
+</tbody>
+</table>
+<p>Run <em>nat</em> jobs simultaneously when building. If <code class="docutils literal"><span class="pre">$ncpus</span></code> is
 specified, run the number of jobs equal to the number of CPUs.
 Package building is often quite parallel, so turning on parallelism
 can speed up build times quite a bit!</p>
-<p class="last">The command line variant of this field is <code class="docutils literal"><span class="pre">--jobs=2</span></code>; a short form
+<p>The command line variant of this field is <code class="docutils literal"><span class="pre">--jobs=2</span></code>; a short form
 <code class="docutils literal"><span class="pre">-j2</span></code> is also supported; a bare <code class="docutils literal"><span class="pre">--jobs</span></code> or <code class="docutils literal"><span class="pre">-j</span></code> is equivalent
 to <code class="docutils literal"><span class="pre">--jobs=$ncpus</span></code>.</p>
-</dd>
-<dt><code class="docutils literal"><span class="pre">keep-going:</span></code> <em>boolean</em> (default: False)</dt>
-<dd><p class="first">If true, after a build failure, continue to build other unaffected
+</dd></dl>
+
+<dl class="cfg-field">
+<dt id="cfg-field-keep-going">
+<code class="descname">keep-going</code><code class="descclassname">: </code><em class="property">boolean</em><a class="headerlink" href="#cfg-field-keep-going" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---keep-going">
+<code class="descname">--keep-going</code><code class="descclassname"> </code><a class="headerlink" href="#cfg-flag---keep-going" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Default value:</th><td class="field-body">False</td>
+</tr>
+</tbody>
+</table>
+<p>If true, after a build failure, continue to build other unaffected
 packages.</p>
-<p class="last">The command line variant of this field is <code class="docutils literal"><span class="pre">--keep-going</span></code>.</p>
-</dd>
-</dl>
+<p>The command line variant of this field is <code class="docutils literal"><span class="pre">--keep-going</span></code>.</p>
+</dd></dl>
+
 </div>
 <div class="section" id="solver-configuration-options">
 <h2>5.4.3. Solver configuration options<a class="headerlink" href="#solver-configuration-options" title="Permalink to this headline">¶</a></h2>
 <p>The following settings control the behavior of the dependency solver:</p>
-<dl class="docutils">
-<dt><code class="docutils literal"><span class="pre">constraints:</span></code> <em>constraints</em> (comma separated)</dt>
-<dd><p class="first">Add extra constraints to the version bounds, flag settings, and
+<dl class="cfg-field">
+<dt id="cfg-field-constraints">
+<code class="descname">constraints</code><code class="descclassname">: </code><em class="property">constraints list (comma separated)</em><a class="headerlink" href="#cfg-field-constraints" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---constrant">
+<code class="descname">--constrant</code><code class="descclassname">=&quot;pkg &gt;  2.0&quot;</code><a class="headerlink" href="#cfg-flag---constrant" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add extra constraints to the version bounds, flag settings, and
 other properties a solver can pick for a package. For example, to
 only consider install plans that do not use <code class="docutils literal"><span class="pre">bar</span></code> at all, or use
 <code class="docutils literal"><span class="pre">bar-2.1</span></code>, write:</p>
@@ -692,35 +754,53 @@ don&#8217;t generally need:</p>
              bar bench
 </pre></div>
 </div>
-<p class="last">The command line variant of this field is
+<p>The command line variant of this field is
 <code class="docutils literal"><span class="pre">--constraint=&quot;pkg</span> <span class="pre">&gt;=</span> <span class="pre">2.0&quot;</span></code>; to specify multiple constraints, pass
 the flag multiple times.</p>
-</dd>
-<dt><code class="docutils literal"><span class="pre">preferences:</span></code> <em>preference</em> (comma separated)</dt>
-<dd><p class="first">Like <code class="docutils literal"><span class="pre">constraints</span></code>, but the solver will attempt to satisfy these
-preferences on a best-effort basis. The resulting install is locally
+</dd></dl>
+
+<dl class="cfg-field">
+<dt id="cfg-field-preferences">
+<code class="descname">preferences</code><code class="descclassname">: </code><em class="property">preference (comma separated)</em><a class="headerlink" href="#cfg-field-preferences" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---preference">
+<code class="descname">--preference</code><code class="descclassname">=&quot;pkg &gt;  2.0&quot;</code><a class="headerlink" href="#cfg-flag---preference" title="Permalink to this definition">¶</a></dt>
+<dd><p>Like <a class="reference internal" href="#cfg-field-constraints" title="project.cabal constraints field "><code class="xref cabal cabal-cfg-field docutils literal"><span class="pre">constraints</span></code></a>, but the solver will attempt to satisfy
+these preferences on a best-effort basis. The resulting install is locally
 optimal with respect to preferences; specifically, no single package
 could be replaced with a more preferred version that still satisfies
 the hard constraints.</p>
 <p>Operationally, preferences can cause the solver to attempt certain
 version choices of a package before others, which can improve
 dependency solver runtime.</p>
-<p>One way to use <code class="docutils literal"><span class="pre">preferences</span></code> is to take a known working set of
+<p>One way to use <a class="reference internal" href="#cfg-field-preferences" title="project.cabal preferences field "><code class="xref cabal cabal-cfg-field docutils literal"><span class="pre">preferences</span></code></a> is to take a known working set of
 constraints (e.g., via <code class="docutils literal"><span class="pre">cabal</span> <span class="pre">new-freeze</span></code>) and record them as
 preferences. In this case, the solver will first attempt to use this
 configuration, and if this violates hard constraints, it will try to
 find the minimal number of upgrades to satisfy the hard constraints
 again.</p>
-<p class="last">The command line variant of this field is
+<p>The command line variant of this field is
 <code class="docutils literal"><span class="pre">--preference=&quot;pkg</span> <span class="pre">&gt;=</span> <span class="pre">2.0&quot;</span></code>; to specify multiple preferences, pass
 the flag multiple times.</p>
-</dd>
-<dt><code class="docutils literal"><span class="pre">allow-newer:</span></code> <code class="docutils literal"><span class="pre">none</span></code> <em>or</em> <code class="docutils literal"><span class="pre">all</span></code> <em>or</em> <em>list of scoped package names</em> (space or comma separated, default: <code class="docutils literal"><span class="pre">none</span></code>)</dt>
-<dd><p class="first">Allow the solver to pick an newer version of some packages than
-would normally be permitted by than the <code class="docutils literal"><span class="pre">build-depends</span></code> bounds of
-packages in the install plan. This option may be useful if the
+</dd></dl>
+
+<dl class="cfg-field">
+<dt id="cfg-field-allow-newer">
+<code class="descname">allow-newer</code><code class="descclassname">: </code><em class="property">none, all or list of scoped package names (space or comma separated)</em><a class="headerlink" href="#cfg-field-allow-newer" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---allow-newer">
+<code class="descname">--allow-newer</code><code class="descclassname"> </code><code class="descname">, </code><code class="descname">--allow-newer</code><code class="descclassname">=[none</code><code class="descname">, </code><code class="descname">all</code><code class="descclassname"> </code><code class="descname">, </code><code class="descname">pkg]</code><code class="descclassname"> </code><a class="headerlink" href="#cfg-flag---allow-newer" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Default value:</th><td class="field-body"><code class="docutils literal"><span class="pre">none</span></code></td>
+</tr>
+</tbody>
+</table>
+<p>Allow the solver to pick an newer version of some packages than
+would normally be permitted by than the <a class="reference internal" href="developing-packages.html#pkg-field-build-depends" title="package.cabal build-depends field"><code class="xref cabal cabal-pkg-field docutils literal"><span class="pre">build-depends</span></code></a> bounds
+of packages in the install plan. This option may be useful if the
 dependency solver cannot otherwise find a valid install plan.</p>
-<p>For example, to relax <code class="docutils literal"><span class="pre">pkg</span></code>s <code class="docutils literal"><span class="pre">build-depends</span></code> upper bound on
+<p>For example, to relax <code class="docutils literal"><span class="pre">pkg</span></code>s <a class="reference internal" href="developing-packages.html#pkg-field-build-depends" title="package.cabal build-depends field"><code class="xref cabal cabal-pkg-field docutils literal"><span class="pre">build-depends</span></code></a> upper bound on
 <code class="docutils literal"><span class="pre">dep-pkg</span></code>, write a scoped package name of the form:</p>
 <div class="highlight-cabal"><div class="highlight"><pre><span></span><span class="k">allow-newer</span><span class="p">:</span> pkg<span class="p">:</span>dep-pkg
 </pre></div>
@@ -742,19 +822,32 @@ to specify all packages:</p>
 <span class="k">allow-newer</span><span class="p">:</span> all
 </pre></div>
 </div>
-<p><code class="docutils literal"><span class="pre">allow-newer</span></code> is often used in conjunction with a constraint (in
-the <code class="docutils literal"><span class="pre">constraints</span></code> field) forcing the usage of a specific, newer
-version of a package.</p>
-<p class="last">The command line variant of this field is <code class="docutils literal"><span class="pre">--allow-newer=bar</span></code>. A
+<p><a class="reference internal" href="#cfg-field-allow-newer" title="project.cabal allow-newer field "><code class="xref cabal cabal-cfg-field docutils literal"><span class="pre">allow-newer</span></code></a> is often used in conjunction with a constraint
+(in the cfg-field:<cite>constraints</cite> field) forcing the usage of a specific,
+newer version of a package.</p>
+<p>The command line variant of this field is <code class="docutils literal"><span class="pre">--allow-newer=bar</span></code>. A
 bare <code class="docutils literal"><span class="pre">--allow-newer</span></code> is equivalent to <code class="docutils literal"><span class="pre">--allow-newer=all</span></code>.</p>
-</dd>
-<dt><code class="docutils literal"><span class="pre">allow-older:</span></code> <code class="docutils literal"><span class="pre">none</span></code> <em>or</em> <code class="docutils literal"><span class="pre">all</span></code> <em>or</em> <em>list of scoped package names</em> (space or comma separated, default: <code class="docutils literal"><span class="pre">none</span></code>)</dt>
-<dd><p class="first">Like <code class="docutils literal"><span class="pre">allow-newer</span></code>, but applied to lower bounds rather than upper
-bounds.</p>
-<p class="last">The command line variant of this field is <code class="docutils literal"><span class="pre">--allow-older=all</span></code>. A
+</dd></dl>
+
+<dl class="cfg-field">
+<dt id="cfg-field-allow-older">
+<code class="descname">allow-older</code><code class="descclassname">: </code><em class="property">none, all, list of scoped package names (space or comma separated)</em><a class="headerlink" href="#cfg-field-allow-older" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---allow-older">
+<code class="descname">--allow-older</code><code class="descclassname"> </code><code class="descname">, </code><code class="descname">--allow-older</code><code class="descclassname">=[none</code><code class="descname">, </code><code class="descname">all</code><code class="descclassname"> </code><code class="descname">, </code><code class="descname">pkg]</code><code class="descclassname"> </code><a class="headerlink" href="#cfg-flag---allow-older" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Default value:</th><td class="field-body"><code class="docutils literal"><span class="pre">none</span></code></td>
+</tr>
+</tbody>
+</table>
+<p>Like <a class="reference internal" href="#cfg-field-allow-newer" title="project.cabal allow-newer field "><code class="xref cabal cabal-cfg-field docutils literal"><span class="pre">allow-newer</span></code></a>, but applied to lower bounds rather than
+upper bounds.</p>
+<p>The command line variant of this field is <code class="docutils literal"><span class="pre">--allow-older=all</span></code>. A
 bare <code class="docutils literal"><span class="pre">--allow-older</span></code> is equivalent to <code class="docutils literal"><span class="pre">--allow-older=all</span></code>.</p>
-</dd>
-</dl>
+</dd></dl>
+
 </div>
 <div class="section" id="package-configuration-options">
 <h2>5.4.4. Package configuration options<a class="headerlink" href="#package-configuration-options" title="Permalink to this headline">¶</a></h2>
@@ -767,8 +860,8 @@ to <strong>local package</strong>, or</li>
 apply to the build of the package, whether or not it is local or
 external.</li>
 </ul>
-<p>For example, the following options specify that <code class="docutils literal"><span class="pre">optimization</span></code> should
-be turned off for all local packages, and that <code class="docutils literal"><span class="pre">bytestring</span></code> (possibly
+<p>For example, the following options specify that <a class="reference internal" href="#cfg-field-optimization" title="project.cabal optimization field "><code class="xref cabal cabal-cfg-field docutils literal"><span class="pre">optimization</span></code></a>
+should be turned off for all local packages, and that <code class="docutils literal"><span class="pre">bytestring</span></code> (possibly
 an external dependency) should be built with <code class="docutils literal"><span class="pre">-fno-state-hack</span></code>:</p>
 <div class="highlight-cabal"><div class="highlight"><pre><span></span><span class="k">optimization</span><span class="p">:</span> False
 
@@ -789,9 +882,12 @@ packages (there is no per-package command line interface.)</p>
 means that they are NOT supported by packages which use Custom setup
 scripts that require a version of the Cabal library older than when the
 feature was added.</p>
-<dl class="docutils">
-<dt><code class="docutils literal"><span class="pre">flags:</span></code> <em>list of +flagname or -flagname</em> (space separated)</dt>
-<dd><p class="first">Force all flags specified as <code class="docutils literal"><span class="pre">+flagname</span></code> to be true, and all flags
+<dl class="cfg-field">
+<dt id="cfg-field-flags">
+<code class="descname">flags</code><code class="descclassname">: </code><em class="property">list of +flagname or -flagname (space separated)</em><a class="headerlink" href="#cfg-field-flags" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---flags">
+<code class="descname">--flags</code><code class="descclassname">=&quot;+foo -bar&quot;</code><code class="descname">, </code><code class="descname">-ffoo</code><code class="descclassname"> </code><code class="descname">, </code><code class="descname">-f-bar</code><code class="descclassname"> </code><a class="headerlink" href="#cfg-flag---flags" title="Permalink to this definition">¶</a></dt>
+<dd><p>Force all flags specified as <code class="docutils literal"><span class="pre">+flagname</span></code> to be true, and all flags
 specified as <code class="docutils literal"><span class="pre">-flagname</span></code> to be false. For example, to enable the
 flag <code class="docutils literal"><span class="pre">foo</span></code> and disable <code class="docutils literal"><span class="pre">bar</span></code>, set:</p>
 <div class="highlight-cabal"><div class="highlight"><pre><span></span><span class="k">flags</span><span class="p">:</span> +foo -bar
@@ -806,50 +902,75 @@ should be enabled; e.g., this is equivalent:</p>
 flags at the top-level, unless you happen to know that <em>all</em> of your
 local packages support the same named flags. If a flag is not
 supported by a package, it is ignored.</p>
-<p>See also the solver configuration field <code class="docutils literal"><span class="pre">constraints</span></code>.</p>
+<p>See also the solver configuration field <a class="reference internal" href="#cfg-field-constraints" title="project.cabal constraints field "><code class="xref cabal cabal-cfg-field docutils literal"><span class="pre">constraints</span></code></a>.</p>
 <p>The command line variant of this flag is <code class="docutils literal"><span class="pre">--flags</span></code>. There is also
 a shortened form <code class="docutils literal"><span class="pre">-ffoo</span> <span class="pre">-f-bar</span></code>.</p>
-<p class="last">A common mistake is to say <code class="docutils literal"><span class="pre">cabal</span> <span class="pre">new-build</span> <span class="pre">-fhans</span></code>, where
+<p>A common mistake is to say <code class="docutils literal"><span class="pre">cabal</span> <span class="pre">new-build</span> <span class="pre">-fhans</span></code>, where
 <code class="docutils literal"><span class="pre">hans</span></code> is a flag for a transitive dependency that is not in the
 local package; in this case, the flag will be silently ignored. If
 <code class="docutils literal"><span class="pre">haskell-tor</span></code> is the package you want this flag to apply to, try
 <code class="docutils literal"><span class="pre">--constraint=&quot;haskell-tor</span> <span class="pre">+hans&quot;</span></code> instead.</p>
-</dd>
-<dt><code class="docutils literal"><span class="pre">with-compiler:</span></code> <em>executable</em></dt>
-<dd><p class="first">Specify the path to a particular compiler to be used. If not an
-absolute path, it will be resolved according to the <code class="docutils literal"><span class="pre">PATH</span></code>
+</dd></dl>
+
+<dl class="cfg-field">
+<dt id="cfg-field-with-compiler">
+<code class="descname">with-compiler</code><code class="descclassname">: </code><em class="property">executable</em><a class="headerlink" href="#cfg-field-with-compiler" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---with-compiler">
+<code class="descname">--with-compiler</code><code class="descclassname">=executable</code><a class="headerlink" href="#cfg-flag---with-compiler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specify the path to a particular compiler to be used. If not an
+absolute path, it will be resolved according to the <span class="target" id="index-0"></span><code class="xref std std-envvar docutils literal"><span class="pre">PATH</span></code>
 environment. The type of the compiler (GHC, GHCJS, etc) must be
-consistent with the setting of the <code class="docutils literal"><span class="pre">compiler</span></code> field.</p>
+consistent with the setting of the <a class="reference internal" href="#cfg-field-compiler" title="project.cabal compiler field "><code class="xref cabal cabal-cfg-field docutils literal"><span class="pre">compiler</span></code></a> field.</p>
 <p>The most common use of this option is to specify a different version
 of your compiler to be used; e.g., if you have <code class="docutils literal"><span class="pre">ghc-7.8</span></code> in your
 path, you can specify <code class="docutils literal"><span class="pre">with-compiler:</span> <span class="pre">ghc-7.8</span></code> to use it.</p>
-<p>This flag also sets the default value of <code class="docutils literal"><span class="pre">with-hc-pkg</span></code>, using the
-heuristic that it is named <code class="docutils literal"><span class="pre">ghc-pkg-7.8</span></code> (if your executable name
+<p>This flag also sets the default value of <a class="reference internal" href="#cfg-field-with-hc-pkg" title="project.cabal with-hc-pkg field "><code class="xref cabal cabal-cfg-field docutils literal"><span class="pre">with-hc-pkg</span></code></a>, using
+the heuristic that it is named <code class="docutils literal"><span class="pre">ghc-pkg-7.8</span></code> (if your executable name
 is suffixed with a version number), or is the executable named
 <code class="docutils literal"><span class="pre">ghc-pkg</span></code> in the same directory as the <code class="docutils literal"><span class="pre">ghc</span></code> directory. If this
-heuristic does not work, set <code class="docutils literal"><span class="pre">with-hc-pkg</span></code> explicitly.</p>
+heuristic does not work, set <a class="reference internal" href="#cfg-field-with-hc-pkg" title="project.cabal with-hc-pkg field "><code class="xref cabal cabal-cfg-field docutils literal"><span class="pre">with-hc-pkg</span></code></a> explicitly.</p>
 <p>For inplace packages, <code class="docutils literal"><span class="pre">cabal</span> <span class="pre">new-build</span></code> maintains a separate build
 directory for each version of GHC, so you can maintain multiple
 build trees for different versions of GHC without clobbering each
 other.</p>
-<p>At the moment, it&#8217;s not possible to set <code class="docutils literal"><span class="pre">with-compiler</span></code> on a
+<p>At the moment, it&#8217;s not possible to set <a class="reference internal" href="#cfg-field-with-compiler" title="project.cabal with-compiler field "><code class="xref cabal cabal-cfg-field docutils literal"><span class="pre">with-compiler</span></code></a> on a
 per-package basis, but eventually we plan on relaxing this
 restriction. If this is something you need, give us a shout.</p>
-<p class="last">The command line variant of this flag is
+<p>The command line variant of this flag is
 <code class="docutils literal"><span class="pre">--with-compiler=ghc-7.8</span></code>; there is also a short version
 <code class="docutils literal"><span class="pre">-w</span> <span class="pre">ghc-7.8</span></code>.</p>
-</dd>
-<dt><code class="docutils literal"><span class="pre">with-hc-pkg:</span></code> <em>executable</em></dt>
-<dd><p class="first">Specify the path to the package tool, e.g., <code class="docutils literal"><span class="pre">ghc-pkg</span></code>. This
+</dd></dl>
+
+<dl class="cfg-field">
+<dt id="cfg-field-with-hc-pkg">
+<code class="descname">with-hc-pkg</code><code class="descclassname">: </code><em class="property">executable</em><a class="headerlink" href="#cfg-field-with-hc-pkg" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---with-hc-pkg">
+<code class="descname">--with-hc-pkg</code><code class="descclassname">=executable</code><a class="headerlink" href="#cfg-flag---with-hc-pkg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specify the path to the package tool, e.g., <code class="docutils literal"><span class="pre">ghc-pkg</span></code>. This
 package tool must be compatible with the compiler specified by
-<code class="docutils literal"><span class="pre">with-compiler</span></code> (generally speaking, it should be precisely the
-tool that was distributed with the compiler). If this option is
-omitted, the default value is determined from <code class="docutils literal"><span class="pre">with-compiler</span></code>.</p>
-<p class="last">The command line variant of this flag is
+<a class="reference internal" href="#cfg-field-with-compiler" title="project.cabal with-compiler field "><code class="xref cabal cabal-cfg-field docutils literal"><span class="pre">with-compiler</span></code></a> (generally speaking, it should be precisely
+the tool that was distributed with the compiler). If this option is
+omitted, the default value is determined from <a class="reference internal" href="#cfg-field-with-compiler" title="project.cabal with-compiler field "><code class="xref cabal cabal-cfg-field docutils literal"><span class="pre">with-compiler</span></code></a>.</p>
+<p>The command line variant of this flag is
 <code class="docutils literal"><span class="pre">--with-hc-pkg=ghc-pkg-7.8</span></code>.</p>
-</dd>
-<dt><code class="docutils literal"><span class="pre">optimization:</span></code> <em>nat</em> (default: <code class="docutils literal"><span class="pre">1</span></code>)</dt>
-<dd><p class="first">Build with optimization. This is appropriate for production use,
+</dd></dl>
+
+<dl class="cfg-field">
+<dt id="cfg-field-optimization">
+<code class="descname">optimization</code><code class="descclassname">: </code><em class="property">nat</em><a class="headerlink" href="#cfg-field-optimization" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---enable-optimization">
+<code class="descname">--enable-optimization</code><code class="descclassname"> </code><a class="headerlink" href="#cfg-flag---enable-optimization" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---disable-optimization">
+<code class="descname">--disable-optimization</code><code class="descclassname"> </code><a class="headerlink" href="#cfg-flag---disable-optimization" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Default value:</th><td class="field-body"><code class="docutils literal"><span class="pre">1</span></code></td>
+</tr>
+</tbody>
+</table>
+<p>Build with optimization. This is appropriate for production use,
 taking more time to build faster libraries and programs.</p>
 <p>The optional <em>nat</em> value is the optimisation level. Some compilers
 support multiple optimisation levels. The range is 0 to 2. Level 0
@@ -865,118 +986,264 @@ levels change (see <a class="reference external" href="http://ghc.haskell.org/tr
 you change the optimization level for a local package you may need
 to blow away your old build products in order to rebuild with the
 new optimization level.</p>
-<p class="last">The command line variant of this flag is <code class="docutils literal"><span class="pre">-O2</span></code> (with <code class="docutils literal"><span class="pre">-O1</span></code>
+<p>The command line variant of this flag is <code class="docutils literal"><span class="pre">-O2</span></code> (with <code class="docutils literal"><span class="pre">-O1</span></code>
 equivalent to <code class="docutils literal"><span class="pre">-O</span></code>). There are also long-form variants
 <code class="docutils literal"><span class="pre">--enable-optimization</span></code> and <code class="docutils literal"><span class="pre">--disable-optimization</span></code>.</p>
-</dd>
-<dt><code class="docutils literal"><span class="pre">configure-options:</span></code> <em>args</em> (space separated)</dt>
-<dd><p class="first">A list of extra arguments to pass to the external <code class="docutils literal"><span class="pre">./configure</span></code>
+</dd></dl>
+
+<dl class="cfg-field">
+<dt id="cfg-field-configure-options">
+<code class="descname">configure-options</code><code class="descclassname">: </code><em class="property">args (space separated)</em><a class="headerlink" href="#cfg-field-configure-options" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---configure-option">
+<code class="descname">--configure-option</code><code class="descclassname">=arg</code><a class="headerlink" href="#cfg-flag---configure-option" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list of extra arguments to pass to the external <code class="docutils literal"><span class="pre">./configure</span></code>
 script, if one is used. This is only useful for packages which have
 the <code class="docutils literal"><span class="pre">Configure</span></code> build type. See also the section on
 <a class="reference external" href="developing-packages.html#system-dependent-parameters">system-dependent
 parameters</a>.</p>
-<p class="last">The command line variant of this flag is <code class="docutils literal"><span class="pre">--configure-option=arg</span></code>,
+<p>The command line variant of this flag is <code class="docutils literal"><span class="pre">--configure-option=arg</span></code>,
 which can be specified multiple times to pass multiple options.</p>
-</dd>
-<dt><code class="docutils literal"><span class="pre">compiler:</span></code> <code class="docutils literal"><span class="pre">ghc</span></code> <em>or</em> <code class="docutils literal"><span class="pre">ghcjs</span></code> <em>or</em> <code class="docutils literal"><span class="pre">jhc</span></code> <em>or</em> <code class="docutils literal"><span class="pre">lhc</span></code> <em>or</em> <code class="docutils literal"><span class="pre">uhc</span></code> <em>or</em> <code class="docutils literal"><span class="pre">haskell-suite</span></code> (default: <code class="docutils literal"><span class="pre">ghc</span></code>)</dt>
-<dd><p class="first">Specify which compiler toolchain to be used. This is independent of
+</dd></dl>
+
+<dl class="cfg-field">
+<dt id="cfg-field-compiler">
+<code class="descname">compiler</code><code class="descclassname">: </code><em class="property">ghc, ghcjs, jhc, lhc, uhc or haskell-suite</em><a class="headerlink" href="#cfg-field-compiler" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---compiler">
+<code class="descname">--compiler</code><code class="descclassname">=compiler</code><a class="headerlink" href="#cfg-flag---compiler" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Default value:</th><td class="field-body"><code class="docutils literal"><span class="pre">ghc</span></code></td>
+</tr>
+</tbody>
+</table>
+<p>Specify which compiler toolchain to be used. This is independent of
 <code class="docutils literal"><span class="pre">with-compiler</span></code>, because the choice of toolchain affects Cabal&#8217;s
 build logic.</p>
-<p class="last">The command line variant of this flag is <code class="docutils literal"><span class="pre">--compiler=ghc</span></code>.</p>
-</dd>
-<dt><code class="docutils literal"><span class="pre">tests:</span></code> <em>boolean</em> (default: <code class="docutils literal"><span class="pre">False</span></code>)</dt>
-<dd><p class="first">Force test suites to be enabled. For most users this should not be
+<p>The command line variant of this flag is <code class="docutils literal"><span class="pre">--compiler=ghc</span></code>.</p>
+</dd></dl>
+
+<dl class="cfg-field">
+<dt id="cfg-field-tests">
+<code class="descname">tests</code><code class="descclassname">: </code><em class="property">boolean</em><a class="headerlink" href="#cfg-field-tests" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---enable-tests">
+<code class="descname">--enable-tests</code><code class="descclassname"> </code><a class="headerlink" href="#cfg-flag---enable-tests" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---disable-tests">
+<code class="descname">--disable-tests</code><code class="descclassname"> </code><a class="headerlink" href="#cfg-flag---disable-tests" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Default value:</th><td class="field-body"><code class="docutils literal"><span class="pre">False</span></code></td>
+</tr>
+</tbody>
+</table>
+<p>Force test suites to be enabled. For most users this should not be
 needed, as we always attempt to solve for test suite dependencies,
 even when this value is <code class="docutils literal"><span class="pre">False</span></code>; furthermore, test suites are
 automatically enabled if they are requested as a built target.</p>
-<p class="last">The command line variant of this flag is <code class="docutils literal"><span class="pre">--enable-tests</span></code> and
+<p>The command line variant of this flag is <code class="docutils literal"><span class="pre">--enable-tests</span></code> and
 <code class="docutils literal"><span class="pre">--disable-tests</span></code>.</p>
-</dd>
-<dt><code class="docutils literal"><span class="pre">benchmarks:</span></code> <em>boolean</em> (default: <code class="docutils literal"><span class="pre">False</span></code>)</dt>
-<dd><p class="first">Force benchmarks to be enabled. For most users this should not be
+</dd></dl>
+
+<dl class="cfg-field">
+<dt id="cfg-field-benchmarks">
+<code class="descname">benchmarks</code><code class="descclassname">: </code><em class="property">boolean</em><a class="headerlink" href="#cfg-field-benchmarks" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---enable-benchmarks">
+<code class="descname">--enable-benchmarks</code><code class="descclassname"> </code><a class="headerlink" href="#cfg-flag---enable-benchmarks" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---disable-benchmarks">
+<code class="descname">--disable-benchmarks</code><code class="descclassname"> </code><a class="headerlink" href="#cfg-flag---disable-benchmarks" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Default value:</th><td class="field-body"><code class="docutils literal"><span class="pre">False</span></code></td>
+</tr>
+</tbody>
+</table>
+<p>Force benchmarks to be enabled. For most users this should not be
 needed, as we always attempt to solve for benchmark dependencies,
 even when this value is <code class="docutils literal"><span class="pre">False</span></code>; furthermore, benchmarks are
 automatically enabled if they are requested as a built target.</p>
-<p class="last">The command line variant of this flag is <code class="docutils literal"><span class="pre">--enable-benchmarks</span></code> and
+<p>The command line variant of this flag is <code class="docutils literal"><span class="pre">--enable-benchmarks</span></code> and
 <code class="docutils literal"><span class="pre">--disable-benchmarks</span></code>.</p>
-</dd>
-<dt><code class="docutils literal"><span class="pre">extra-prog-path:</span></code> <em>paths</em> (newline or comma separated, added in Cabal 1.18)</dt>
-<dd><p class="first">A list of directories to search for extra required programs. Most
+</dd></dl>
+
+<dl class="cfg-field">
+<dt id="cfg-field-extra-prog-path">
+<code class="descname">extra-prog-path</code><code class="descclassname">: </code><em class="property">paths (newline or comma separated)</em><a class="headerlink" href="#cfg-field-extra-prog-path" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---extra-prog-path">
+<code class="descname">--extra-prog-path</code><code class="descclassname">=PATH</code><a class="headerlink" href="#cfg-flag---extra-prog-path" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Since:</th><td class="field-body">Cabal 1.18</td>
+</tr>
+</tbody>
+</table>
+<p>A list of directories to search for extra required programs. Most
 users should not need this, as programs like <code class="docutils literal"><span class="pre">happy</span></code> and <code class="docutils literal"><span class="pre">alex</span></code>
 will automatically be installed and added to the path. This can be
 useful if a <code class="docutils literal"><span class="pre">Custom</span></code> setup script relies on an exotic extra
 program.</p>
-<p class="last">The command line variant of this flag is <code class="docutils literal"><span class="pre">--extra-prog-path=PATH</span></code>,
+<p>The command line variant of this flag is <code class="docutils literal"><span class="pre">--extra-prog-path=PATH</span></code>,
 which can be specified multiple times.</p>
-</dd>
-<dt><code class="docutils literal"><span class="pre">run-tests:</span></code> <em>boolean</em> (default: <code class="docutils literal"><span class="pre">False</span></code>)</dt>
-<dd><p class="first">Run the package test suite upon installation. This is useful for
+</dd></dl>
+
+<dl class="cfg-field">
+<dt id="cfg-field-run-tests">
+<code class="descname">run-tests</code><code class="descclassname">: </code><em class="property">boolean</em><a class="headerlink" href="#cfg-field-run-tests" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---run-tests">
+<code class="descname">--run-tests</code><code class="descclassname"> </code><a class="headerlink" href="#cfg-flag---run-tests" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Default value:</th><td class="field-body"><code class="docutils literal"><span class="pre">False</span></code></td>
+</tr>
+</tbody>
+</table>
+<p>Run the package test suite upon installation. This is useful for
 saying &#8220;When this package is installed, check that the test suite
 passes, terminating the rest of the build if it is broken.&#8221;</p>
-<p>One deficiency: the <code class="docutils literal"><span class="pre">run-test</span></code> setting of a package is NOT
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">One deficiency: the <a class="reference internal" href="#cfg-field-run-tests" title="project.cabal run-tests field "><code class="xref cabal cabal-cfg-field docutils literal"><span class="pre">run-tests</span></code></a> setting of a package is NOT
 recorded as part of the hash, so if you install something without
-<code class="docutils literal"><span class="pre">run-tests</span></code> and then turn on <code class="docutils literal"><span class="pre">run-tests</span></code>, we won&#8217;t subsequently
-test the package. If this is causing you problems, give us a shout.</p>
-<p class="last">The command line variant of this flag is <code class="docutils literal"><span class="pre">--run-tests</span></code>.</p>
-</dd>
-</dl>
+<a class="reference internal" href="#cfg-field-run-tests" title="project.cabal run-tests field "><code class="xref cabal cabal-cfg-field docutils literal"><span class="pre">run-tests</span></code></a> and then turn on <code class="docutils literal"><span class="pre">run-tests</span></code>, we won&#8217;t
+subsequently test the package. If this is causing you problems, give
+us a shout.</p>
+</div>
+<p>The command line variant of this flag is <code class="docutils literal"><span class="pre">--run-tests</span></code>.</p>
+</dd></dl>
+
 <div class="section" id="object-code-options">
 <h3>5.4.4.1. Object code options<a class="headerlink" href="#object-code-options" title="Permalink to this headline">¶</a></h3>
-<dl class="docutils">
-<dt><code class="docutils literal"><span class="pre">debug-info:</span></code> <em>boolean</em> (default: False, added in Cabal 1.22)</dt>
-<dd><p class="first">If the compiler (e.g., GHC 7.10 and later) supports outputing OS
+<dl class="cfg-field">
+<dt id="cfg-field-debug-info">
+<code class="descname">debug-info</code><code class="descclassname">: </code><em class="property">boolean</em><a class="headerlink" href="#cfg-field-debug-info" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---enable-debug-info">
+<code class="descname">--enable-debug-info</code><code class="descclassname"> </code><a class="headerlink" href="#cfg-flag---enable-debug-info" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---disable-debug-info">
+<code class="descname">--disable-debug-info</code><code class="descclassname"> </code><a class="headerlink" href="#cfg-flag---disable-debug-info" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Since:</th><td class="field-body">Cabal 1.22</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Default value:</th><td class="field-body">False</td>
+</tr>
+</tbody>
+</table>
+<p>If the compiler (e.g., GHC 7.10 and later) supports outputing OS
 native debug info (e.g., DWARF), setting <code class="docutils literal"><span class="pre">debug-info:</span> <span class="pre">True</span></code> will
 instruct it to do so. See the GHC wiki page on <a class="reference external" href="http://ghc.haskell.org/trac/ghc/wiki/DWARF">DWARF</a>
 for more information about this feature.</p>
 <p>(This field also accepts numeric syntax, but as of GHC 8.0 this
 doesn&#8217;t do anything.)</p>
-<p class="last">The command line variant of this flag is <code class="docutils literal"><span class="pre">--enable-debug-info</span></code> and
+<p>The command line variant of this flag is <code class="docutils literal"><span class="pre">--enable-debug-info</span></code> and
 <code class="docutils literal"><span class="pre">--disable-debug-info</span></code>.</p>
-</dd>
-<dt><code class="docutils literal"><span class="pre">split-objs:</span></code> <em>boolean</em> (default: False)</dt>
-<dd><p class="first">Use the GHC <code class="docutils literal"><span class="pre">-split-objs</span></code> feature when building the library. This
+</dd></dl>
+
+<dl class="cfg-field">
+<dt id="cfg-field-split-objs">
+<code class="descname">split-objs</code><code class="descclassname">: </code><em class="property">boolean</em><a class="headerlink" href="#cfg-field-split-objs" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---enable-split-objs">
+<code class="descname">--enable-split-objs</code><code class="descclassname"> </code><a class="headerlink" href="#cfg-flag---enable-split-objs" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---disable-split-objs">
+<code class="descname">--disable-split-objs</code><code class="descclassname"> </code><a class="headerlink" href="#cfg-flag---disable-split-objs" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Default value:</th><td class="field-body">False</td>
+</tr>
+</tbody>
+</table>
+<p>Use the GHC <code class="docutils literal"><span class="pre">-split-objs</span></code> feature when building the library. This
 reduces the final size of the executables that use the library by
 allowing them to link with only the bits that they use rather than
 the entire library. The downside is that building the library takes
 longer and uses considerably more memory.</p>
-<p class="last">The command line variant of this flag is <code class="docutils literal"><span class="pre">--enable-split-objs</span></code> and
+<p>The command line variant of this flag is <code class="docutils literal"><span class="pre">--enable-split-objs</span></code> and
 <code class="docutils literal"><span class="pre">--disable-split-objs</span></code>.</p>
-</dd>
-<dt><code class="docutils literal"><span class="pre">executable-stripping:</span></code> <em>boolean</em> (default: True)</dt>
-<dd><p class="first">When installing binary executable programs, run the <code class="docutils literal"><span class="pre">strip</span></code>
+</dd></dl>
+
+<dl class="cfg-field">
+<dt id="cfg-field-executable-stripping">
+<code class="descname">executable-stripping</code><code class="descclassname">: </code><em class="property">boolean</em><a class="headerlink" href="#cfg-field-executable-stripping" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---enable-executable-stripping">
+<code class="descname">--enable-executable-stripping</code><code class="descclassname"> </code><a class="headerlink" href="#cfg-flag---enable-executable-stripping" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---disable-executable-stripping">
+<code class="descname">--disable-executable-stripping</code><code class="descclassname"> </code><a class="headerlink" href="#cfg-flag---disable-executable-stripping" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Default value:</th><td class="field-body">True</td>
+</tr>
+</tbody>
+</table>
+<p>When installing binary executable programs, run the <code class="docutils literal"><span class="pre">strip</span></code>
 program on the binary. This can considerably reduce the size of the
 executable binary file. It does this by removing debugging
 information and symbols.</p>
 <p>Not all Haskell implementations generate native binaries. For such
 implementations this option has no effect.</p>
 <p>(TODO: Check what happens if you combine this with <code class="docutils literal"><span class="pre">debug-info</span></code>.)</p>
-<p class="last">The command line variant of this flag is
+<p>The command line variant of this flag is
 <code class="docutils literal"><span class="pre">--enable-executable-stripping</span></code> and
 <code class="docutils literal"><span class="pre">--disable-executable-stripping</span></code>.</p>
-</dd>
-<dt><code class="docutils literal"><span class="pre">library-stripping:</span></code> <em>boolean</em> (added in Cabal 1.19)</dt>
-<dd><p class="first">When installing binary libraries, run the <code class="docutils literal"><span class="pre">strip</span></code> program on the
+</dd></dl>
+
+<dl class="cfg-field">
+<dt id="cfg-field-library-stripping">
+<code class="descname">library-stripping</code><code class="descclassname">: </code><em class="property">boolean</em><a class="headerlink" href="#cfg-field-library-stripping" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---enable-library-stripping">
+<code class="descname">--enable-library-stripping</code><code class="descclassname"> </code><a class="headerlink" href="#cfg-flag---enable-library-stripping" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---disable-library-stripping">
+<code class="descname">--disable-library-stripping</code><code class="descclassname"> </code><a class="headerlink" href="#cfg-flag---disable-library-stripping" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Since:</th><td class="field-body">Cabal 1.19</td>
+</tr>
+</tbody>
+</table>
+<p>When installing binary libraries, run the <code class="docutils literal"><span class="pre">strip</span></code> program on the
 binary, saving space on the file system. See also
 <code class="docutils literal"><span class="pre">executable-stripping</span></code>.</p>
-<p class="last">The command line variant of this flag is
+<p>The command line variant of this flag is
 <code class="docutils literal"><span class="pre">--enable-library-stripping</span></code> and <code class="docutils literal"><span class="pre">--disable-library-stripping</span></code>.</p>
-</dd>
-</dl>
+</dd></dl>
+
 </div>
 <div class="section" id="executable-options">
 <h3>5.4.4.2. Executable options<a class="headerlink" href="#executable-options" title="Permalink to this headline">¶</a></h3>
-<dl class="docutils">
-<dt><code class="docutils literal"><span class="pre">program-prefix:</span></code> <em>prefix</em></dt>
-<dd><p class="first">[STRIKEOUT:Prepend <em>prefix</em> to installed program names.] (Currently
+<dl class="cfg-field">
+<dt id="cfg-field-program-prefix">
+<code class="descname">program-prefix</code><code class="descclassname">: </code><em class="property">prefix</em><a class="headerlink" href="#cfg-field-program-prefix" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---program-prefix">
+<code class="descname">--program-prefix</code><code class="descclassname">=prefix</code><a class="headerlink" href="#cfg-flag---program-prefix" title="Permalink to this definition">¶</a></dt>
+<dd><p>[STRIKEOUT:Prepend <em>prefix</em> to installed program names.] (Currently
 implemented in a silly and not useful way. If you need this to work
 give us a shout.)</p>
 <p><em>prefix</em> may contain the following path variables: <code class="docutils literal"><span class="pre">$pkgid</span></code>,
 <code class="docutils literal"><span class="pre">$pkg</span></code>, <code class="docutils literal"><span class="pre">$version</span></code>, <code class="docutils literal"><span class="pre">$compiler</span></code>, <code class="docutils literal"><span class="pre">$os</span></code>, <code class="docutils literal"><span class="pre">$arch</span></code>, <code class="docutils literal"><span class="pre">$abi</span></code>,
 <code class="docutils literal"><span class="pre">$abitag</span></code></p>
-<p class="last">The command line variant of this flag is <code class="docutils literal"><span class="pre">--program-prefix=foo-</span></code>.</p>
-</dd>
-<dt><code class="docutils literal"><span class="pre">program-suffix:</span></code> <em>suffix</em></dt>
-<dd><p class="first">[STRIKEOUT:Append <em>suffix</em> to installed program names.] (Currently
+<p>The command line variant of this flag is <code class="docutils literal"><span class="pre">--program-prefix=foo-</span></code>.</p>
+</dd></dl>
+
+<dl class="cfg-field">
+<dt id="cfg-field-program-suffix">
+<code class="descname">program-suffix</code><code class="descclassname">: </code><em class="property">suffix</em><a class="headerlink" href="#cfg-field-program-suffix" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---program-suffix">
+<code class="descname">--program-suffix</code><code class="descclassname">=suffix</code><a class="headerlink" href="#cfg-flag---program-suffix" title="Permalink to this definition">¶</a></dt>
+<dd><p>[STRIKEOUT:Append <em>suffix</em> to installed program names.] (Currently
 implemented in a silly and not useful way. If you need this to work
 give us a shout.)</p>
 <p>The most obvious use for this is to append the program&#8217;s version
@@ -985,120 +1252,268 @@ at once: <code class="docutils literal"><span class="pre">program-suffix:</span>
 <p><em>suffix</em> may contain the following path variables: <code class="docutils literal"><span class="pre">$pkgid</span></code>,
 <code class="docutils literal"><span class="pre">$pkg</span></code>, <code class="docutils literal"><span class="pre">$version</span></code>, <code class="docutils literal"><span class="pre">$compiler</span></code>, <code class="docutils literal"><span class="pre">$os</span></code>, <code class="docutils literal"><span class="pre">$arch</span></code>, <code class="docutils literal"><span class="pre">$abi</span></code>,
 <code class="docutils literal"><span class="pre">$abitag</span></code></p>
-<p class="last">The command line variant of this flag is
+<p>The command line variant of this flag is
 <code class="docutils literal"><span class="pre">--program-suffix='$version'</span></code>.</p>
-</dd>
-</dl>
+</dd></dl>
+
 </div>
 <div class="section" id="dynamic-linking-options">
 <h3>5.4.4.3. Dynamic linking options<a class="headerlink" href="#dynamic-linking-options" title="Permalink to this headline">¶</a></h3>
-<dl class="docutils">
-<dt><code class="docutils literal"><span class="pre">shared:</span></code> <em>boolean</em> (default: False)</dt>
-<dd><p class="first">Build shared library. This implies a separate compiler run to
+<dl class="cfg-field">
+<dt id="cfg-field-shared">
+<code class="descname">shared</code><code class="descclassname">: </code><em class="property">boolean</em><a class="headerlink" href="#cfg-field-shared" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---enable-shared">
+<code class="descname">--enable-shared</code><code class="descclassname"> </code><a class="headerlink" href="#cfg-flag---enable-shared" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---disable-shared">
+<code class="descname">--disable-shared</code><code class="descclassname"> </code><a class="headerlink" href="#cfg-flag---disable-shared" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Default value:</th><td class="field-body">False</td>
+</tr>
+</tbody>
+</table>
+<p>Build shared library. This implies a separate compiler run to
 generate position independent code as required on most platforms.</p>
-<p class="last">The command line variant of this flag is <code class="docutils literal"><span class="pre">--enable-shared</span></code> and
+<p>The command line variant of this flag is <code class="docutils literal"><span class="pre">--enable-shared</span></code> and
 <code class="docutils literal"><span class="pre">--disable-shared</span></code>.</p>
-</dd>
-<dt><code class="docutils literal"><span class="pre">executable-dynamic:</span></code> <em>boolean</em> (default: False)</dt>
-<dd><p class="first">Link executables dynamically. The executable&#8217;s library dependencies
+</dd></dl>
+
+<dl class="cfg-field">
+<dt id="cfg-field-executable-dynamic">
+<code class="descname">executable-dynamic</code><code class="descclassname">: </code><em class="property">boolean</em><a class="headerlink" href="#cfg-field-executable-dynamic" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---enable-executable-dynamic">
+<code class="descname">--enable-executable-dynamic</code><code class="descclassname"> </code><a class="headerlink" href="#cfg-flag---enable-executable-dynamic" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---disable-executable-dynamic">
+<code class="descname">--disable-executable-dynamic</code><code class="descclassname"> </code><a class="headerlink" href="#cfg-flag---disable-executable-dynamic" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Default value:</th><td class="field-body">False</td>
+</tr>
+</tbody>
+</table>
+<p>Link executables dynamically. The executable&#8217;s library dependencies
 should be built as shared objects. This implies <code class="docutils literal"><span class="pre">shared:</span> <span class="pre">True</span></code>
 unless <code class="docutils literal"><span class="pre">shared:</span> <span class="pre">False</span></code> is explicitly specified.</p>
-<p class="last">The command line variant of this flag is
+<p>The command line variant of this flag is
 <code class="docutils literal"><span class="pre">--enable-executable-dynamic</span></code> and
 <code class="docutils literal"><span class="pre">--disable-executable-dynamic</span></code>.</p>
-</dd>
-<dt><code class="docutils literal"><span class="pre">library-for-ghci:</span></code> <em>boolean</em> (default: True)</dt>
-<dd><p class="first">Build libraries suitable for use with GHCi. This involves an extra
+</dd></dl>
+
+<dl class="cfg-field">
+<dt id="cfg-field-library-for-ghci">
+<code class="descname">library-for-ghci</code><code class="descclassname">: </code><em class="property">boolean</em><a class="headerlink" href="#cfg-field-library-for-ghci" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---enable-library-for-ghci">
+<code class="descname">--enable-library-for-ghci</code><code class="descclassname"> </code><a class="headerlink" href="#cfg-flag---enable-library-for-ghci" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---disable-library-for-ghci">
+<code class="descname">--disable-library-for-ghci</code><code class="descclassname"> </code><a class="headerlink" href="#cfg-flag---disable-library-for-ghci" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Default value:</th><td class="field-body">True</td>
+</tr>
+</tbody>
+</table>
+<p>Build libraries suitable for use with GHCi. This involves an extra
 linking step after the build.</p>
 <p>Not all platforms support GHCi and indeed on some platforms, trying
 to build GHCi libs fails. In such cases, consider setting
 <code class="docutils literal"><span class="pre">library-for-ghci:</span> <span class="pre">False</span></code>.</p>
-<p class="last">The command line variant of this flag is
+<p>The command line variant of this flag is
 <code class="docutils literal"><span class="pre">--enable-library-for-ghci</span></code> and <code class="docutils literal"><span class="pre">--disable-library-for-ghci</span></code>.</p>
-</dd>
-<dt><code class="docutils literal"><span class="pre">relocatable:</span></code> (default: False, added in Cabal 1.21)</dt>
-<dd><p class="first">[STRIKEOUT:Build a package which is relocatable.] (TODO: It is not
+</dd></dl>
+
+<dl class="cfg-field">
+<dt id="cfg-field-relocatable">
+<code class="descname">relocatable</code><code class="descclassname">: </code><em class="property"></em><a class="headerlink" href="#cfg-field-relocatable" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---relocatable">
+<code class="descname">--relocatable</code><code class="descclassname"> </code><a class="headerlink" href="#cfg-flag---relocatable" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Since:</th><td class="field-body">Cabal 1.21</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Default value:</th><td class="field-body">False</td>
+</tr>
+</tbody>
+</table>
+<p>[STRIKEOUT:Build a package which is relocatable.] (TODO: It is not
 clear what this actually does, or if it works at all.)</p>
-<p class="last">The command line variant of this flag is <code class="docutils literal"><span class="pre">--relocatable</span></code>.</p>
-</dd>
-</dl>
+<p>The command line variant of this flag is <code class="docutils literal"><span class="pre">--relocatable</span></code>.</p>
+</dd></dl>
+
 </div>
 <div class="section" id="foreign-function-interface-options">
 <h3>5.4.4.4. Foreign function interface options<a class="headerlink" href="#foreign-function-interface-options" title="Permalink to this headline">¶</a></h3>
-<dl class="docutils">
-<dt><code class="docutils literal"><span class="pre">extra-include-dirs:</span></code> <em>directories</em> (comma or newline separated list)</dt>
-<dd><p class="first">An extra directory to search for C header files. You can use this
+<dl class="cfg-field">
+<dt id="cfg-field-extra-include-dirs">
+<code class="descname">extra-include-dirs</code><code class="descclassname">: </code><em class="property">directories (comma or newline separated list)</em><a class="headerlink" href="#cfg-field-extra-include-dirs" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---extra-include-dirs">
+<code class="descname">--extra-include-dirs</code><code class="descclassname">=DIR</code><a class="headerlink" href="#cfg-flag---extra-include-dirs" title="Permalink to this definition">¶</a></dt>
+<dd><p>An extra directory to search for C header files. You can use this
 flag multiple times to get a list of directories.</p>
 <p>You might need to use this flag if you have standard system header
 files in a non-standard location that is not mentioned in the
 package&#8217;s <code class="docutils literal"><span class="pre">.cabal</span></code> file. Using this option has the same affect as
-appending the directory <em>dir</em> to the <code class="docutils literal"><span class="pre">include-dirs</span></code> field in each
+appending the directory <em>dir</em> to the <a class="reference internal" href="developing-packages.html#pkg-field-include-dirs" title="package.cabal include-dirs field"><code class="xref cabal cabal-pkg-field docutils literal"><span class="pre">include-dirs</span></code></a> field in each
 library and executable in the package&#8217;s <code class="docutils literal"><span class="pre">.cabal</span></code> file. The
 advantage of course is that you do not have to modify the package at
 all. These extra directories will be used while building the package
 and for libraries it is also saved in the package registration
 information and used when compiling modules that use the library.</p>
-<p class="last">The command line variant of this flag is
+<p>The command line variant of this flag is
 <code class="docutils literal"><span class="pre">--extra-include-dirs=DIR</span></code>, which can be specified multiple times.</p>
-</dd>
-<dt><code class="docutils literal"><span class="pre">extra-lib-dirs:</span></code> <em>directories</em> (comma or newline separated list)</dt>
-<dd><p class="first">An extra directory to search for system libraries files.</p>
-<p class="last">The command line variant of this flag is <code class="docutils literal"><span class="pre">--extra-lib-dirs=DIR</span></code>,
+</dd></dl>
+
+<dl class="cfg-field">
+<dt id="cfg-field-extra-lib-dirs">
+<code class="descname">extra-lib-dirs</code><code class="descclassname">: </code><em class="property">directories (comma or newline separated list)</em><a class="headerlink" href="#cfg-field-extra-lib-dirs" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---extra-lib-dirs">
+<code class="descname">--extra-lib-dirs</code><code class="descclassname">=DIR</code><a class="headerlink" href="#cfg-flag---extra-lib-dirs" title="Permalink to this definition">¶</a></dt>
+<dd><p>An extra directory to search for system libraries files.</p>
+<p>The command line variant of this flag is <code class="docutils literal"><span class="pre">--extra-lib-dirs=DIR</span></code>,
 which can be specified multiple times.</p>
-</dd>
-<dt><code class="docutils literal"><span class="pre">extra-framework-dirs:</span></code> <em>directories</em> (comma or newline separated list)</dt>
-<dd><p class="first">An extra directory to search for frameworks (OS X only).</p>
+</dd></dl>
+
+<dl class="cfg-field">
+<dt id="cfg-field-extra-framework-dirs">
+<code class="descname">extra-framework-dirs</code><code class="descclassname">: </code><em class="property">directories (comma or newline separated list)</em><a class="headerlink" href="#cfg-field-extra-framework-dirs" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---extra-framework-dirs">
+<code class="descname">--extra-framework-dirs</code><code class="descclassname">=DIR</code><a class="headerlink" href="#cfg-flag---extra-framework-dirs" title="Permalink to this definition">¶</a></dt>
+<dd><p>An extra directory to search for frameworks (OS X only).</p>
 <p>You might need to use this flag if you have standard system
 libraries in a non-standard location that is not mentioned in the
 package&#8217;s <code class="docutils literal"><span class="pre">.cabal</span></code> file. Using this option has the same affect as
-appending the directory <em>dir</em> to the <code class="docutils literal"><span class="pre">extra-lib-dirs</span></code> field in
+appending the directory <em>dir</em> to the <a class="reference internal" href="#cfg-field-extra-lib-dirs" title="project.cabal extra-lib-dirs field "><code class="xref cabal cabal-cfg-field docutils literal"><span class="pre">extra-lib-dirs</span></code></a> field in
 each library and executable in the package&#8217;s <code class="docutils literal"><span class="pre">.cabal</span></code> file. The
 advantage of course is that you do not have to modify the package at
 all. These extra directories will be used while building the package
 and for libraries it is also saved in the package registration
 information and used when compiling modules that use the library.</p>
-<p class="last">The command line variant of this flag is
+<p>The command line variant of this flag is
 <code class="docutils literal"><span class="pre">--extra-framework-dirs=DIR</span></code>, which can be specified multiple
 times.</p>
-</dd>
-</dl>
+</dd></dl>
+
 </div>
 <div class="section" id="profiling-options">
 <h3>5.4.4.5. Profiling options<a class="headerlink" href="#profiling-options" title="Permalink to this headline">¶</a></h3>
-<dl class="docutils">
-<dt><code class="docutils literal"><span class="pre">profiling:</span></code> <em>boolean</em> (default: False, added in Cabal 1.21)</dt>
-<dd><p class="first">Build libraries and executables with profiling enabled (for
+<dl class="cfg-field">
+<dt id="cfg-field-profiling">
+<code class="descname">profiling</code><code class="descclassname">: </code><em class="property">boolean</em><a class="headerlink" href="#cfg-field-profiling" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---enable-profiling">
+<code class="descname">--enable-profiling</code><code class="descclassname"> </code><a class="headerlink" href="#cfg-flag---enable-profiling" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---disable-profiling">
+<code class="descname">--disable-profiling</code><code class="descclassname"> </code><a class="headerlink" href="#cfg-flag---disable-profiling" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Since:</th><td class="field-body">Cabal 1.21</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Default value:</th><td class="field-body">False</td>
+</tr>
+</tbody>
+</table>
+<p>Build libraries and executables with profiling enabled (for
 compilers that support profiling as a separate mode). It is only
-necessary to specify <code class="docutils literal"><span class="pre">profiling</span></code> for the specific package you want
-to profile; <code class="docutils literal"><span class="pre">cabal</span> <span class="pre">new-build</span></code> will ensure that all of its
+necessary to specify <a class="reference internal" href="#cfg-field-profiling" title="project.cabal profiling field (since version: 1.21)"><code class="xref cabal cabal-cfg-field docutils literal"><span class="pre">profiling</span></code></a> for the specific package you
+want to profile; <code class="docutils literal"><span class="pre">cabal</span> <span class="pre">new-build</span></code> will ensure that all of its
 transitive dependencies are built with profiling enabled.</p>
 <p>To enable profiling for only libraries or executables, see
-<code class="docutils literal"><span class="pre">library-profiling</span></code> and <code class="docutils literal"><span class="pre">executable-profiling</span></code>.</p>
+<a class="reference internal" href="#cfg-field-library-profiling" title="project.cabal library-profiling field (since version: 1.21)"><code class="xref cabal cabal-cfg-field docutils literal"><span class="pre">library-profiling</span></code></a> and <a class="reference internal" href="#cfg-field-executable-profiling" title="project.cabal executable-profiling field (since version: 1.21)"><code class="xref cabal cabal-cfg-field docutils literal"><span class="pre">executable-profiling</span></code></a>.</p>
 <p>For useful profiling, it can be important to control precisely what
-cost centers are allocated; see <code class="docutils literal"><span class="pre">profiling-detail</span></code>.</p>
-<p class="last">The command line variant of this flag is <code class="docutils literal"><span class="pre">--enable-profiling</span></code> and
+cost centers are allocated; see <a class="reference internal" href="#cfg-field-profiling-detail" title="project.cabal profiling-detail field (since version: 1.23)"><code class="xref cabal cabal-cfg-field docutils literal"><span class="pre">profiling-detail</span></code></a>.</p>
+<p>The command line variant of this flag is <code class="docutils literal"><span class="pre">--enable-profiling</span></code> and
 <code class="docutils literal"><span class="pre">--disable-profiling</span></code>.</p>
-</dd>
-<dt><code class="docutils literal"><span class="pre">library-vanilla:</span></code> <em>boolean</em> (default: True)</dt>
-<dd><p class="first">Build ordinary libraries (as opposed to profiling libraries).
+</dd></dl>
+
+<dl class="cfg-field">
+<dt id="cfg-field-library-vanilla">
+<code class="descname">library-vanilla</code><code class="descclassname">: </code><em class="property">boolean</em><a class="headerlink" href="#cfg-field-library-vanilla" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---enable-library-vanilla">
+<code class="descname">--enable-library-vanilla</code><code class="descclassname"> </code><a class="headerlink" href="#cfg-flag---enable-library-vanilla" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---disable-library-vanilla">
+<code class="descname">--disable-library-vanilla</code><code class="descclassname"> </code><a class="headerlink" href="#cfg-flag---disable-library-vanilla" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Default value:</th><td class="field-body">True</td>
+</tr>
+</tbody>
+</table>
+<p>Build ordinary libraries (as opposed to profiling libraries).
 Mostly, you can set this to False to avoid building ordinary
 libraries when you are profiling.</p>
-<p class="last">The command line variant of this flag is
+<p>The command line variant of this flag is
 <code class="docutils literal"><span class="pre">--enable-library-vanilla</span></code> and <code class="docutils literal"><span class="pre">--disable-library-vanilla</span></code>.</p>
-</dd>
-<dt><code class="docutils literal"><span class="pre">library-profiling:</span></code> <em>boolean</em> (default: False, added in Cabal 1.21)</dt>
-<dd><p class="first">Build libraries with profiling enabled.</p>
-<p class="last">The command line variant of this flag is
+</dd></dl>
+
+<dl class="cfg-field">
+<dt id="cfg-field-library-profiling">
+<code class="descname">library-profiling</code><code class="descclassname">: </code><em class="property">boolean</em><a class="headerlink" href="#cfg-field-library-profiling" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---enable-library-profiling">
+<code class="descname">--enable-library-profiling</code><code class="descclassname"> </code><a class="headerlink" href="#cfg-flag---enable-library-profiling" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---disable-library-profiling">
+<code class="descname">--disable-library-profiling</code><code class="descclassname"> </code><a class="headerlink" href="#cfg-flag---disable-library-profiling" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Since:</th><td class="field-body">Cabal 1.21</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Default value:</th><td class="field-body">False</td>
+</tr>
+</tbody>
+</table>
+<p>Build libraries with profiling enabled.</p>
+<p>The command line variant of this flag is
 <code class="docutils literal"><span class="pre">--enable-library-profiling</span></code> and <code class="docutils literal"><span class="pre">--disable-library-profiling</span></code>.</p>
-</dd>
-<dt><code class="docutils literal"><span class="pre">executable-profiling:</span></code> <em>boolean</em> (default: False, added in Cabal 1.21)</dt>
-<dd><p class="first">Build executables with profiling enabled.</p>
-<p class="last">The command line variant of this flag is
+</dd></dl>
+
+<dl class="cfg-field">
+<dt id="cfg-field-executable-profiling">
+<code class="descname">executable-profiling</code><code class="descclassname">: </code><em class="property">boolean</em><a class="headerlink" href="#cfg-field-executable-profiling" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---enable-executable-profiling">
+<code class="descname">--enable-executable-profiling</code><code class="descclassname"> </code><a class="headerlink" href="#cfg-flag---enable-executable-profiling" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---disable-executable-profiling">
+<code class="descname">--disable-executable-profiling</code><code class="descclassname"> </code><a class="headerlink" href="#cfg-flag---disable-executable-profiling" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Since:</th><td class="field-body">Cabal 1.21</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Default value:</th><td class="field-body">False</td>
+</tr>
+</tbody>
+</table>
+<p>Build executables with profiling enabled.</p>
+<p>The command line variant of this flag is
 <code class="docutils literal"><span class="pre">--enable-executable-profiling</span></code> and
 <code class="docutils literal"><span class="pre">--disable-executable-profiling</span></code>.</p>
-</dd>
-<dt><code class="docutils literal"><span class="pre">profiling-detail:</span></code> <em>level</em> (added in Cabal 1.23)</dt>
-<dd><p class="first">Some compilers that support profiling, notably GHC, can allocate
+</dd></dl>
+
+<dl class="cfg-field">
+<dt id="cfg-field-profiling-detail">
+<code class="descname">profiling-detail</code><code class="descclassname">: </code><em class="property">level</em><a class="headerlink" href="#cfg-field-profiling-detail" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---profiling-detail">
+<code class="descname">--profiling-detail</code><code class="descclassname">=level</code><a class="headerlink" href="#cfg-flag---profiling-detail" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Since:</th><td class="field-body">Cabal 1.23</td>
+</tr>
+</tbody>
+</table>
+<p>Some compilers that support profiling, notably GHC, can allocate
 costs to different parts of the program and there are different
 levels of granularity or detail with which this can be done. In
 particular for GHC this concept is called &#8220;cost centers&#8221;, and GHC
@@ -1108,87 +1523,175 @@ overridden by the <code class="docutils literal"><span class="pre">library-profi
 <p>Currently this setting is ignored for compilers other than GHC. The
 levels that cabal currently supports are:</p>
 <dl class="docutils">
-<dt><code class="docutils literal"><span class="pre">default</span></code></dt>
+<dt>default</dt>
 <dd>For GHC this uses <code class="docutils literal"><span class="pre">exported-functions</span></code> for libraries and
 <code class="docutils literal"><span class="pre">toplevel-functions</span></code> for executables.</dd>
-<dt><code class="docutils literal"><span class="pre">none</span></code></dt>
+<dt>none</dt>
 <dd>No costs will be assigned to any code within this component.</dd>
-<dt><code class="docutils literal"><span class="pre">exported-functions</span></code></dt>
+<dt>exported-functions</dt>
 <dd>Costs will be assigned at the granularity of all top level
 functions exported from each module. In GHC specifically, this
 is for non-inline functions.</dd>
-<dt><code class="docutils literal"><span class="pre">toplevel-functions</span></code></dt>
+<dt>toplevel-functions</dt>
 <dd>Costs will be assigned at the granularity of all top level
 functions in each module, whether they are exported from the
 module or not. In GHC specifically, this is for non-inline
 functions.</dd>
-<dt><code class="docutils literal"><span class="pre">all-functions</span></code></dt>
+<dt>all-functions</dt>
 <dd>Costs will be assigned at the granularity of all functions in
 each module, whether top level or local. In GHC specifically,
 this is for non-inline toplevel or where-bound functions or
 values.</dd>
 </dl>
-<p class="last">The command line variant of this flag is
+<p>The command line variant of this flag is
 <code class="docutils literal"><span class="pre">--profiling-detail=none</span></code>.</p>
-</dd>
-<dt><code class="docutils literal"><span class="pre">library-profiling-detail:</span></code> <em>level</em> (added in Cabal 1.23)</dt>
-<dd><p class="first">Like <code class="docutils literal"><span class="pre">profiling-detail</span></code>, but applied only to libraries</p>
-<p class="last">The command line variant of this flag is
+</dd></dl>
+
+<dl class="cfg-field">
+<dt id="cfg-field-library-profiling-detail">
+<code class="descname">library-profiling-detail</code><code class="descclassname">: </code><em class="property">level</em><a class="headerlink" href="#cfg-field-library-profiling-detail" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---library-profiling-detail">
+<code class="descname">--library-profiling-detail</code><code class="descclassname">=level</code><a class="headerlink" href="#cfg-flag---library-profiling-detail" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Since:</th><td class="field-body">Cabal 1.23</td>
+</tr>
+</tbody>
+</table>
+<p>Like <a class="reference internal" href="#cfg-field-profiling-detail" title="project.cabal profiling-detail field (since version: 1.23)"><code class="xref cabal cabal-cfg-field docutils literal"><span class="pre">profiling-detail</span></code></a>, but applied only to libraries</p>
+<p>The command line variant of this flag is
 <code class="docutils literal"><span class="pre">--library-profiling-detail=none</span></code>.</p>
-</dd>
-</dl>
+</dd></dl>
+
 </div>
 <div class="section" id="coverage-options">
 <h3>5.4.4.6. Coverage options<a class="headerlink" href="#coverage-options" title="Permalink to this headline">¶</a></h3>
-<dl class="docutils">
-<dt><code class="docutils literal"><span class="pre">coverage:</span></code> <em>boolean</em> (default: False, added in Cabal 1.21)</dt>
-<dd><p class="first">Build libraries and executables (including test suites) with Haskell
+<dl class="cfg-field">
+<dt id="cfg-field-coverage">
+<code class="descname">coverage</code><code class="descclassname">: </code><em class="property">boolean</em><a class="headerlink" href="#cfg-field-coverage" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---enable-coverage">
+<code class="descname">--enable-coverage</code><code class="descclassname"> </code><a class="headerlink" href="#cfg-flag---enable-coverage" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---disable-coverage">
+<code class="descname">--disable-coverage</code><code class="descclassname"> </code><a class="headerlink" href="#cfg-flag---disable-coverage" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Since:</th><td class="field-body">Cabal 1.21</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Default value:</th><td class="field-body">False</td>
+</tr>
+</tbody>
+</table>
+<p>Build libraries and executables (including test suites) with Haskell
 Program Coverage enabled. Running the test suites will automatically
 generate coverage reports with HPC.</p>
-<p class="last">The command line variant of this flag is <code class="docutils literal"><span class="pre">--enable-coverage</span></code> and
+<p>The command line variant of this flag is <code class="docutils literal"><span class="pre">--enable-coverage</span></code> and
 <code class="docutils literal"><span class="pre">--disable-coverage</span></code>.</p>
-</dd>
-<dt><code class="docutils literal"><span class="pre">library-coverage:</span></code> <em>boolean</em> (default: False, added in Cabal 1.21)</dt>
-<dd><p class="first">Deprecated, use <code class="docutils literal"><span class="pre">coverage</span></code>.</p>
-<p class="last">The command line variant of this flag is
+</dd></dl>
+
+<dl class="cfg-field">
+<dt id="cfg-field-library-coverage">
+<code class="descname">library-coverage</code><code class="descclassname">: </code><em class="property">boolean</em><a class="headerlink" href="#cfg-field-library-coverage" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---enable-library-coverage">
+<code class="descname">--enable-library-coverage</code><code class="descclassname"> </code><a class="headerlink" href="#cfg-flag---enable-library-coverage" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---disable-library-coverage">
+<code class="descname">--disable-library-coverage</code><code class="descclassname"> </code><a class="headerlink" href="#cfg-flag---disable-library-coverage" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Deprecated:</th><td class="field-body"></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Since:</th><td class="field-body">Cabal 1.21</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Default value:</th><td class="field-body">False</td>
+</tr>
+</tbody>
+</table>
+<p>Deprecated, use <a class="reference internal" href="#cfg-field-coverage" title="project.cabal coverage field (since version: 1.21)"><code class="xref cabal cabal-cfg-field docutils literal"><span class="pre">coverage</span></code></a>.</p>
+<p>The command line variant of this flag is
 <code class="docutils literal"><span class="pre">--enable-library-coverage</span></code> and <code class="docutils literal"><span class="pre">--disable-library-coverage</span></code>.</p>
-</dd>
-</dl>
+</dd></dl>
+
 </div>
 <div class="section" id="haddock-options">
 <h3>5.4.4.7. Haddock options<a class="headerlink" href="#haddock-options" title="Permalink to this headline">¶</a></h3>
 <p>Documentation building support is fairly sparse at the moment. Let us
 know if it&#8217;s a priority for you!</p>
-<dl class="docutils">
-<dt><code class="docutils literal"><span class="pre">documentation:</span></code> <em>boolean</em> (default: False)</dt>
-<dd><p class="first">Enables building of Haddock documentation</p>
-<p class="last">The command line variant of this flag is <code class="docutils literal"><span class="pre">--enable-documentation</span></code>
+<dl class="cfg-field">
+<dt id="cfg-field-documentation">
+<code class="descname">documentation</code><code class="descclassname">: </code><em class="property">boolean</em><a class="headerlink" href="#cfg-field-documentation" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---enable-documentation">
+<code class="descname">--enable-documentation</code><code class="descclassname"> </code><a class="headerlink" href="#cfg-flag---enable-documentation" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---disable-documentation">
+<code class="descname">--disable-documentation</code><code class="descclassname"> </code><a class="headerlink" href="#cfg-flag---disable-documentation" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Default value:</th><td class="field-body">False</td>
+</tr>
+</tbody>
+</table>
+<p>Enables building of Haddock documentation</p>
+<p>The command line variant of this flag is <code class="docutils literal"><span class="pre">--enable-documentation</span></code>
 and <code class="docutils literal"><span class="pre">--disable-documentation</span></code>.</p>
-</dd>
-<dt><code class="docutils literal"><span class="pre">doc-index-file</span></code>: <em>templated path</em></dt>
-<dd><p class="first">A central index of Haddock API documentation (template cannot use
+</dd></dl>
+
+<dl class="cfg-field">
+<dt id="cfg-field-doc-index-file">
+<code class="descname">doc-index-file</code><code class="descclassname">: </code><em class="property">templated path</em><a class="headerlink" href="#cfg-field-doc-index-file" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---doc-index-file">
+<code class="descname">--doc-index-file</code><code class="descclassname">=TEMPLATE</code><a class="headerlink" href="#cfg-flag---doc-index-file" title="Permalink to this definition">¶</a></dt>
+<dd><p>A central index of Haddock API documentation (template cannot use
 <code class="docutils literal"><span class="pre">$pkgid</span></code>), which should be updated as documentation is built.</p>
-<p class="last">The command line variant of this flag is
+<p>The command line variant of this flag is
 <code class="docutils literal"><span class="pre">--doc-index-file=TEMPLATE</span></code></p>
-</dd>
-</dl>
+</dd></dl>
+
 <p>The following commands are equivalent to ones that would be passed when
 running <code class="docutils literal"><span class="pre">setup</span> <span class="pre">haddock</span></code>. (TODO: Where does the documentation get put.)</p>
-<dl class="docutils">
-<dt><code class="docutils literal"><span class="pre">haddock-hoogle:</span></code> <em>boolean</em> (default: False)</dt>
-<dd><p class="first">Generate a text file which can be converted by <a class="reference external" href="http://www.haskell.org/hoogle/">Hoogle</a>
+<dl class="cfg-field">
+<dt id="cfg-field-haddock-hoogle">
+<code class="descname">haddock-hoogle</code><code class="descclassname">: </code><em class="property">boolean</em><a class="headerlink" href="#cfg-field-haddock-hoogle" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Default value:</th><td class="field-body">False</td>
+</tr>
+</tbody>
+</table>
+<p>Generate a text file which can be converted by <a class="reference external" href="http://www.haskell.org/hoogle/">Hoogle</a>
 into a database for searching. This is equivalent to running <code class="docutils literal"><span class="pre">haddock</span></code>
 with the <code class="docutils literal"><span class="pre">--hoogle</span></code> flag.</p>
-<p class="last">The command line variant of this flag is <code class="docutils literal"><span class="pre">--hoogle</span></code> (for the
+<p>The command line variant of this flag is <code class="docutils literal"><span class="pre">--hoogle</span></code> (for the
 <code class="docutils literal"><span class="pre">haddock</span></code> command).</p>
-</dd>
-<dt><code class="docutils literal"><span class="pre">haddock-html:</span></code> <em>boolean</em> (default: True)</dt>
-<dd><p class="first">Build HTML documentation.</p>
-<p class="last">The command line variant of this flag is <code class="docutils literal"><span class="pre">--html</span></code> (for the
+</dd></dl>
+
+<dl class="cfg-field">
+<dt id="cfg-field-haddock-html">
+<code class="descname">haddock-html</code><code class="descclassname">: </code><em class="property">boolean</em><a class="headerlink" href="#cfg-field-haddock-html" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Default value:</th><td class="field-body">True</td>
+</tr>
+</tbody>
+</table>
+<p>Build HTML documentation.</p>
+<p>The command line variant of this flag is <code class="docutils literal"><span class="pre">--html</span></code> (for the
 <code class="docutils literal"><span class="pre">haddock</span></code> command).</p>
-</dd>
-<dt><code class="docutils literal"><span class="pre">haddock-html-location:</span></code> <em>templated path</em></dt>
-<dd><p class="first">Specify a template for the location of HTML documentation for
+</dd></dl>
+
+<dl class="cfg-field">
+<dt id="cfg-field-haddock-html-location">
+<code class="descname">haddock-html-location</code><code class="descclassname">: </code><em class="property">templated path</em><a class="headerlink" href="#cfg-field-haddock-html-location" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specify a template for the location of HTML documentation for
 prerequisite packages. The substitutions are applied to the template
 to obtain a location for each package, which will be used by
 hyperlinks in the generated documentation. For example, the
@@ -1199,157 +1702,390 @@ following command generates links pointing at [Hackage] pages:</p>
 <p>Here the argument is quoted to prevent substitution by the shell. If
 this option is omitted, the location for each package is obtained
 using the package tool (e.g. <code class="docutils literal"><span class="pre">ghc-pkg</span></code>).</p>
-<p class="last">The command line variant of this flag is <code class="docutils literal"><span class="pre">--html-location</span></code> (for
+<p>The command line variant of this flag is <code class="docutils literal"><span class="pre">--html-location</span></code> (for
 the <code class="docutils literal"><span class="pre">haddock</span></code> subcommand).</p>
-</dd>
-<dt><code class="docutils literal"><span class="pre">haddock-executables:</span></code> <em>boolean</em> (default: False)</dt>
-<dd><p class="first">Run haddock on all executable programs.</p>
-<p class="last">The command line variant of this flag is <code class="docutils literal"><span class="pre">--executables</span></code> (for the
+</dd></dl>
+
+<dl class="cfg-field">
+<dt id="cfg-field-haddock-executables">
+<code class="descname">haddock-executables</code><code class="descclassname">: </code><em class="property">boolean</em><a class="headerlink" href="#cfg-field-haddock-executables" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Default value:</th><td class="field-body">False</td>
+</tr>
+</tbody>
+</table>
+<p>Run haddock on all executable programs.</p>
+<p>The command line variant of this flag is <code class="docutils literal"><span class="pre">--executables</span></code> (for the
 <code class="docutils literal"><span class="pre">haddock</span></code> subcommand).</p>
-</dd>
-<dt><code class="docutils literal"><span class="pre">haddock-tests:</span></code> <em>boolean</em> (default: False)</dt>
-<dd><p class="first">Run haddock on all test suites.</p>
-<p class="last">The command line variant of this flag is <code class="docutils literal"><span class="pre">--tests</span></code> (for the
+</dd></dl>
+
+<dl class="cfg-field">
+<dt id="cfg-field-haddock-tests">
+<code class="descname">haddock-tests</code><code class="descclassname">: </code><em class="property">boolean</em><a class="headerlink" href="#cfg-field-haddock-tests" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Default value:</th><td class="field-body">False</td>
+</tr>
+</tbody>
+</table>
+<p>Run haddock on all test suites.</p>
+<p>The command line variant of this flag is <code class="docutils literal"><span class="pre">--tests</span></code> (for the
 <code class="docutils literal"><span class="pre">haddock</span></code> subcommand).</p>
-</dd>
-<dt><code class="docutils literal"><span class="pre">haddock-benchmarks:</span></code> <em>boolean</em> (default: False)</dt>
-<dd><p class="first">Run haddock on all benchmarks.</p>
-<p class="last">The command line variant of this flag is <code class="docutils literal"><span class="pre">--benchmarks</span></code> (for the
+</dd></dl>
+
+<dl class="cfg-field">
+<dt id="cfg-field-haddock-benchmarks">
+<code class="descname">haddock-benchmarks</code><code class="descclassname">: </code><em class="property">boolean</em><a class="headerlink" href="#cfg-field-haddock-benchmarks" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Default value:</th><td class="field-body">False</td>
+</tr>
+</tbody>
+</table>
+<p>Run haddock on all benchmarks.</p>
+<p>The command line variant of this flag is <code class="docutils literal"><span class="pre">--benchmarks</span></code> (for the
 <code class="docutils literal"><span class="pre">haddock</span></code> subcommand).</p>
-</dd>
-<dt><code class="docutils literal"><span class="pre">haddock-all:</span></code> <em>boolean</em> (default: False)</dt>
-<dd><p class="first">Run haddock on all components.</p>
-<p class="last">The command line variant of this flag is <code class="docutils literal"><span class="pre">--all</span></code> (for the
+</dd></dl>
+
+<dl class="cfg-field">
+<dt id="cfg-field-haddock-all">
+<code class="descname">haddock-all</code><code class="descclassname">: </code><em class="property">boolean</em><a class="headerlink" href="#cfg-field-haddock-all" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Default value:</th><td class="field-body">False</td>
+</tr>
+</tbody>
+</table>
+<p>Run haddock on all components.</p>
+<p>The command line variant of this flag is <code class="docutils literal"><span class="pre">--all</span></code> (for the
 <code class="docutils literal"><span class="pre">haddock</span></code> subcommand).</p>
-</dd>
-<dt><code class="docutils literal"><span class="pre">haddock-internal:</span></code> <em>boolean</em> (default: False)</dt>
-<dd><p class="first">Build haddock documentation which includes unexposed modules and
+</dd></dl>
+
+<dl class="cfg-field">
+<dt id="cfg-field-haddock-internal">
+<code class="descname">haddock-internal</code><code class="descclassname">: </code><em class="property">boolean</em><a class="headerlink" href="#cfg-field-haddock-internal" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Default value:</th><td class="field-body">False</td>
+</tr>
+</tbody>
+</table>
+<p>Build haddock documentation which includes unexposed modules and
 symbols.</p>
-<p class="last">The command line variant of this flag is <code class="docutils literal"><span class="pre">--internal</span></code> (for the
+<p>The command line variant of this flag is <code class="docutils literal"><span class="pre">--internal</span></code> (for the
 <code class="docutils literal"><span class="pre">haddock</span></code> subcommand).</p>
-</dd>
-<dt><code class="docutils literal"><span class="pre">haddock-css:</span></code> <em>path</em></dt>
-<dd><p class="first">The CSS file that should be used to style the generated
+</dd></dl>
+
+<dl class="cfg-field">
+<dt id="cfg-field-haddock-css">
+<code class="descname">haddock-css</code><code class="descclassname">: </code><em class="property">path</em><a class="headerlink" href="#cfg-field-haddock-css" title="Permalink to this definition">¶</a></dt>
+<dd><p>The CSS file that should be used to style the generated
 documentation (overriding haddock&#8217;s default.)</p>
-<p class="last">The command line variant of this flag is <code class="docutils literal"><span class="pre">--css</span></code> (for the
+<p>The command line variant of this flag is <code class="docutils literal"><span class="pre">--css</span></code> (for the
 <code class="docutils literal"><span class="pre">haddock</span></code> subcommand).</p>
-</dd>
-<dt><code class="docutils literal"><span class="pre">haddock-hyperlink-source:</span></code> <em>boolean</em> (default: False)</dt>
-<dd><p class="first">Generated hyperlinked source code using <code class="docutils literal"><span class="pre">HsColour</span></code>, and have
+</dd></dl>
+
+<dl class="cfg-field">
+<dt id="cfg-field-haddock-hyperlink-source">
+<code class="descname">haddock-hyperlink-source</code><code class="descclassname">: </code><em class="property">boolean</em><a class="headerlink" href="#cfg-field-haddock-hyperlink-source" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Default value:</th><td class="field-body">False</td>
+</tr>
+</tbody>
+</table>
+<p>Generated hyperlinked source code using <a class="reference external" href="http://www.cs.york.ac.uk/fp/darcs/hscolour/">HsColour</a>, and have
 Haddock documentation link to it.</p>
-<p class="last">The command line variant of this flag is <code class="docutils literal"><span class="pre">--hyperlink-source</span></code> (for
+<p>The command line variant of this flag is <code class="docutils literal"><span class="pre">--hyperlink-source</span></code> (for
 the <code class="docutils literal"><span class="pre">haddock</span></code> subcommand).</p>
-</dd>
-<dt><code class="docutils literal"><span class="pre">haddock-hscolour-css:</span></code> <em>path</em></dt>
-<dd><p class="first">The CSS file that should be used to style the generated hyperlinked
-source code (from <code class="docutils literal"><span class="pre">HsColour</span></code>).</p>
-<p class="last">The command line variant of this flag is <code class="docutils literal"><span class="pre">--hscolour-css</span></code> (for the
+</dd></dl>
+
+<dl class="cfg-field">
+<dt id="cfg-field-haddock-hscolour-css">
+<code class="descname">haddock-hscolour-css</code><code class="descclassname">: </code><em class="property">path</em><a class="headerlink" href="#cfg-field-haddock-hscolour-css" title="Permalink to this definition">¶</a></dt>
+<dd><p>The CSS file that should be used to style the generated hyperlinked
+source code (from <a class="reference external" href="http://www.cs.york.ac.uk/fp/darcs/hscolour/">HsColour</a>).</p>
+<p>The command line variant of this flag is <code class="docutils literal"><span class="pre">--hscolour-css</span></code> (for the
 <code class="docutils literal"><span class="pre">haddock</span></code> subcommand).</p>
-</dd>
-<dt><code class="docutils literal"><span class="pre">haddock-contents-location:</span></code> <em>url</em></dt>
-<dd><p class="first">A baked-in URL to be used as the location for the contents page.</p>
-<p class="last">The command line variant of this flag is <code class="docutils literal"><span class="pre">--contents-location</span></code>
+</dd></dl>
+
+<dl class="cfg-field">
+<dt id="cfg-field-haddock-contents-location">
+<code class="descname">haddock-contents-location</code><code class="descclassname">: </code><em class="property">URL</em><a class="headerlink" href="#cfg-field-haddock-contents-location" title="Permalink to this definition">¶</a></dt>
+<dd><p>A baked-in URL to be used as the location for the contents page.</p>
+<p>The command line variant of this flag is <code class="docutils literal"><span class="pre">--contents-location</span></code>
 (for the <code class="docutils literal"><span class="pre">haddock</span></code> subcommand).</p>
-</dd>
-<dt><code class="docutils literal"><span class="pre">haddock-keep-temp-files:</span></code></dt>
-<dd><p class="first">Keep temporary files.</p>
-<p class="last">The command line variant of this flag is <code class="docutils literal"><span class="pre">--keep-temp-files</span></code> (for
+</dd></dl>
+
+<dl class="cfg-field">
+<dt id="cfg-field-haddock-keep-temp-files">
+<code class="descname">haddock-keep-temp-files</code><code class="descclassname">: </code><em class="property">boolean</em><a class="headerlink" href="#cfg-field-haddock-keep-temp-files" title="Permalink to this definition">¶</a></dt>
+<dd><p>Keep temporary files.</p>
+<p>The command line variant of this flag is <code class="docutils literal"><span class="pre">--keep-temp-files</span></code> (for
 the <code class="docutils literal"><span class="pre">haddock</span></code> subcommand).</p>
-</dd>
-</dl>
+</dd></dl>
+
 </div>
 </div>
 <div class="section" id="advanced-global-configuration-options">
 <h2>5.4.5. Advanced global configuration options<a class="headerlink" href="#advanced-global-configuration-options" title="Permalink to this headline">¶</a></h2>
-<dl class="docutils">
-<dt><code class="docutils literal"><span class="pre">http-transport:</span></code> <code class="docutils literal"><span class="pre">curl</span></code> or <code class="docutils literal"><span class="pre">wget</span></code> or <code class="docutils literal"><span class="pre">powershell</span></code> or <code class="docutils literal"><span class="pre">plain-http</span></code> (default: <code class="docutils literal"><span class="pre">curl</span></code>)</dt>
-<dd><p class="first">Set a transport to be used when making http(s) requests.</p>
-<p class="last">The command line variant of this field is <code class="docutils literal"><span class="pre">--http-transport=curl</span></code>.</p>
-</dd>
-<dt><code class="docutils literal"><span class="pre">ignore-expiry:</span></code> <em>boolean</em> (default: False)</dt>
-<dd><p class="first">If <code class="docutils literal"><span class="pre">True</span></code>, we will ignore expiry dates on metadata from Hackage.</p>
+<dl class="cfg-field">
+<dt id="cfg-field-http-transport">
+<code class="descname">http-transport</code><code class="descclassname">: </code><em class="property">curl, wget, powershell, or plain-http</em><a class="headerlink" href="#cfg-field-http-transport" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---http-transport">
+<code class="descname">--http-transport</code><code class="descclassname">=transport</code><a class="headerlink" href="#cfg-flag---http-transport" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Default value:</th><td class="field-body"><code class="docutils literal"><span class="pre">curl</span></code></td>
+</tr>
+</tbody>
+</table>
+<p>Set a transport to be used when making http(s) requests.</p>
+<p>The command line variant of this field is <code class="docutils literal"><span class="pre">--http-transport=curl</span></code>.</p>
+</dd></dl>
+
+<dl class="cfg-field">
+<dt id="cfg-field-ignore-expiry">
+<code class="descname">ignore-expiry</code><code class="descclassname">: </code><em class="property">boolean</em><a class="headerlink" href="#cfg-field-ignore-expiry" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---ignore-expiry">
+<code class="descname">--ignore-expiry</code><code class="descclassname"> </code><a class="headerlink" href="#cfg-flag---ignore-expiry" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Default value:</th><td class="field-body">False</td>
+</tr>
+</tbody>
+</table>
+<p>If <code class="docutils literal"><span class="pre">True</span></code>, we will ignore expiry dates on metadata from Hackage.</p>
 <p>In general, you should not set this to <code class="docutils literal"><span class="pre">True</span></code> as it will leave you
 vulnerable to stale cache attacks. However, it may be temporarily
 useful if the main Hackage server is down, and we need to rely on
 mirrors which have not been updated for longer than the expiry
 period on the timestamp.</p>
-<p class="last">The command line variant of this field is <code class="docutils literal"><span class="pre">--ignore-expiry</span></code>.</p>
-</dd>
-<dt><code class="docutils literal"><span class="pre">remote-repo-cache:</span></code> <em>directory</em> (default: <code class="docutils literal"><span class="pre">~/.cabal/packages</span></code>)</dt>
-<dd><p class="first">[STRIKEOUT:The location where packages downloaded from remote
+<p>The command line variant of this field is <code class="docutils literal"><span class="pre">--ignore-expiry</span></code>.</p>
+</dd></dl>
+
+<dl class="cfg-field">
+<dt id="cfg-field-remote-repo-cache">
+<code class="descname">remote-repo-cache</code><code class="descclassname">: </code><em class="property">directory</em><a class="headerlink" href="#cfg-field-remote-repo-cache" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---remote-repo-cache">
+<code class="descname">--remote-repo-cache</code><code class="descclassname">=DIR</code><a class="headerlink" href="#cfg-flag---remote-repo-cache" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Default value:</th><td class="field-body"><code class="docutils literal"><span class="pre">~/.cabal/packages</span></code></td>
+</tr>
+</tbody>
+</table>
+<p>[STRIKEOUT:The location where packages downloaded from remote
 repositories will be cached.] Not implemented yet.</p>
-<p class="last">The command line variant of this flag is
+<p>The command line variant of this flag is
 <code class="docutils literal"><span class="pre">--remote-repo-cache=DIR</span></code>.</p>
-</dd>
-<dt><code class="docutils literal"><span class="pre">logs-dir:</span></code> <em>directory</em> (default: <code class="docutils literal"><span class="pre">~/.cabal/logs</span></code>)</dt>
-<dd><p class="first">[STRIKEOUT:The location where build logs for packages are stored.]
+</dd></dl>
+
+<dl class="cfg-field">
+<dt id="cfg-field-logs-dir">
+<code class="descname">logs-dir</code><code class="descclassname">: </code><em class="property">directory</em><a class="headerlink" href="#cfg-field-logs-dir" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---logs-dir">
+<code class="descname">--logs-dir</code><code class="descclassname">=DIR</code><a class="headerlink" href="#cfg-flag---logs-dir" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Default value:</th><td class="field-body"><code class="docutils literal"><span class="pre">~/.cabal/logs</span></code></td>
+</tr>
+</tbody>
+</table>
+<p>[STRIKEOUT:The location where build logs for packages are stored.]
 Not implemented yet.</p>
-<p class="last">The command line variant of this flag is <code class="docutils literal"><span class="pre">--logs-dir=DIR</span></code>.</p>
-</dd>
-<dt><code class="docutils literal"><span class="pre">build-summary:</span></code> <em>template filepath</em> (default: <code class="docutils literal"><span class="pre">~/.cabal/logs/build.log</span></code>)</dt>
-<dd><p class="first">[STRIKEOUT:The file to save build summaries. Valid variables which
+<p>The command line variant of this flag is <code class="docutils literal"><span class="pre">--logs-dir=DIR</span></code>.</p>
+</dd></dl>
+
+<dl class="cfg-field">
+<dt id="cfg-field-build-summary">
+<code class="descname">build-summary</code><code class="descclassname">: </code><em class="property">template filepath</em><a class="headerlink" href="#cfg-field-build-summary" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---build-summary">
+<code class="descname">--build-summary</code><code class="descclassname">=TEMPLATE</code><a class="headerlink" href="#cfg-flag---build-summary" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Default value:</th><td class="field-body"><code class="docutils literal"><span class="pre">~/.cabal/logs/build.log</span></code></td>
+</tr>
+</tbody>
+</table>
+<p>[STRIKEOUT:The file to save build summaries. Valid variables which
 can be used in the path are <code class="docutils literal"><span class="pre">$pkgid</span></code>, <code class="docutils literal"><span class="pre">$compiler</span></code>, <code class="docutils literal"><span class="pre">$os</span></code> and
 <code class="docutils literal"><span class="pre">$arch</span></code>.] Not implemented yet.</p>
-<p class="last">The command line variant of this flag is
+<p>The command line variant of this flag is
 <code class="docutils literal"><span class="pre">--build-summary=TEMPLATE</span></code>.</p>
-</dd>
-<dt><code class="docutils literal"><span class="pre">local-repo:</span></code> <em>directory</em></dt>
-<dd><p class="first">[STRIKEOUT:The location of a local repository.] Deprecated. See
+</dd></dl>
+
+<dl class="cfg-field">
+<dt id="cfg-field-local-repo">
+<code class="descname">local-repo</code><code class="descclassname">: </code><em class="property">directory</em><a class="headerlink" href="#cfg-field-local-repo" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---local-repo">
+<code class="descname">--local-repo</code><code class="descclassname">=DIR</code><a class="headerlink" href="#cfg-flag---local-repo" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Deprecated:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<p>[STRIKEOUT:The location of a local repository.] Deprecated. See
 &#8220;Legacy repositories.&#8221;</p>
-<p class="last">The command line variant of this flag is <code class="docutils literal"><span class="pre">--local-repo=DIR</span></code>.</p>
-</dd>
-<dt><code class="docutils literal"><span class="pre">world-file:</span></code> <em>path</em></dt>
-<dd><p class="first">[STRIKEOUT:The location of the world file.] Deprecated.</p>
-<p class="last">The command line variant of this flag is <code class="docutils literal"><span class="pre">--world-file=FILE</span></code>.</p>
-</dd>
-</dl>
+<p>The command line variant of this flag is <code class="docutils literal"><span class="pre">--local-repo=DIR</span></code>.</p>
+</dd></dl>
+
+<dl class="cfg-field">
+<dt id="cfg-field-world-file">
+<code class="descname">world-file</code><code class="descclassname">: </code><em class="property">path</em><a class="headerlink" href="#cfg-field-world-file" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---world-file">
+<code class="descname">--world-file</code><code class="descclassname">=FILE</code><a class="headerlink" href="#cfg-flag---world-file" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Deprecated:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<p>[STRIKEOUT:The location of the world file.] Deprecated.</p>
+<p>The command line variant of this flag is <code class="docutils literal"><span class="pre">--world-file=FILE</span></code>.</p>
+</dd></dl>
+
 <p>Undocumented fields: <code class="docutils literal"><span class="pre">root-cmd</span></code>, <code class="docutils literal"><span class="pre">symlink-bindir</span></code>, <code class="docutils literal"><span class="pre">build-log</span></code>,
 <code class="docutils literal"><span class="pre">remote-build-reporting</span></code>, <code class="docutils literal"><span class="pre">report-planned-failure</span></code>, <code class="docutils literal"><span class="pre">one-shot</span></code>,
 <code class="docutils literal"><span class="pre">offline</span></code>.</p>
 <div class="section" id="advanced-solver-options">
 <h3>5.4.5.1. Advanced solver options<a class="headerlink" href="#advanced-solver-options" title="Permalink to this headline">¶</a></h3>
 <p>Most users generally won&#8217;t need these.</p>
-<dl class="docutils">
-<dt><code class="docutils literal"><span class="pre">solver:</span></code> <code class="docutils literal"><span class="pre">modular</span></code></dt>
-<dd><p class="first">This field is reserved to allow the specification of alternative
+<dl class="cfg-field">
+<dt id="cfg-field-solver">
+<code class="descname">solver</code><code class="descclassname">: </code><em class="property">modular</em><a class="headerlink" href="#cfg-field-solver" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---solver">
+<code class="descname">--solver</code><code class="descclassname">=modular</code><a class="headerlink" href="#cfg-flag---solver" title="Permalink to this definition">¶</a></dt>
+<dd><p>This field is reserved to allow the specification of alternative
 dependency solvers. At the moment, the only accepted option is
 <code class="docutils literal"><span class="pre">modular</span></code>.</p>
-<p class="last">The command line variant of this field is <code class="docutils literal"><span class="pre">--solver=modular</span></code>.</p>
-</dd>
-<dt><code class="docutils literal"><span class="pre">max-backjumps:</span></code> <em>nat</em> (default: 2000)</dt>
-<dd><p class="first">Maximum number of backjumps (backtracking multiple steps) allowed
+<p>The command line variant of this field is <code class="docutils literal"><span class="pre">--solver=modular</span></code>.</p>
+</dd></dl>
+
+<dl class="cfg-field">
+<dt id="cfg-field-max-backjumps">
+<code class="descname">max-backjumps</code><code class="descclassname">: </code><em class="property">nat</em><a class="headerlink" href="#cfg-field-max-backjumps" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---max-backjumps">
+<code class="descname">--max-backjumps</code><code class="descclassname">=N</code><a class="headerlink" href="#cfg-flag---max-backjumps" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Default value:</th><td class="field-body">2000</td>
+</tr>
+</tbody>
+</table>
+<p>Maximum number of backjumps (backtracking multiple steps) allowed
 while solving. Set -1 to allow unlimited backtracking, and 0 to
 disable backtracking completely.</p>
-<p class="last">The command line variant of this field is <code class="docutils literal"><span class="pre">--max-backjumps=2000</span></code>.</p>
-</dd>
-<dt><code class="docutils literal"><span class="pre">reorder-goals:</span></code> <em>boolean</em> (default: False)</dt>
-<dd><p class="first">When enabled, the solver will reorder goals according to certain
+<p>The command line variant of this field is <code class="docutils literal"><span class="pre">--max-backjumps=2000</span></code>.</p>
+</dd></dl>
+
+<dl class="cfg-field">
+<dt id="cfg-field-reorder-goals">
+<code class="descname">reorder-goals</code><code class="descclassname">: </code><em class="property">boolean</em><a class="headerlink" href="#cfg-field-reorder-goals" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---reorder-goals">
+<code class="descname">--reorder-goals</code><code class="descclassname"> </code><a class="headerlink" href="#cfg-flag---reorder-goals" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---no-reorder-goals">
+<code class="descname">--no-reorder-goals</code><code class="descclassname"> </code><a class="headerlink" href="#cfg-flag---no-reorder-goals" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Default value:</th><td class="field-body">False</td>
+</tr>
+</tbody>
+</table>
+<p>When enabled, the solver will reorder goals according to certain
 heuristics. Slows things down on average, but may make backtracking
 faster for some packages. It&#8217;s unlikely to help for small projects,
 but for big install plans it may help you find a plan when otherwise
 this is not possible. See <a class="reference external" href="https://github.com/haskell/cabal/issues/1780">#1780</a> for more commentary.</p>
-<p class="last">The command line variant of this field is <code class="docutils literal"><span class="pre">--(no-)reorder-goals</span></code>.</p>
-</dd>
-<dt><code class="docutils literal"><span class="pre">count-conflicts:</span></code> <em>boolean</em> (default: True)</dt>
-<dd><p class="first">Try to speed up solving by preferring goals that are involved in a
+<p>The command line variant of this field is <code class="docutils literal"><span class="pre">--(no-)reorder-goals</span></code>.</p>
+</dd></dl>
+
+<dl class="cfg-field">
+<dt id="cfg-field-count-conflicts">
+<code class="descname">count-conflicts</code><code class="descclassname">: </code><em class="property">boolean</em><a class="headerlink" href="#cfg-field-count-conflicts" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---count-conflicts">
+<code class="descname">--count-conflicts</code><code class="descclassname"> </code><a class="headerlink" href="#cfg-flag---count-conflicts" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---no-count-conflicts">
+<code class="descname">--no-count-conflicts</code><code class="descclassname"> </code><a class="headerlink" href="#cfg-flag---no-count-conflicts" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Default value:</th><td class="field-body">True</td>
+</tr>
+</tbody>
+</table>
+<p>Try to speed up solving by preferring goals that are involved in a
 lot of conflicts.</p>
-<p class="last">The command line variant of this field is
+<p>The command line variant of this field is
 <code class="docutils literal"><span class="pre">--(no-)count-conflicts</span></code>.</p>
-</dd>
-<dt><code class="docutils literal"><span class="pre">strong-flags:</span></code> <em>boolean</em> (default: False)</dt>
-<dd><p class="first">Do not defer flag choices. (TODO: Better documentation.)</p>
-<p class="last">The command line variant of this field is <code class="docutils literal"><span class="pre">--(no-)strong-flags</span></code>.</p>
-</dd>
-<dt><code class="docutils literal"><span class="pre">cabal-lib-version:</span></code> <em>version</em></dt>
-<dd><p class="first">This field selects the version of the Cabal library which should be
+</dd></dl>
+
+<dl class="cfg-field">
+<dt id="cfg-field-strong-flags">
+<code class="descname">strong-flags</code><code class="descclassname">: </code><em class="property">boolean</em><a class="headerlink" href="#cfg-field-strong-flags" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---strong-flags">
+<code class="descname">--strong-flags</code><code class="descclassname"> </code><a class="headerlink" href="#cfg-flag---strong-flags" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---no-strong-flags">
+<code class="descname">--no-strong-flags</code><code class="descclassname"> </code><a class="headerlink" href="#cfg-flag---no-strong-flags" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Default value:</th><td class="field-body">False</td>
+</tr>
+</tbody>
+</table>
+<p>Do not defer flag choices. (TODO: Better documentation.)</p>
+<p>The command line variant of this field is <code class="docutils literal"><span class="pre">--(no-)strong-flags</span></code>.</p>
+</dd></dl>
+
+<dl class="cfg-field">
+<dt id="cfg-field-cabal-lib-version">
+<code class="descname">cabal-lib-version</code><code class="descclassname">: </code><em class="property">version</em><a class="headerlink" href="#cfg-field-cabal-lib-version" title="Permalink to this definition">¶</a></dt>
+<dt id="cfg-flag---cabal-lib-version">
+<code class="descname">--cabal-lib-version</code><code class="descclassname">=version</code><a class="headerlink" href="#cfg-flag---cabal-lib-version" title="Permalink to this definition">¶</a></dt>
+<dd><p>This field selects the version of the Cabal library which should be
 used to build packages. This option is intended primarily for
 internal development use (e.g., forcing a package to build with a
 newer version of Cabal, to test a new version of Cabal.) (TODO:
 Specify its semantics more clearly.)</p>
-<p class="last">The command line variant of this field is
+<p>The command line variant of this field is
 <code class="docutils literal"><span class="pre">--cabal-lib-version=1.24.0.1</span></code>.</p>
-</dd>
-</dl>
+</dd></dl>
+
 </div>
 </div>
 </div>

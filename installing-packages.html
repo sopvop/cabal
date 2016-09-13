@@ -138,6 +138,7 @@
 
             
           
+  <a href="cabal-projectindex.html">Reference</a>
   <a href="genindex.html">Index</a>
 
         </div>
@@ -303,7 +304,7 @@ can be used to create and manage such repositories.</p>
 </div>
 </div>
 <div class="section" id="building-and-installing-packages">
-<h1>2.2. Building and installing packages<a class="headerlink" href="#building-and-installing-packages" title="Permalink to this headline">¶</a></h1>
+<span id="installing-packages"></span><h1>2.2. Building and installing packages<a class="headerlink" href="#building-and-installing-packages" title="Permalink to this headline">¶</a></h1>
 <p>After you&#8217;ve unpacked a Cabal package, you can build it by moving into
 the root directory of the package and running the <code class="docutils literal"><span class="pre">cabal</span></code> tool there:</p>
 <div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">$</span> cabal <span class="o">[</span>command<span class="o">]</span> <span class="o">[</span>option...<span class="o">]</span>
@@ -547,7 +548,7 @@ described below. In the simple build infrastructure, any other options
 will be reported as errors.</p>
 </div>
 <div class="section" id="setup-configure">
-<h2>2.2.6. setup configure<a class="headerlink" href="#setup-configure" title="Permalink to this headline">¶</a></h2>
+<span id="id1"></span><h2>2.2.6. setup configure<a class="headerlink" href="#setup-configure" title="Permalink to this headline">¶</a></h2>
 <p>Prepare to build the package. Typically, this step checks that the
 target platform is capable of building the package, and discovers
 platform-specific features that are needed during the build.</p>
@@ -688,7 +689,7 @@ variables: <code class="docutils literal"><span class="pre">$pkgid</span></code>
 <dd><p>Executables that the user might invoke are installed here.</p>
 <p>In the simple build system, <em>dir</em> may contain the following path
 variables: <code class="docutils literal"><span class="pre">$prefix</span></code>, <code class="docutils literal"><span class="pre">$pkgid</span></code>, <code class="docutils literal"><span class="pre">$pkg</span></code>, <code class="docutils literal"><span class="pre">$version</span></code>,
-<code class="docutils literal"><span class="pre">$compiler</span></code>, <code class="docutils literal"><span class="pre">$os</span></code>, <code class="docutils literal"><span class="pre">$arch</span></code>, <code class="docutils literal"><span class="pre">$abi</span></code>, `$abitag</p>
+<code class="docutils literal"><span class="pre">$compiler</span></code>, <code class="docutils literal"><span class="pre">$os</span></code>, <code class="docutils literal"><span class="pre">$arch</span></code>, <code class="docutils literal"><span class="pre">$abi</span></code>, <code class="docutils literal"><span class="pre">$abitag</span></code></p>
 </dd></dl>
 
 <dl class="option">
@@ -855,8 +856,8 @@ as <code class="docutils literal"><span class="pre">$arch-$os-compiler-$abitag</
 <div class="section" id="paths-in-the-simple-build-system">
 <h4>2.2.6.2.2. Paths in the simple build system<a class="headerlink" href="#paths-in-the-simple-build-system" title="Permalink to this headline">¶</a></h4>
 <p>For the simple build system, the following defaults apply:</p>
-<table border="1" class="docutils" id="id1">
-<caption><span class="caption-text">Default installation paths</span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
+<table border="1" class="docutils" id="id11">
+<caption><span class="caption-text">Default installation paths</span><a class="headerlink" href="#id11" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col width="33%" />
 <col width="33%" />
@@ -897,7 +898,7 @@ as <code class="docutils literal"><span class="pre">$arch-$os-compiler-$abitag</
 </tr>
 <tr class="row-odd"><td><a class="reference internal" href="#cmdoption-setup-configure--datadir"><code class="xref std std-option docutils literal"><span class="pre">--datadir</span></code></a> (library)</td>
 <td><code class="docutils literal"><span class="pre">$prefix/share</span></code></td>
-<td><code class="docutils literal"><span class="pre">C:\Program</span> <span class="pre">Files\Haskell</span></code></td>
+<td><code class="docutils literal"><span class="pre">%PROGRAMFILES%\Haskell</span></code></td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="#cmdoption-setup-configure--datasubdir"><code class="xref std std-option docutils literal"><span class="pre">--datasubdir</span></code></a></td>
 <td><code class="docutils literal"><span class="pre">$pkgid</span></code></td>
@@ -1443,7 +1444,7 @@ attempt to satisfy these preferences on a &#8220;best-effort&#8221; basis.</p>
 </div>
 </div>
 <div class="section" id="setup-build">
-<h2>2.2.7. setup build<a class="headerlink" href="#setup-build" title="Permalink to this headline">¶</a></h2>
+<span id="id2"></span><h2>2.2.7. setup build<a class="headerlink" href="#setup-build" title="Permalink to this headline">¶</a></h2>
 <p>Perform any preprocessing or compilation needed to make this package
 ready for installation.</p>
 <p>This command takes the following options:</p>
@@ -1460,7 +1461,7 @@ any options specified at the configure step.</p>
 
 </div>
 <div class="section" id="setup-haddock">
-<h2>2.2.8. setup haddock<a class="headerlink" href="#setup-haddock" title="Permalink to this headline">¶</a></h2>
+<span id="id3"></span><h2>2.2.8. setup haddock<a class="headerlink" href="#setup-haddock" title="Permalink to this headline">¶</a></h2>
 <p>Build the documentation for the package using <a class="reference external" href="http://www.haskell.org/haddock/">Haddock</a>.
 By default, only the documentation for the exposed modules is generated
 (but see the <a class="reference internal" href="#cmdoption-setup-haddock--executables"><code class="xref std std-option docutils literal"><span class="pre">--executables</span></code></a> and <a class="reference internal" href="#cmdoption-setup-haddock--internal"><code class="xref std std-option docutils literal"><span class="pre">--internal</span></code></a> flags below).</p>
@@ -1536,7 +1537,7 @@ linked to its definition in the colourised code.</p>
 
 </div>
 <div class="section" id="setup-hscolour">
-<h2>2.2.9. setup hscolour<a class="headerlink" href="#setup-hscolour" title="Permalink to this headline">¶</a></h2>
+<span id="id4"></span><h2>2.2.9. setup hscolour<a class="headerlink" href="#setup-hscolour" title="Permalink to this headline">¶</a></h2>
 <p>Produce colourised code in HTML format using <a class="reference external" href="http://www.cs.york.ac.uk/fp/darcs/hscolour/">HsColour</a>. Colourised code for
 exported modules is put in <code class="docutils literal"><span class="pre">dist/doc/html/</span></code><em>pkgid</em><code class="docutils literal"><span class="pre">/src</span></code>.</p>
 <p>This command takes the following options:</p>
@@ -1558,12 +1559,12 @@ the given CSS file to the directory with the generated HTML files
 
 </div>
 <div class="section" id="setup-install">
-<h2>2.2.10. setup install<a class="headerlink" href="#setup-install" title="Permalink to this headline">¶</a></h2>
+<span id="id5"></span><h2>2.2.10. setup install<a class="headerlink" href="#setup-install" title="Permalink to this headline">¶</a></h2>
 <p>Copy the files into the install locations and (for library packages)
 register the package with the compiler, i.e. make the modules it
 contains available to programs.</p>
 <p>The <a class="reference external" href="#installation-paths">install locations</a> are determined by
-options to <code class="docutils literal"><span class="pre">setup</span> <span class="pre">configure</span></code>.</p>
+options to <a class="reference internal" href="#id1">setup configure</a>.</p>
 <p>This command takes the following options:</p>
 <dl class="option">
 <dt id="cmdoption-setup-install--global">
@@ -1583,7 +1584,7 @@ to the <code class="docutils literal"><span class="pre">configure</span></code> 
 
 </div>
 <div class="section" id="setup-copy">
-<h2>2.2.11. setup copy<a class="headerlink" href="#setup-copy" title="Permalink to this headline">¶</a></h2>
+<span id="id6"></span><h2>2.2.11. setup copy<a class="headerlink" href="#setup-copy" title="Permalink to this headline">¶</a></h2>
 <p>Copy the files without registering them. This command is mainly of use
 to those creating binary packages.</p>
 <p>This command takes the following option:</p>
@@ -1596,7 +1597,7 @@ not given, then the root directory is assumed.</p>
 
 </div>
 <div class="section" id="setup-register">
-<h2>2.2.12. setup register<a class="headerlink" href="#setup-register" title="Permalink to this headline">¶</a></h2>
+<span id="id7"></span><h2>2.2.12. setup register<a class="headerlink" href="#setup-register" title="Permalink to this headline">¶</a></h2>
 <p>Register this package with the compiler, i.e. make the modules it
 contains available to programs. This only makes sense for library
 packages. Note that the <code class="docutils literal"><span class="pre">install</span></code> command incorporates this action.
@@ -1662,7 +1663,7 @@ fine.</p>
 
 </div>
 <div class="section" id="setup-unregister">
-<h2>2.2.13. setup unregister<a class="headerlink" href="#setup-unregister" title="Permalink to this headline">¶</a></h2>
+<span id="id8"></span><h2>2.2.13. setup unregister<a class="headerlink" href="#setup-unregister" title="Permalink to this headline">¶</a></h2>
 <p>Deregister this package with the compiler.</p>
 <p>This command takes the following options:</p>
 <dl class="option">
@@ -1689,10 +1690,10 @@ be included in a binary bundle, to be run on the target system.</p>
 
 </div>
 <div class="section" id="setup-clean">
-<h2>2.2.14. setup clean<a class="headerlink" href="#setup-clean" title="Permalink to this headline">¶</a></h2>
+<span id="id9"></span><h2>2.2.14. setup clean<a class="headerlink" href="#setup-clean" title="Permalink to this headline">¶</a></h2>
 <p>Remove any local files created during the <code class="docutils literal"><span class="pre">configure</span></code>, <code class="docutils literal"><span class="pre">build</span></code>,
 <code class="docutils literal"><span class="pre">haddock</span></code>, <code class="docutils literal"><span class="pre">register</span></code> or <code class="docutils literal"><span class="pre">unregister</span></code> steps, and also any files
-and directories listed in the <code class="docutils literal"><span class="pre">extra-tmp-files</span></code> field.</p>
+and directories listed in the <a class="reference internal" href="developing-packages.html#pkg-field-extra-tmp-files" title="package.cabal extra-tmp-files field"><code class="xref cabal cabal-pkg-field docutils literal"><span class="pre">extra-tmp-files</span></code></a> field.</p>
 <p>This command takes the following options:</p>
 <dl class="option">
 <dt id="cmdoption-setup-clean--save-configure">
@@ -1762,7 +1763,7 @@ so options will not be split on spaces.</p>
 
 </div>
 <div class="section" id="setup-sdist">
-<h2>2.2.16. setup sdist<a class="headerlink" href="#setup-sdist" title="Permalink to this headline">¶</a></h2>
+<span id="id10"></span><h2>2.2.16. setup sdist<a class="headerlink" href="#setup-sdist" title="Permalink to this headline">¶</a></h2>
 <p>Create a system- and compiler-independent source distribution in a file
 <em>package</em>-<em>version</em><code class="docutils literal"><span class="pre">.tar.gz</span></code> in the <code class="docutils literal"><span class="pre">dist</span></code> subdirectory, for
 distribution to package builders. When unpacked, the commands listed in
