@@ -1,0 +1,2428 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>3.1. Quickstart &mdash; Cabal &lt;release&gt; User&#39;s Guide</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Cabal &lt;release&gt; User&#39;s Guide" href="index.html"/>
+        <link rel="up" title="3. Package Concepts and Development" href="concepts-and-development.html"/>
+        <link rel="next" title="4. Reporting Bugs and Stability of Cabal Interfaces" href="bugs-and-stability.html"/>
+        <link rel="prev" title="3. Package Concepts and Development" href="concepts-and-development.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Cabal
+          
+
+          
+            
+            <img src="_static/Cabal-dark.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.25
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+  
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config-and-install.html">2. Configuration and Installing Packages</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="concepts-and-development.html">3. Package Concepts and Development</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">3.1. Quickstart</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#using-cabal-init">3.1.1. Using &#8220;cabal init&#8221;</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#editing-the-cabal-file">3.1.2. Editing the .cabal file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#modules-included-in-the-package">3.1.3. Modules included in the package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#modules-imported-from-other-packages">3.1.4. Modules imported from other packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#building-the-package">3.1.5. Building the package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#next-steps">3.1.6. Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#package-concepts">3.2. Package concepts</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#the-point-of-packages">3.2.1. The point of packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#package-names-and-versions">3.2.2. Package names and versions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#kinds-of-package-cabal-vs-ghc-vs-system">3.2.3. Kinds of package: Cabal vs GHC vs system</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#unit-of-distribution">3.2.4. Unit of distribution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#explicit-dependencies-and-automatic-package-management">3.2.5. Explicit dependencies and automatic package management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#portability">3.2.6. Portability</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#developing-packages">3.3. Developing packages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#creating-a-package">3.3.1. Creating a package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#example-a-package-containing-a-simple-library">3.3.1.1. Example: A package containing a simple library</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#example-a-package-containing-executable-programs">3.3.1.2. Example: A package containing executable programs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#example-a-package-containing-a-library-and-executable-programs">3.3.1.3. Example: A package containing a library and executable programs</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#package-descriptions">3.3.2. Package descriptions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#modules-and-preprocessors">3.3.2.1. Modules and preprocessors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#package-properties">3.3.2.2. Package properties</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#library">3.3.2.3. Library</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#opening-an-interpreter-session">3.3.2.4. Opening an interpreter session</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#executables">3.3.2.5. Executables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test-suites">3.3.2.6. Test suites</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#benchmarks">3.3.2.7. Benchmarks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#build-information">3.3.2.8. Build information</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#configurations">3.3.2.9. Configurations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#conditional-blocks">3.3.2.10. Conditional Blocks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#meaning-of-field-values-when-using-conditionals">3.3.2.11. Meaning of field values when using conditionals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#source-repositories">3.3.2.12. Source Repositories</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#downloading-a-package-s-source">3.3.2.13. Downloading a package&#8217;s source</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#custom-setup-scripts">3.3.3. Custom setup scripts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#autogenerated-modules">3.3.4. Autogenerated modules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#accessing-data-files-from-package-code">3.3.5. Accessing data files from package code</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#accessing-the-package-version">3.3.5.1. Accessing the package version</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#system-dependent-parameters">3.3.6. System-dependent parameters</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#example-using-autoconf">3.3.6.1. Example: Using autoconf</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#conditional-compilation">3.3.7. Conditional compilation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#more-complex-packages">3.3.8. More complex packages</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bugs-and-stability.html">4. Reporting Bugs and Stability of Cabal Interfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nix-local-build-overview.html">5. Nix-style Local Builds</a></li>
+</ul>
+
+            
+          
+  <a href="genindex.html">Index</a>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Cabal</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="concepts-and-development.html">3. Package Concepts and Development</a> &raquo;</li>
+      
+    <li>3.1. Quickstart</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/developing-packages.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="quickstart">
+<h1>3.1. Quickstart<a class="headerlink" href="#quickstart" title="Permalink to this headline">¶</a></h1>
+<p>Lets assume we have created a project directory and already have a
+Haskell module or two.</p>
+<p>Every project needs a name, we&#8217;ll call this example &#8220;proglet&#8221;.</p>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">$</span> <span class="nb">cd</span> proglet/
+<span class="gp">$</span> ls
+<span class="go">Proglet.hs</span>
+</pre></div>
+</div>
+<p>It is assumed that (apart from external dependencies) all the files that
+make up a package live under a common project root directory. This
+simple example has all the project files in one directory, but most
+packages will use one or more subdirectories.</p>
+<p>To turn this into a Cabal package we need two extra files in the
+project&#8217;s root directory:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">proglet.cabal</span></code>: containing package metadata and build information.</li>
+<li><code class="docutils literal"><span class="pre">Setup.hs</span></code>: usually containing a few standardized lines of code,
+but can be customized if necessary.</li>
+</ul>
+<p>We can create both files manually or we can use <code class="docutils literal"><span class="pre">cabal</span> <span class="pre">init</span></code> to create
+them for us.</p>
+<div class="section" id="using-cabal-init">
+<h2>3.1.1. Using &#8220;cabal init&#8221;<a class="headerlink" href="#using-cabal-init" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal"><span class="pre">cabal</span> <span class="pre">init</span></code> command is interactive. It asks us a number of
+questions starting with the package name and version.</p>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">$</span> cabal init
+<span class="go">Package name [default &quot;proglet&quot;]?</span>
+<span class="go">Package version [default &quot;0.1&quot;]?</span>
+<span class="go">...</span>
+</pre></div>
+</div>
+<p>It also asks questions about various other bits of package metadata. For
+a package that you never intend to distribute to others, these fields
+can be left blank.</p>
+<p>One of the important questions is whether the package contains a library
+or an executable. Libraries are collections of Haskell modules that can
+be re-used by other Haskell libraries and programs, while executables
+are standalone programs.</p>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">What does the package build:</span>
+<span class="go">   1) Library</span>
+<span class="go">   2) Executable</span>
+<span class="go">Your choice?</span>
+</pre></div>
+</div>
+<p>For the moment these are the only choices. For more complex packages
+(e.g. a library and multiple executables or test suites) the <code class="docutils literal"><span class="pre">.cabal</span></code>
+file can be edited afterwards.</p>
+<p>Finally, <code class="docutils literal"><span class="pre">cabal</span> <span class="pre">init</span></code> creates the initial <code class="docutils literal"><span class="pre">proglet.cabal</span></code> and
+<code class="docutils literal"><span class="pre">Setup.hs</span></code> files, and depending on your choice of license, a
+<code class="docutils literal"><span class="pre">LICENSE</span></code> file as well.</p>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">Generating LICENSE...</span>
+<span class="go">Generating Setup.hs...</span>
+<span class="go">Generating proglet.cabal...</span>
+
+<span class="go">You may want to edit the .cabal file and add a Description field.</span>
+</pre></div>
+</div>
+<p>As this stage the <code class="docutils literal"><span class="pre">proglet.cabal</span></code> is not quite complete and before you
+are able to build the package you will need to edit the file and add
+some build information about the library or executable.</p>
+</div>
+<div class="section" id="editing-the-cabal-file">
+<h2>3.1.2. Editing the .cabal file<a class="headerlink" href="#editing-the-cabal-file" title="Permalink to this headline">¶</a></h2>
+<p>Load up the <code class="docutils literal"><span class="pre">.cabal</span></code> file in a text editor. The first part of the
+<code class="docutils literal"><span class="pre">.cabal</span></code> file has the package metadata and towards the end of the file
+you will find the <code class="docutils literal"><span class="pre">executable</span></code> or <code class="docutils literal"><span class="pre">library</span></code> section.</p>
+<p>You will see that the fields that have yet to be filled in are commented
+out. Cabal files use &#8220;<code class="docutils literal"><span class="pre">--</span></code>&#8221; Haskell-style comment syntax. (Note that
+comments are only allowed on lines on their own. Trailing comments on
+other lines are not allowed because they could be confused with program
+options.)</p>
+<p>If you selected earlier to create a library package then your <code class="docutils literal"><span class="pre">.cabal</span></code>
+file will have a section that looks like this:</p>
+<div class="highlight-cabal"><div class="highlight"><pre><span></span><span class="k">library</span>
+<span class="w">  </span><span class="k">exposed-modules</span><span class="p">:</span>     Proglet
+<span class="c1">  -- other-modules:</span>
+<span class="c1">  -- build-depends:</span>
+</pre></div>
+</div>
+<p>Alternatively, if you selected an executable then there will be a
+section like:</p>
+<div class="highlight-cabal"><div class="highlight"><pre><span></span><span class="k">executable</span> proglet
+<span class="c1">  -- main-is:</span>
+<span class="c1">  -- other-modules:</span>
+<span class="c1">  -- build-depends:</span>
+</pre></div>
+</div>
+<p>The build information fields listed (but commented out) are just the few
+most important and common fields. There are many others that are covered
+later in this chapter.</p>
+<p>Most of the build information fields are the same between libraries and
+executables. The difference is that libraries have a number of &#8220;exposed&#8221;
+modules that make up the public interface of the library, while
+executables have a file containing a <code class="docutils literal"><span class="pre">Main</span></code> module.</p>
+<p>The name of a library always matches the name of the package, so it is
+not specified in the library section. Executables often follow the name
+of the package too, but this is not required and the name is given
+explicitly.</p>
+</div>
+<div class="section" id="modules-included-in-the-package">
+<h2>3.1.3. Modules included in the package<a class="headerlink" href="#modules-included-in-the-package" title="Permalink to this headline">¶</a></h2>
+<p>For a library, <code class="docutils literal"><span class="pre">cabal</span> <span class="pre">init</span></code> looks in the project directory for files
+that look like Haskell modules and adds all the modules to the
+<code class="docutils literal"><span class="pre">exposed-modules</span></code> field. For modules that do not form part of your
+package&#8217;s public interface, you can move those modules to the
+<code class="docutils literal"><span class="pre">other-modules</span></code> field. Either way, all modules in the library need to
+be listed.</p>
+<p>For an executable, <code class="docutils literal"><span class="pre">cabal</span> <span class="pre">init</span></code> does not try to guess which file
+contains your program&#8217;s <code class="docutils literal"><span class="pre">Main</span></code> module. You will need to fill in the
+<code class="docutils literal"><span class="pre">main-is</span></code> field with the file name of your program&#8217;s <code class="docutils literal"><span class="pre">Main</span></code> module
+(including <code class="docutils literal"><span class="pre">.hs</span></code> or <code class="docutils literal"><span class="pre">.lhs</span></code> extension). Other modules included in the
+executable should be listed in the <code class="docutils literal"><span class="pre">other-modules</span></code> field.</p>
+</div>
+<div class="section" id="modules-imported-from-other-packages">
+<h2>3.1.4. Modules imported from other packages<a class="headerlink" href="#modules-imported-from-other-packages" title="Permalink to this headline">¶</a></h2>
+<p>While your library or executable may include a number of modules, it
+almost certainly also imports a number of external modules from the
+standard libraries or other pre-packaged libraries. (These other
+libraries are of course just Cabal packages that contain a library.)</p>
+<p>You have to list all of the library packages that your library or
+executable imports modules from. Or to put it another way: you have to
+list all the other packages that your package depends on.</p>
+<p>For example, suppose the example <code class="docutils literal"><span class="pre">Proglet</span></code> module imports the module
+<code class="docutils literal"><span class="pre">Data.Map</span></code>. The <code class="docutils literal"><span class="pre">Data.Map</span></code> module comes from the <code class="docutils literal"><span class="pre">containers</span></code>
+package, so we must list it:</p>
+<div class="highlight-cabal"><div class="highlight"><pre><span></span><span class="k">library</span>
+<span class="w">  </span><span class="k">exposed-modules</span><span class="p">:</span>     Proglet
+<span class="w">  </span><span class="k">other-modules</span><span class="p">:</span>
+<span class="w">  </span><span class="k">build-depends</span><span class="p">:</span>       containers<span class="p">,</span> base <span class="o">==</span> 4.*
+</pre></div>
+</div>
+<p>In addition, almost every package also depends on the <code class="docutils literal"><span class="pre">base</span></code> library
+package because it exports the standard <code class="docutils literal"><span class="pre">Prelude</span></code> module plus other
+basic modules like <code class="docutils literal"><span class="pre">Data.List</span></code>.</p>
+<p>You will notice that we have listed <code class="docutils literal"><span class="pre">base</span> <span class="pre">==</span> <span class="pre">4.*</span></code>. This gives a
+constraint on the version of the base package that our package will work
+with. The most common kinds of constraints are:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">pkgname</span> <span class="pre">&gt;=</span> <span class="pre">n</span></code></li>
+<li><code class="docutils literal"><span class="pre">pkgname</span> <span class="pre">&gt;=</span> <span class="pre">n</span> <span class="pre">&amp;&amp;</span> <span class="pre">&lt;</span> <span class="pre">m</span></code></li>
+<li><code class="docutils literal"><span class="pre">pkgname</span> <span class="pre">==</span> <span class="pre">n.*</span></code></li>
+</ul>
+<p>The last is just shorthand, for example <code class="docutils literal"><span class="pre">base</span> <span class="pre">==</span> <span class="pre">4.*</span></code> means exactly
+the same thing as <code class="docutils literal"><span class="pre">base</span> <span class="pre">&gt;=</span> <span class="pre">4</span> <span class="pre">&amp;&amp;</span> <span class="pre">&lt;</span> <span class="pre">5</span></code>.</p>
+</div>
+<div class="section" id="building-the-package">
+<h2>3.1.5. Building the package<a class="headerlink" href="#building-the-package" title="Permalink to this headline">¶</a></h2>
+<p>For simple packages that&#8217;s it! We can now try configuring and building
+the package:</p>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">$</span> cabal configure
+<span class="gp">$</span> cabal build
+</pre></div>
+</div>
+<p>Assuming those two steps worked then you can also install the package:</p>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">$</span> cabal install
+</pre></div>
+</div>
+<p>For libraries this makes them available for use in GHCi or to be used by
+other packages. For executables it installs the program so that you can
+run it (though you may first need to adjust your system&#8217;s <code class="docutils literal"><span class="pre">$PATH</span></code>).</p>
+</div>
+<div class="section" id="next-steps">
+<h2>3.1.6. Next steps<a class="headerlink" href="#next-steps" title="Permalink to this headline">¶</a></h2>
+<p>What we have covered so far should be enough for very simple packages
+that you use on your own system.</p>
+<p>The next few sections cover more details needed for more complex
+packages and details needed for distributing packages to other people.</p>
+<p>The previous chapter covers building and installing packages &#8211; your own
+packages or ones developed by other people.</p>
+</div>
+</div>
+<div class="section" id="package-concepts">
+<h1>3.2. Package concepts<a class="headerlink" href="#package-concepts" title="Permalink to this headline">¶</a></h1>
+<p>Before diving into the details of writing packages it helps to
+understand a bit about packages in the Haskell world and the particular
+approach that Cabal takes.</p>
+<div class="section" id="the-point-of-packages">
+<h2>3.2.1. The point of packages<a class="headerlink" href="#the-point-of-packages" title="Permalink to this headline">¶</a></h2>
+<p>Packages are a mechanism for organising and distributing code. Packages
+are particularly suited for &#8220;programming in the large&#8221;, that is building
+big systems by using and re-using code written by different people at
+different times.</p>
+<p>People organise code into packages based on functionality and
+dependencies. Social factors are also important: most packages have a
+single author, or a relatively small team of authors.</p>
+<p>Packages are also used for distribution: the idea is that a package can
+be created in one place and be moved to a different computer and be
+usable in that different environment. There are a surprising number of
+details that have to be got right for this to work, and a good package
+system helps to simply this process and make it reliable.</p>
+<p>Packages come in two main flavours: libraries of reusable code, and
+complete programs. Libraries present a code interface, an API, while
+programs can be run directly. In the Haskell world, library packages
+expose a set of Haskell modules as their public interface. Cabal
+packages can contain a library or executables or both.</p>
+<p>Some programming languages have packages as a builtin language concept.
+For example in Java, a package provides a local namespace for types and
+other definitions. In the Haskell world, packages are not a part of the
+language itself. Haskell programs consist of a number of modules, and
+packages just provide a way to partition the modules into sets of
+related functionality. Thus the choice of module names in Haskell is
+still important, even when using packages.</p>
+</div>
+<div class="section" id="package-names-and-versions">
+<h2>3.2.2. Package names and versions<a class="headerlink" href="#package-names-and-versions" title="Permalink to this headline">¶</a></h2>
+<p>All packages have a name, e.g. &#8220;HUnit&#8221;. Package names are assumed to be
+unique. Cabal package names may contain letters, numbers and hyphens,
+but not spaces and may also not contain a hyphened section consisting of
+only numbers. The namespace for Cabal packages is flat, not
+hierarchical.</p>
+<p>Packages also have a version, e.g &#8220;1.1&#8221;. This matches the typical way in
+which packages are developed. Strictly speaking, each version of a
+package is independent, but usually they are very similar. Cabal package
+versions follow the conventional numeric style, consisting of a sequence
+of digits such as &#8220;1.0.1&#8221; or &#8220;2.0&#8221;. There are a range of common
+conventions for &#8220;versioning&#8221; packages, that is giving some meaning to
+the version number in terms of changes in the package. Section [TODO]
+has some tips on package versioning.</p>
+<p>The combination of package name and version is called the <em>package ID</em>
+and is written with a hyphen to separate the name and version, e.g.
+&#8220;HUnit-1.1&#8221;.</p>
+<p>For Cabal packages, the combination of the package name and version
+<em>uniquely</em> identifies each package. Or to put it another way: two
+packages with the same name and version are considered to <em>be</em> the same.</p>
+<p>Strictly speaking, the package ID only identifies each Cabal <em>source</em>
+package; the same Cabal source package can be configured and built in
+different ways. There is a separate installed package ID that uniquely
+identifies each installed package instance. Most of the time however,
+users need not be aware of this detail.</p>
+</div>
+<div class="section" id="kinds-of-package-cabal-vs-ghc-vs-system">
+<h2>3.2.3. Kinds of package: Cabal vs GHC vs system<a class="headerlink" href="#kinds-of-package-cabal-vs-ghc-vs-system" title="Permalink to this headline">¶</a></h2>
+<p>It can be slightly confusing at first because there are various
+different notions of package floating around. Fortunately the details
+are not very complicated.</p>
+<dl class="docutils">
+<dt>Cabal packages</dt>
+<dd><p class="first">Cabal packages are really source packages. That is they contain
+Haskell (and sometimes C) source code.</p>
+<p class="last">Cabal packages can be compiled to produce GHC packages. They can
+also be translated into operating system packages.</p>
+</dd>
+<dt>GHC packages</dt>
+<dd><p class="first">This is GHC&#8217;s view on packages. GHC only cares about library
+packages, not executables. Library packages have to be registered
+with GHC for them to be available in GHCi or to be used when
+compiling other programs or packages.</p>
+<p>The low-level tool <code class="docutils literal"><span class="pre">ghc-pkg</span></code> is used to register GHC packages and
+to get information on what packages are currently registered.</p>
+<p>You never need to make GHC packages manually. When you build and
+install a Cabal package containing a library then it gets registered
+with GHC automatically.</p>
+<p class="last">Haskell implementations other than GHC have essentially the same
+concept of registered packages. For the most part, Cabal hides the
+slight differences.</p>
+</dd>
+<dt>Operating system packages</dt>
+<dd><p class="first">On operating systems like Linux and Mac OS X, the system has a
+specific notion of a package and there are tools for installing and
+managing packages.</p>
+<p>The Cabal package format is designed to allow Cabal packages to be
+translated, mostly-automatically, into operating system packages.
+They are usually translated 1:1, that is a single Cabal package
+becomes a single system package.</p>
+<p class="last">It is also possible to make Windows installers from Cabal packages,
+though this is typically done for a program together with all of its
+library dependencies, rather than packaging each library separately.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="unit-of-distribution">
+<h2>3.2.4. Unit of distribution<a class="headerlink" href="#unit-of-distribution" title="Permalink to this headline">¶</a></h2>
+<p>The Cabal package is the unit of distribution. What this means is that
+each Cabal package can be distributed on its own in source or binary
+form. Of course there may dependencies between packages, but there is
+usually a degree of flexibility in which versions of packages can work
+together so distributing them independently makes sense.</p>
+<p>It is perhaps easiest to see what being &#8220;the unit of distribution&#8221;
+means by contrast to an alternative approach. Many projects are made up
+of several interdependent packages and during development these might
+all be kept under one common directory tree and be built and tested
+together. When it comes to distribution however, rather than
+distributing them all together in a single tarball, it is required that
+they each be distributed independently in their own tarballs.</p>
+<p>Cabal&#8217;s approach is to say that if you can specify a dependency on a
+package then that package should be able to be distributed
+independently. Or to put it the other way round, if you want to
+distribute it as a single unit, then it should be a single package.</p>
+</div>
+<div class="section" id="explicit-dependencies-and-automatic-package-management">
+<h2>3.2.5. Explicit dependencies and automatic package management<a class="headerlink" href="#explicit-dependencies-and-automatic-package-management" title="Permalink to this headline">¶</a></h2>
+<p>Cabal takes the approach that all packages dependencies are specified
+explicitly and specified in a declarative way. The point is to enable
+automatic package management. This means tools like <code class="docutils literal"><span class="pre">cabal</span></code> can
+resolve dependencies and install a package plus all of its dependencies
+automatically. Alternatively, it is possible to mechanically (or mostly
+mechanically) translate Cabal packages into system packages and let the
+system package manager install dependencies automatically.</p>
+<p>It is important to track dependencies accurately so that packages can
+reliably be moved from one system to another system and still be able to
+build it there. Cabal is therefore relatively strict about specifying
+dependencies. For example Cabal&#8217;s default build system will not even let
+code build if it tries to import a module from a package that isn&#8217;t
+listed in the <code class="docutils literal"><span class="pre">.cabal</span></code> file, even if that package is actually
+installed. This helps to ensure that there are no &#8220;untracked
+dependencies&#8221; that could cause the code to fail to build on some other
+system.</p>
+<p>The explicit dependency approach is in contrast to the traditional
+&#8221;./configure&#8221; approach where instead of specifying dependencies
+declaratively, the <code class="docutils literal"><span class="pre">./configure</span></code> script checks if the dependencies are
+present on the system. Some manual work is required to transform a
+<code class="docutils literal"><span class="pre">./configure</span></code> based package into a Linux distribution package (or
+similar). This conversion work is usually done by people other than the
+package author(s). The practical effect of this is that only the most
+popular packages will benefit from automatic package management.
+Instead, Cabal forces the original author to specify the dependencies
+but the advantage is that every package can benefit from automatic
+package management.</p>
+<p>The &#8221;./configure&#8221; approach tends to encourage packages that adapt
+themselves to the environment in which they are built, for example by
+disabling optional features so that they can continue to work when a
+particular dependency is not available. This approach makes sense in a
+world where installing additional dependencies is a tiresome manual
+process and so minimising dependencies is important. The automatic
+package management view is that packages should just declare what they
+need and the package manager will take responsibility for ensuring that
+all the dependencies are installed.</p>
+<p>Sometimes of course optional features and optional dependencies do make
+sense. Cabal packages can have optional features and varying
+dependencies. These conditional dependencies are still specified in a
+declarative way however and remain compatible with automatic package
+management. The need to remain compatible with automatic package
+management means that Cabal&#8217;s conditional dependencies system is a bit
+less flexible than with the &#8221;./configure&#8221; approach.</p>
+</div>
+<div class="section" id="portability">
+<h2>3.2.6. Portability<a class="headerlink" href="#portability" title="Permalink to this headline">¶</a></h2>
+<p>One of the purposes of Cabal is to make it easier to build packages on
+different platforms (operating systems and CPU architectures), with
+different compiler versions and indeed even with different Haskell
+implementations. (Yes, there are Haskell implementations other than
+GHC!)</p>
+<p>Cabal provides abstractions of features present in different Haskell
+implementations and wherever possible it is best to take advantage of
+these to increase portability. Where necessary however it is possible to
+use specific features of specific implementations.</p>
+<p>For example a package author can list in the package&#8217;s <code class="docutils literal"><span class="pre">.cabal</span></code> what
+language extensions the code uses. This allows Cabal to figure out if
+the language extension is supported by the Haskell implementation that
+the user picks. Additionally, certain language extensions such as
+Template Haskell require special handling from the build system and by
+listing the extension it provides the build system with enough
+information to do the right thing.</p>
+<p>Another similar example is linking with foreign libraries. Rather than
+specifying GHC flags directly, the package author can list the libraries
+that are needed and the build system will take care of using the right
+flags for the compiler. Additionally this makes it easier for tools to
+discover what system C libraries a package needs, which is useful for
+tracking dependencies on system libraries (e.g. when translating into
+Linux distribution packages).</p>
+<p>In fact both of these examples fall into the category of explicitly
+specifying dependencies. Not all dependencies are other Cabal packages.
+Foreign libraries are clearly another kind of dependency. It&#8217;s also
+possible to think of language extensions as dependencies: the package
+depends on a Haskell implementation that supports all those extensions.</p>
+<p>Where compiler-specific options are needed however, there is an &#8220;escape
+hatch&#8221; available. The developer can specify implementation-specific
+options and more generally there is a configuration mechanism to
+customise many aspects of how a package is built depending on the
+Haskell implementation, the operating system, computer architecture and
+user-specified configuration flags.</p>
+</div>
+</div>
+<div class="section" id="developing-packages">
+<h1>3.3. Developing packages<a class="headerlink" href="#developing-packages" title="Permalink to this headline">¶</a></h1>
+<p>The Cabal package is the unit of distribution. When installed, its
+purpose is to make available:</p>
+<ul class="simple">
+<li>One or more Haskell programs.</li>
+<li>At most one library, exposing a number of Haskell modules.</li>
+</ul>
+<p>However having both a library and executables in a package does not work
+very well; if the executables depend on the library, they must
+explicitly list all the modules they directly or indirectly import from
+that library. Fortunately, starting with Cabal 1.8.0.4, executables can
+also declare the package that they are in as a dependency, and Cabal
+will treat them as if they were in another package that depended on the
+library.</p>
+<p>Internally, the package may consist of much more than a bunch of Haskell
+modules: it may also have C source code and header files, source code
+meant for preprocessing, documentation, test cases, auxiliary tools etc.</p>
+<p>A package is identified by a globally-unique <em>package name</em>, which
+consists of one or more alphanumeric words separated by hyphens. To
+avoid ambiguity, each of these words should contain at least one letter.
+Chaos will result if two distinct packages with the same name are
+installed on the same system. A particular version of the package is
+distinguished by a <em>version number</em>, consisting of a sequence of one or
+more integers separated by dots. These can be combined to form a single
+text string called the <em>package ID</em>, using a hyphen to separate the name
+from the version, e.g. &#8220;<code class="docutils literal"><span class="pre">HUnit-1.1</span></code>&#8221;.</p>
+<p>Note: Packages are not part of the Haskell language; they simply
+populate the hierarchical space of module names. In GHC 6.6 and later a
+program may contain multiple modules with the same name if they come
+from separate packages; in all other current Haskell systems packages
+may not overlap in the modules they provide, including hidden modules.</p>
+<div class="section" id="creating-a-package">
+<h2>3.3.1. Creating a package<a class="headerlink" href="#creating-a-package" title="Permalink to this headline">¶</a></h2>
+<p>Suppose you have a directory hierarchy containing the source files that
+make up your package. You will need to add two more files to the root
+directory of the package:</p>
+<dl class="docutils">
+<dt><em>package</em><code class="docutils literal"><span class="pre">.cabal</span></code></dt>
+<dd>a Unicode UTF-8 text file containing a package description. For
+details of the syntax of this file, see the <a class="reference external" href="#package-descriptions">section on package
+descriptions</a>.</dd>
+<dt><code class="docutils literal"><span class="pre">Setup.hs</span></code></dt>
+<dd>a single-module Haskell program to perform various setup tasks (with
+the interface described in the section on <a class="reference external" href="installing-packages.html">building and installing
+packages</a>. This module should import
+only modules that will be present in all Haskell implementations,
+including modules of the Cabal library. The content of this file is
+determined by the <code class="docutils literal"><span class="pre">build-type</span></code> setting in the <code class="docutils literal"><span class="pre">.cabal</span></code> file. In
+most cases it will be trivial, calling on the Cabal library to do
+most of the work.</dd>
+</dl>
+<p>Once you have these, you can create a source bundle of this directory
+for distribution. Building of the package is discussed in the section on
+<a class="reference external" href="installing-packages.html">building and installing packages</a>.</p>
+<p>One of the purposes of Cabal is to make it easier to build a package
+with different Haskell implementations. So it provides abstractions of
+features present in different Haskell implementations and wherever
+possible it is best to take advantage of these to increase portability.
+Where necessary however it is possible to use specific features of
+specific implementations. For example one of the pieces of information a
+package author can put in the package&#8217;s <code class="docutils literal"><span class="pre">.cabal</span></code> file is what language
+extensions the code uses. This is far preferable to specifying flags for
+a specific compiler as it allows Cabal to pick the right flags for the
+Haskell implementation that the user picks. It also allows Cabal to
+figure out if the language extension is even supported by the Haskell
+implementation that the user picks. Where compiler-specific options are
+needed however, there is an &#8220;escape hatch&#8221; available. The developer can
+specify implementation-specific options and more generally there is a
+configuration mechanism to customise many aspects of how a package is
+built depending on the Haskell implementation, the Operating system,
+computer architecture and user-specified configuration flags.</p>
+<div class="highlight-cabal"><div class="highlight"><pre><span></span><span class="k">name</span><span class="p">:</span>     Foo
+<span class="k">version</span><span class="p">:</span>  1.0
+
+<span class="k">library</span>
+<span class="w">  </span><span class="k">build-depends</span><span class="p">:</span>   base
+<span class="w">  </span><span class="k">exposed-modules</span><span class="p">:</span> Foo
+<span class="w">  </span><span class="k">extensions</span><span class="p">:</span>      ForeignFunctionInterface
+<span class="w">  </span><span class="k">ghc-options</span><span class="p">:</span>     -Wall
+  if os(windows)
+<span class="w">    </span><span class="k">build-depends</span><span class="p">:</span> Win32
+</pre></div>
+</div>
+<div class="section" id="example-a-package-containing-a-simple-library">
+<h3>3.3.1.1. Example: A package containing a simple library<a class="headerlink" href="#example-a-package-containing-a-simple-library" title="Permalink to this headline">¶</a></h3>
+<p>The HUnit package contains a file <code class="docutils literal"><span class="pre">HUnit.cabal</span></code> containing:</p>
+<div class="highlight-cabal"><div class="highlight"><pre><span></span><span class="k">name</span><span class="p">:</span>           HUnit
+<span class="k">version</span><span class="p">:</span>        1.1.1
+<span class="k">synopsis</span><span class="p">:</span>       A unit testing framework for Haskell
+<span class="k">homepage</span><span class="p">:</span>       http<span class="p">:</span>//hunit.sourceforge.net/
+<span class="k">category</span><span class="p">:</span>       Testing
+<span class="k">author</span><span class="p">:</span>         Dean Herington
+<span class="k">license</span><span class="p">:</span>        BSD3
+<span class="k">license-file</span><span class="p">:</span>   LICENSE
+<span class="k">cabal-version</span><span class="p">:</span>  <span class="o">&gt;=</span> 1.10
+<span class="k">build-type</span><span class="p">:</span>     Simple
+
+<span class="k">library</span>
+<span class="w">  </span><span class="k">build-depends</span><span class="p">:</span>      base <span class="o">&gt;=</span> 2 <span class="o">&amp;&amp;</span> <span class="o">&lt;</span> 4
+<span class="w">  </span><span class="k">exposed-modules</span><span class="p">:</span>    Test.HUnit.Base<span class="p">,</span> Test.HUnit.Lang<span class="p">,</span>
+                      Test.HUnit.Terminal<span class="p">,</span> Test.HUnit.Text<span class="p">,</span> Test.HUnit
+<span class="w">  </span><span class="k">default-extensions</span><span class="p">:</span> CPP
+</pre></div>
+</div>
+<p>and the following <code class="docutils literal"><span class="pre">Setup.hs</span></code>:</p>
+<div class="highlight-haskell"><div class="highlight"><pre><span></span><span class="kr">import</span> <span class="nn">Distribution.Simple</span>
+<span class="nf">main</span> <span class="ow">=</span> <span class="n">defaultMain</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="example-a-package-containing-executable-programs">
+<h3>3.3.1.2. Example: A package containing executable programs<a class="headerlink" href="#example-a-package-containing-executable-programs" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-cabal"><div class="highlight"><pre><span></span><span class="k">name</span><span class="p">:</span>           TestPackage
+<span class="k">version</span><span class="p">:</span>        0.0
+<span class="k">synopsis</span><span class="p">:</span>       Small package with two programs
+<span class="k">author</span><span class="p">:</span>         Angela Author
+<span class="k">license</span><span class="p">:</span>        BSD3
+<span class="k">build-type</span><span class="p">:</span>     Simple
+<span class="k">cabal-version</span><span class="p">:</span>  <span class="o">&gt;=</span> 1.2
+
+<span class="k">executable</span> program1
+<span class="w">  </span><span class="k">build-depends</span><span class="p">:</span>  HUnit
+<span class="w">  </span><span class="k">main-is</span><span class="p">:</span>        Main.hs
+<span class="w">  </span><span class="k">hs-source-dirs</span><span class="p">:</span> prog1
+
+<span class="k">executable</span> program2
+<span class="w">  </span><span class="k">main-is</span><span class="p">:</span>        Main.hs
+<span class="w">  </span><span class="k">build-depends</span><span class="p">:</span>  HUnit
+<span class="w">  </span><span class="k">hs-source-dirs</span><span class="p">:</span> prog2
+<span class="w">  </span><span class="k">other-modules</span><span class="p">:</span>  Utils
+</pre></div>
+</div>
+<p>with <code class="docutils literal"><span class="pre">Setup.hs</span></code> the same as above.</p>
+</div>
+<div class="section" id="example-a-package-containing-a-library-and-executable-programs">
+<h3>3.3.1.3. Example: A package containing a library and executable programs<a class="headerlink" href="#example-a-package-containing-a-library-and-executable-programs" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-cabal"><div class="highlight"><pre><span></span><span class="k">name</span><span class="p">:</span>            TestPackage
+<span class="k">version</span><span class="p">:</span>         0.0
+<span class="k">synopsis</span><span class="p">:</span>        Package with library and two programs
+<span class="k">license</span><span class="p">:</span>         BSD3
+<span class="k">author</span><span class="p">:</span>          Angela Author
+<span class="k">build-type</span><span class="p">:</span>      Simple
+<span class="k">cabal-version</span><span class="p">:</span>   <span class="o">&gt;=</span> 1.2
+
+<span class="k">library</span>
+<span class="w">  </span><span class="k">build-depends</span><span class="p">:</span>   HUnit
+<span class="w">  </span><span class="k">exposed-modules</span><span class="p">:</span> A<span class="p">,</span> B<span class="p">,</span> C
+
+<span class="k">executable</span> program1
+<span class="w">  </span><span class="k">main-is</span><span class="p">:</span>         Main.hs
+<span class="w">  </span><span class="k">hs-source-dirs</span><span class="p">:</span>  prog1
+<span class="w">  </span><span class="k">other-modules</span><span class="p">:</span>   A<span class="p">,</span> B
+
+<span class="k">executable</span> program2
+<span class="w">  </span><span class="k">main-is</span><span class="p">:</span>         Main.hs
+<span class="w">  </span><span class="k">hs-source-dirs</span><span class="p">:</span>  prog2
+<span class="w">  </span><span class="k">other-modules</span><span class="p">:</span>   A<span class="p">,</span> C<span class="p">,</span> Utils
+</pre></div>
+</div>
+<p>with <code class="docutils literal"><span class="pre">Setup.hs</span></code> the same as above. Note that any library modules
+required (directly or indirectly) by an executable must be listed again.</p>
+<p>The trivial setup script used in these examples uses the <em>simple build
+infrastructure</em> provided by the Cabal library (see
+<a class="reference external" href="../release/cabal-latest/doc/API/Cabal/Distribution-Simple.html">Distribution.Simple</a>).
+The simplicity lies in its interface rather that its implementation. It
+automatically handles preprocessing with standard preprocessors, and
+builds packages for all the Haskell implementations.</p>
+<p>The simple build infrastructure can also handle packages where building
+is governed by system-dependent parameters, if you specify a little more
+(see the section on <a class="reference external" href="#system-dependent-parameters">system-dependent
+parameters</a>). A few packages require
+<a class="reference external" href="#more-complex-packages">more elaborate solutions</a>.</p>
+</div>
+</div>
+<div class="section" id="package-descriptions">
+<h2>3.3.2. Package descriptions<a class="headerlink" href="#package-descriptions" title="Permalink to this headline">¶</a></h2>
+<p>The package description file must have a name ending in &#8220;<code class="docutils literal"><span class="pre">.cabal</span></code>&#8221;. It
+must be a Unicode text file encoded using valid UTF-8. There must be
+exactly one such file in the directory. The first part of the name is
+usually the package name, and some of the tools that operate on Cabal
+packages require this.</p>
+<p>In the package description file, lines whose first non-whitespace
+characters are &#8220;<code class="docutils literal"><span class="pre">--</span></code>&#8221; are treated as comments and ignored.</p>
+<p>This file should contain of a number global property descriptions and
+several sections.</p>
+<ul class="simple">
+<li>The <a class="reference external" href="#package-properties">global properties</a> describe the package
+as a whole, such as name, license, author, etc.</li>
+<li>Optionally, a number of <em>configuration flags</em> can be declared. These
+can be used to enable or disable certain features of a package. (see
+the section on <a class="reference external" href="#configurations">configurations</a>).</li>
+<li>The (optional) library section specifies the <a class="reference external" href="#library">library
+properties</a> and relevant <a class="reference external" href="#build-information">build
+information</a>.</li>
+<li>Following is an arbitrary number of executable sections which
+describe an executable program and relevant <a class="reference external" href="#build-information">build
+information</a>.</li>
+</ul>
+<p>Each section consists of a number of property descriptions in the form
+of field/value pairs, with a syntax roughly like mail message headers.</p>
+<ul class="simple">
+<li>Case is not significant in field names, but is significant in field
+values.</li>
+<li>To continue a field value, indent the next line relative to the field
+name.</li>
+<li>Field names may be indented, but all field values in the same section
+must use the same indentation.</li>
+<li>Tabs are <em>not</em> allowed as indentation characters due to a missing
+standard interpretation of tab width.</li>
+<li>To get a blank line in a field value, use an indented &#8220;<code class="docutils literal"><span class="pre">.</span></code>&#8220;</li>
+</ul>
+<p>The syntax of the value depends on the field. Field types include:</p>
+<dl class="docutils">
+<dt><em>token</em>, <em>filename</em>, <em>directory</em></dt>
+<dd>Either a sequence of one or more non-space non-comma characters, or
+a quoted string in Haskell 98 lexical syntax. The latter can be used
+for escaping whitespace, for example:
+<code class="docutils literal"><span class="pre">ghc-options:</span> <span class="pre">-Wall</span> <span class="pre">&quot;-with-rtsopts=-T</span> <span class="pre">-I1&quot;</span></code>. Unless otherwise
+stated, relative filenames and directories are interpreted from the
+package root directory.</dd>
+<dt><em>freeform</em>, <em>URL</em>, <em>address</em></dt>
+<dd>An arbitrary, uninterpreted string.</dd>
+<dt><em>identifier</em></dt>
+<dd>A letter followed by zero or more alphanumerics or underscores.</dd>
+<dt><em>compiler</em></dt>
+<dd>A compiler flavor (one of: <code class="docutils literal"><span class="pre">GHC</span></code>, <code class="docutils literal"><span class="pre">JHC</span></code>, <code class="docutils literal"><span class="pre">UHC</span></code> or <code class="docutils literal"><span class="pre">LHC</span></code>)
+followed by a version range. For example, <code class="docutils literal"><span class="pre">GHC</span> <span class="pre">==6.10.3</span></code>, or
+<code class="docutils literal"><span class="pre">LHC</span> <span class="pre">&gt;=0.6</span> <span class="pre">&amp;&amp;</span> <span class="pre">&lt;0.8</span></code>.</dd>
+</dl>
+<div class="section" id="modules-and-preprocessors">
+<h3>3.3.2.1. Modules and preprocessors<a class="headerlink" href="#modules-and-preprocessors" title="Permalink to this headline">¶</a></h3>
+<p>Haskell module names listed in the <code class="docutils literal"><span class="pre">exposed-modules</span></code> and
+<code class="docutils literal"><span class="pre">other-modules</span></code> fields may correspond to Haskell source files, i.e.
+with names ending in &#8220;<code class="docutils literal"><span class="pre">.hs</span></code>&#8221; or &#8220;<code class="docutils literal"><span class="pre">.lhs</span></code>&#8221;, or to inputs for various
+Haskell preprocessors. The simple build infrastructure understands the
+extensions:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">.gc</span></code> (<a class="reference external" href="http://hackage.haskell.org/package/greencard">greencard</a>)</li>
+<li><code class="docutils literal"><span class="pre">.chs</span></code> (<a class="reference external" href="http://hackage.haskell.org/package/c2hs">c2hs</a>)</li>
+<li><code class="docutils literal"><span class="pre">.hsc</span></code> (<a class="reference external" href="http://hackage.haskell.org/package/hsc2hs">hsc2hs</a>)</li>
+<li><code class="docutils literal"><span class="pre">.y</span></code> and <code class="docutils literal"><span class="pre">.ly</span></code> (<a class="reference external" href="http://www.haskell.org/happy/">happy</a>)</li>
+<li><code class="docutils literal"><span class="pre">.x</span></code> (<a class="reference external" href="http://www.haskell.org/alex/">alex</a>)</li>
+<li><code class="docutils literal"><span class="pre">.cpphs</span></code> (<a class="reference external" href="http://projects.haskell.org/cpphs/">cpphs</a>)</li>
+</ul>
+<p>When building, Cabal will automatically run the appropriate preprocessor
+and compile the Haskell module it produces. For the <code class="docutils literal"><span class="pre">c2hs</span></code> and
+<code class="docutils literal"><span class="pre">hsc2hs</span></code> preprocessors, Cabal will also automatically add, compile and
+link any C sources generated by the preprocessor (produced by
+<code class="docutils literal"><span class="pre">hsc2hs</span></code>&#8216;s <code class="docutils literal"><span class="pre">#def</span></code> feature or <code class="docutils literal"><span class="pre">c2hs</span></code>&#8216;s auto-generated wrapper
+functions).</p>
+<p>Some fields take lists of values, which are optionally separated by
+commas, except for the <code class="docutils literal"><span class="pre">build-depends</span></code> field, where the commas are
+mandatory.</p>
+<p>Some fields are marked as required. All others are optional, and unless
+otherwise specified have empty default values.</p>
+</div>
+<div class="section" id="package-properties">
+<h3>3.3.2.2. Package properties<a class="headerlink" href="#package-properties" title="Permalink to this headline">¶</a></h3>
+<p>These fields may occur in the first top-level properties section and
+describe the package as a whole:</p>
+<dl class="docutils">
+<dt><code class="docutils literal"><span class="pre">name:</span></code> <em>package-name</em> (required)</dt>
+<dd>The unique name of the package, without the version number.</dd>
+<dt><code class="docutils literal"><span class="pre">version:</span></code> <em>numbers</em> (required)</dt>
+<dd>The package version number, usually consisting of a sequence of
+natural numbers separated by dots.</dd>
+<dt><code class="docutils literal"><span class="pre">cabal-version:</span></code> <em>&gt;= x.y</em></dt>
+<dd><p class="first">The version of the Cabal specification that this package description
+uses. The Cabal specification does slowly evolve, introducing new
+features and occasionally changing the meaning of existing features.
+By specifying which version of the spec you are using it enables
+programs which process the package description to know what syntax
+to expect and what each part means.</p>
+<p>For historical reasons this is always expressed using <em>&gt;=</em> version
+range syntax. No other kinds of version range make sense, in
+particular upper bounds do not make sense. In future this field will
+specify just a version number, rather than a version range.</p>
+<p>The version number you specify will affect both compatibility and
+behaviour. Most tools (including the Cabal library and cabal
+program) understand a range of versions of the Cabal specification.
+Older tools will of course only work with older versions of the
+Cabal specification. Most of the time, tools that are too old will
+recognise this fact and produce a suitable error message.</p>
+<p>As for behaviour, new versions of the Cabal spec can change the
+meaning of existing syntax. This means if you want to take advantage
+of the new meaning or behaviour then you must specify the newer
+Cabal version. Tools are expected to use the meaning and behaviour
+appropriate to the version given in the package description.</p>
+<p class="last">In particular, the syntax of package descriptions changed
+significantly with Cabal version 1.2 and the <code class="docutils literal"><span class="pre">cabal-version</span></code> field
+is now required. Files written in the old syntax are still
+recognized, so if you require compatibility with very old Cabal
+versions then you may write your package description file using the
+old syntax. Please consult the user&#8217;s guide of an older Cabal
+version for a description of that syntax.</p>
+</dd>
+<dt><code class="docutils literal"><span class="pre">build-type:</span></code> <em>identifier</em></dt>
+<dd><p class="first">The type of build used by this package. Build types are the
+constructors of the
+<a class="reference external" href="../release/cabal-latest/doc/API/Cabal/Distribution-PackageDescription.html#t:BuildType">BuildType</a>
+type, defaulting to <code class="docutils literal"><span class="pre">Custom</span></code>.</p>
+<p>If the build type is anything other than <code class="docutils literal"><span class="pre">Custom</span></code>, then the
+<code class="docutils literal"><span class="pre">Setup.hs</span></code> file <em>must</em> be exactly the standardized content
+discussed below. This is because in these cases, <code class="docutils literal"><span class="pre">cabal</span></code> will
+ignore the <code class="docutils literal"><span class="pre">Setup.hs</span></code> file completely, whereas other methods of
+package management, such as <code class="docutils literal"><span class="pre">runhaskell</span> <span class="pre">Setup.hs</span> <span class="pre">[CMD]</span></code>, still
+rely on the <code class="docutils literal"><span class="pre">Setup.hs</span></code> file.</p>
+<p>For build type <code class="docutils literal"><span class="pre">Simple</span></code>, the contents of <code class="docutils literal"><span class="pre">Setup.hs</span></code> must be:</p>
+<div class="highlight-haskell"><div class="highlight"><pre><span></span><span class="kr">import</span> <span class="nn">Distribution.Simple</span>
+<span class="nf">main</span> <span class="ow">=</span> <span class="n">defaultMain</span>
+</pre></div>
+</div>
+<p>For build type <code class="docutils literal"><span class="pre">Configure</span></code> (see the section on <a class="reference external" href="#system-dependent-parameters">system-dependent
+parameters</a> below), the contents of
+<code class="docutils literal"><span class="pre">Setup.hs</span></code> must be:</p>
+<div class="highlight-haskell"><div class="highlight"><pre><span></span><span class="kr">import</span> <span class="nn">Distribution.Simple</span>
+<span class="nf">main</span> <span class="ow">=</span> <span class="n">defaultMainWithHooks</span> <span class="n">autoconfUserHooks</span>
+</pre></div>
+</div>
+<p>For build type <code class="docutils literal"><span class="pre">Make</span></code> (see the section on <a class="reference external" href="installing-packages.html#more-complex-packages">more complex
+packages</a> below),
+the contents of <code class="docutils literal"><span class="pre">Setup.hs</span></code> must be:</p>
+<div class="highlight-haskell"><div class="highlight"><pre><span></span><span class="kr">import</span> <span class="nn">Distribution.Make</span>
+<span class="nf">main</span> <span class="ow">=</span> <span class="n">defaultMain</span>
+</pre></div>
+</div>
+<p>For build type <code class="docutils literal"><span class="pre">Custom</span></code>, the file <code class="docutils literal"><span class="pre">Setup.hs</span></code> can be customized,
+and will be used both by <code class="docutils literal"><span class="pre">cabal</span></code> and other tools.</p>
+<p class="last">For most packages, the build type <code class="docutils literal"><span class="pre">Simple</span></code> is sufficient.</p>
+</dd>
+<dt><code class="docutils literal"><span class="pre">license:</span></code> <em>identifier</em> (default: <code class="docutils literal"><span class="pre">AllRightsReserved</span></code>)</dt>
+<dd>The type of license under which this package is distributed. License
+names are the constants of the
+<a class="reference external" href="../release/cabal-latest/doc/API/Cabal/Distribution-License.html#t:License">License</a>
+type.</dd>
+<dt><code class="docutils literal"><span class="pre">license-file:</span></code> <em>filename</em> or <code class="docutils literal"><span class="pre">license-files:</span></code> <em>filename list</em></dt>
+<dd><p class="first">The name of a file(s) containing the precise copyright license for
+this package. The license file(s) will be installed with the
+package.</p>
+<p class="last">If you have multiple license files then use the <code class="docutils literal"><span class="pre">license-files</span></code>
+field instead of (or in addition to) the <code class="docutils literal"><span class="pre">license-file</span></code> field.</p>
+</dd>
+<dt><code class="docutils literal"><span class="pre">copyright:</span></code> <em>freeform</em></dt>
+<dd>The content of a copyright notice, typically the name of the holder
+of the copyright on the package and the year(s) from which copyright
+is claimed. For example: <code class="docutils literal"><span class="pre">Copyright:</span> <span class="pre">(c)</span> <span class="pre">2006-2007</span> <span class="pre">Joe</span> <span class="pre">Bloggs</span></code></dd>
+<dt><code class="docutils literal"><span class="pre">author:</span></code> <em>freeform</em></dt>
+<dd><p class="first">The original author of the package.</p>
+<p class="last">Remember that <code class="docutils literal"><span class="pre">.cabal</span></code> files are Unicode, using the UTF-8
+encoding.</p>
+</dd>
+<dt><code class="docutils literal"><span class="pre">maintainer:</span></code> <em>address</em></dt>
+<dd>The current maintainer or maintainers of the package. This is an
+e-mail address to which users should send bug reports, feature
+requests and patches.</dd>
+<dt><code class="docutils literal"><span class="pre">stability:</span></code> <em>freeform</em></dt>
+<dd>The stability level of the package, e.g. <code class="docutils literal"><span class="pre">alpha</span></code>,
+<code class="docutils literal"><span class="pre">experimental</span></code>, <code class="docutils literal"><span class="pre">provisional</span></code>, <code class="docutils literal"><span class="pre">stable</span></code>.</dd>
+<dt><code class="docutils literal"><span class="pre">homepage:</span></code> <em>URL</em></dt>
+<dd>The package homepage.</dd>
+<dt><code class="docutils literal"><span class="pre">bug-reports:</span></code> <em>URL</em></dt>
+<dd><p class="first">The URL where users should direct bug reports. This would normally
+be either:</p>
+<ul class="simple">
+<li>A <code class="docutils literal"><span class="pre">mailto:</span></code> URL, e.g. for a person or a mailing list.</li>
+<li>An <code class="docutils literal"><span class="pre">http:</span></code> (or <code class="docutils literal"><span class="pre">https:</span></code>) URL for an online bug tracking
+system.</li>
+</ul>
+<p>For example Cabal itself uses a web-based bug tracking system</p>
+<div class="last highlight-cabal"><div class="highlight"><pre><span></span><span class="k">bug-reports</span><span class="p">:</span> http<span class="p">:</span>//hackage.haskell.org/trac/hackage/
+</pre></div>
+</div>
+</dd>
+<dt><code class="docutils literal"><span class="pre">package-url:</span></code> <em>URL</em></dt>
+<dd>The location of a source bundle for the package. The distribution
+should be a Cabal package.</dd>
+<dt><code class="docutils literal"><span class="pre">synopsis:</span></code> <em>freeform</em></dt>
+<dd>A very short description of the package, for use in a table of
+packages. This is your headline, so keep it short (one line) but as
+informative as possible. Save space by not including the package
+name or saying it&#8217;s written in Haskell.</dd>
+<dt><code class="docutils literal"><span class="pre">description:</span></code> <em>freeform</em></dt>
+<dd><p class="first">Description of the package. This may be several paragraphs, and
+should be aimed at a Haskell programmer who has never heard of your
+package before.</p>
+<p class="last">For library packages, this field is used as prologue text by
+<code class="docutils literal"><span class="pre">`setup</span> <span class="pre">haddock</span></code> &lt;installing-packages.html#setup-haddock&gt;`__, and
+thus may contain the same markup as <a class="reference external" href="http://www.haskell.org/haddock/">Haddock</a> documentation
+comments.</p>
+</dd>
+<dt><code class="docutils literal"><span class="pre">category:</span></code> <em>freeform</em></dt>
+<dd>A classification category for future use by the package catalogue
+<a class="reference external" href="http://hackage.haskell.org/">Hackage</a>. These categories have not
+yet been specified, but the upper levels of the module hierarchy
+make a good start.</dd>
+<dt><code class="docutils literal"><span class="pre">tested-with:</span></code> <em>compiler list</em></dt>
+<dd>A list of compilers and versions against which the package has been
+tested (or at least built).</dd>
+<dt><code class="docutils literal"><span class="pre">data-files:</span></code> <em>filename list</em></dt>
+<dd><p class="first">A list of files to be installed for run-time use by the package.
+This is useful for packages that use a large amount of static data,
+such as tables of values or code templates. Cabal provides a way to
+<a class="reference external" href="#accessing-data-files-from-package-code">find these files at
+run-time</a>.</p>
+<p>A limited form of <code class="docutils literal"><span class="pre">*</span></code> wildcards in file names, for example
+<code class="docutils literal"><span class="pre">data-files:</span> <span class="pre">images/*.png</span></code> matches all the <code class="docutils literal"><span class="pre">.png</span></code> files in the
+<code class="docutils literal"><span class="pre">images</span></code> directory.</p>
+<p>The limitation is that <code class="docutils literal"><span class="pre">*</span></code> wildcards are only allowed in place of
+the file name, not in the directory name or file extension. In
+particular, wildcards do not include directories contents
+recursively. Furthermore, if a wildcard is used it must be used with
+an extension, so <code class="docutils literal"><span class="pre">data-files:</span> <span class="pre">data/*</span></code> is not allowed. When
+matching a wildcard plus extension, a file&#8217;s full extension must
+match exactly, so <code class="docutils literal"><span class="pre">*.gz</span></code> matches <code class="docutils literal"><span class="pre">foo.gz</span></code> but not
+<code class="docutils literal"><span class="pre">foo.tar.gz</span></code>. A wildcard that does not match any files is an
+error.</p>
+<p class="last">The reason for providing only a very limited form of wildcard is to
+concisely express the common case of a large number of related files
+of the same file type without making it too easy to accidentally
+include unwanted files.</p>
+</dd>
+<dt><code class="docutils literal"><span class="pre">data-dir:</span></code> <em>directory</em></dt>
+<dd>The directory where Cabal looks for data files to install, relative
+to the source directory. By default, Cabal will look in the source
+directory itself.</dd>
+<dt><code class="docutils literal"><span class="pre">extra-source-files:</span></code> <em>filename list</em></dt>
+<dd>A list of additional files to be included in source distributions
+built with
+<code class="docutils literal"><span class="pre">`setup</span> <span class="pre">sdist</span></code> &lt;installing-packages.html#setup-sdist&gt;`__. As with
+<code class="docutils literal"><span class="pre">data-files</span></code> it can use a limited form of <code class="docutils literal"><span class="pre">*</span></code> wildcards in file
+names.</dd>
+<dt><code class="docutils literal"><span class="pre">extra-doc-files:</span></code> <em>filename list</em></dt>
+<dd>A list of additional files to be included in source distributions,
+and also copied to the html directory when Haddock documentation is
+generated. As with <code class="docutils literal"><span class="pre">data-files</span></code> it can use a limited form of <code class="docutils literal"><span class="pre">*</span></code>
+wildcards in file names.</dd>
+<dt><code class="docutils literal"><span class="pre">extra-tmp-files:</span></code> <em>filename list</em></dt>
+<dd>A list of additional files or directories to be removed by
+<code class="docutils literal"><span class="pre">`setup</span> <span class="pre">clean</span></code> &lt;installing-packages.html#setup-clean&gt;`__. These
+would typically be additional files created by additional hooks,
+such as the scheme described in the section on <a class="reference external" href="#system-dependent-parameters">system-dependent
+parameters</a>.</dd>
+</dl>
+</div>
+<div class="section" id="library">
+<h3>3.3.2.3. Library<a class="headerlink" href="#library" title="Permalink to this headline">¶</a></h3>
+<p>The library section should contain the following fields:</p>
+<dl class="docutils">
+<dt><code class="docutils literal"><span class="pre">exposed-modules:</span></code> <em>identifier list</em> (required if this package contains a library)</dt>
+<dd>A list of modules added by this package.</dd>
+<dt><code class="docutils literal"><span class="pre">exposed:</span></code> <em>boolean</em> (default: <code class="docutils literal"><span class="pre">True</span></code>)</dt>
+<dd><p class="first">Some Haskell compilers (notably GHC) support the notion of packages
+being &#8220;exposed&#8221; or &#8220;hidden&#8221; which means the modules they provide can
+be easily imported without always having to specify which package
+they come from. However this only works effectively if the modules
+provided by all exposed packages do not overlap (otherwise a module
+import would be ambiguous).</p>
+<p class="last">Almost all new libraries use hierarchical module names that do not
+clash, so it is very uncommon to have to use this field. However it
+may be necessary to set <code class="docutils literal"><span class="pre">exposed:</span> <span class="pre">False</span></code> for some old libraries
+that use a flat module namespace or where it is known that the
+exposed modules would clash with other common modules.</p>
+</dd>
+<dt><code class="docutils literal"><span class="pre">reexported-modules:</span></code> <em>exportlist</em></dt>
+<dd><p class="first">Supported only in GHC 7.10 and later. A list of modules to
+<em>reexport</em> from this package. The syntax of this field is
+<code class="docutils literal"><span class="pre">orig-pkg:Name</span> <span class="pre">as</span> <span class="pre">NewName</span></code> to reexport module <code class="docutils literal"><span class="pre">Name</span></code> from
+<code class="docutils literal"><span class="pre">orig-pkg</span></code> with the new name <code class="docutils literal"><span class="pre">NewName</span></code>. We also support
+abbreviated versions of the syntax: if you omit <code class="docutils literal"><span class="pre">as</span> <span class="pre">NewName</span></code>,
+we&#8217;ll reexport without renaming; if you omit <code class="docutils literal"><span class="pre">orig-pkg</span></code>, then we
+will automatically figure out which package to reexport from, if
+it&#8217;s unambiguous.</p>
+<p class="last">Reexported modules are useful for compatibility shims when a package
+has been split into multiple packages, and they have the useful
+property that if a package provides a module, and another package
+reexports it under the same name, these are not considered a
+conflict (as would be the case with a stub module.) They can also be
+used to resolve name conflicts.</p>
+</dd>
+</dl>
+<p>The library section may also contain build information fields (see the
+section on <a class="reference external" href="#build-information">build information</a>).</p>
+<p>Cabal 1.25 and later support &#8220;internal libraries&#8221;, which are extra named
+libraries (as opposed to the usual unnamed library section). For
+example, suppose that your test suite needs access to some internal
+modules in your library, which you do not otherwise want to export. You
+could put these modules in an internal library, which the main library
+and the test suite <code class="docutils literal"><span class="pre">build-depends</span></code> upon. Then your Cabal file might
+look something like this:</p>
+<div class="highlight-cabal"><div class="highlight"><pre><span></span><span class="k">name</span><span class="p">:</span>           foo
+<span class="k">version</span><span class="p">:</span>        1.0
+<span class="k">license</span><span class="p">:</span>        BSD3
+<span class="k">cabal-version</span><span class="p">:</span>  <span class="o">&gt;=</span> 1.23
+<span class="k">build-type</span><span class="p">:</span>     Simple
+
+<span class="k">library</span> foo-internal
+<span class="w">    </span><span class="k">exposed-modules</span><span class="p">:</span> Foo.Internal
+<span class="w">    </span><span class="k">build-depends</span><span class="p">:</span> base
+
+<span class="k">library</span>
+<span class="w">    </span><span class="k">exposed-modules</span><span class="p">:</span> Foo.Public
+<span class="w">    </span><span class="k">build-depends</span><span class="p">:</span> foo-internal<span class="p">,</span> base
+
+<span class="k">test-suite</span> test-foo
+<span class="w">    </span><span class="k">type</span><span class="p">:</span>       exitcode-stdio-1.0
+<span class="w">    </span><span class="k">main-is</span><span class="p">:</span>    test-foo.hs
+<span class="w">    </span><span class="k">build-depends</span><span class="p">:</span> foo-internal<span class="p">,</span> base
+</pre></div>
+</div>
+<p>Internal libraries are also useful for packages that define multiple
+executables, but do not define a publically accessible library. Internal
+libraries are only visible internally in the package (so they can only
+be added to the <code class="docutils literal"><span class="pre">build-depends</span></code> of same-package libraries,
+executables, test suites, etc.) Internal libraries locally shadow any
+packages which have the same name (so don&#8217;t name an internal library
+with the same name as an external dependency.)</p>
+</div>
+<div class="section" id="opening-an-interpreter-session">
+<h3>3.3.2.4. Opening an interpreter session<a class="headerlink" href="#opening-an-interpreter-session" title="Permalink to this headline">¶</a></h3>
+<p>While developing a package, it is often useful to make its code
+available inside an interpreter session. This can be done with the
+<code class="docutils literal"><span class="pre">repl</span></code> command:</p>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">$</span> cabal repl
+</pre></div>
+</div>
+<p>The name comes from the acronym
+<a class="reference external" href="http://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop">REPL</a>,
+which stands for &#8220;read-eval-print-loop&#8221;. By default <code class="docutils literal"><span class="pre">cabal</span> <span class="pre">repl</span></code> loads
+the first component in a package. If the package contains several named
+components, the name can be given as an argument to <code class="docutils literal"><span class="pre">repl</span></code>. The name
+can be also optionally prefixed with the component&#8217;s type for
+disambiguation purposes. Example:</p>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">$</span> cabal repl foo
+<span class="gp">$</span> cabal repl exe:foo
+<span class="gp">$</span> cabal repl test:bar
+<span class="gp">$</span> cabal repl bench:baz
+</pre></div>
+</div>
+<div class="section" id="freezing-dependency-versions">
+<h4>3.3.2.4.1. Freezing dependency versions<a class="headerlink" href="#freezing-dependency-versions" title="Permalink to this headline">¶</a></h4>
+<p>If a package is built in several different environments, such as a
+development environment, a staging environment and a production
+environment, it may be necessary or desirable to ensure that the same
+dependency versions are selected in each environment. This can be done
+with the <code class="docutils literal"><span class="pre">freeze</span></code> command:</p>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">$</span> cabal freeze
+</pre></div>
+</div>
+<p>The command writes the selected version for all dependencies to the
+<code class="docutils literal"><span class="pre">cabal.config</span></code> file. All environments which share this file will use
+the dependency versions specified in it.</p>
+</div>
+<div class="section" id="generating-dependency-version-bounds">
+<h4>3.3.2.4.2. Generating dependency version bounds<a class="headerlink" href="#generating-dependency-version-bounds" title="Permalink to this headline">¶</a></h4>
+<p>Cabal also has the ability to suggest dependency version bounds that
+conform to <a class="reference external" href="http://pvp.haskell.org/">Package Versioning Policy</a>, which is
+a recommended versioning system for publicly released Cabal packages.
+This is done by running the <code class="docutils literal"><span class="pre">gen-bounds</span></code> command:</p>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">$</span> cabal gen-bounds
+</pre></div>
+</div>
+<p>For example, given the following dependencies specified in
+<code class="docutils literal"><span class="pre">build-depends</span></code>:</p>
+<div class="highlight-cabal"><div class="highlight"><pre><span></span><span class="k">build-depends</span><span class="p">:</span>
+  foo <span class="o">==</span> 0.5.2
+  bar <span class="o">==</span> 1.1
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">gen-bounds</span></code> will suggest changing them to the following:</p>
+<div class="highlight-cabal"><div class="highlight"><pre><span></span><span class="k">build-depends</span><span class="p">:</span>
+  foo <span class="o">&gt;=</span> 0.5.2 <span class="o">&amp;&amp;</span> <span class="o">&lt;</span> 0.6
+  bar <span class="o">&gt;=</span> 1.1 <span class="o">&amp;&amp;</span> <span class="o">&lt;</span> 1.2
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="executables">
+<h3>3.3.2.5. Executables<a class="headerlink" href="#executables" title="Permalink to this headline">¶</a></h3>
+<p>Executable sections (if present) describe executable programs contained
+in the package and must have an argument after the section label, which
+defines the name of the executable. This is a freeform argument but may
+not contain spaces.</p>
+<p>The executable may be described using the following fields, as well as
+build information fields (see the section on <a class="reference external" href="#build-information">build
+information</a>).</p>
+<dl class="docutils">
+<dt><code class="docutils literal"><span class="pre">main-is:</span></code> <em>filename</em> (required)</dt>
+<dd>The name of the <code class="docutils literal"><span class="pre">.hs</span></code> or <code class="docutils literal"><span class="pre">.lhs</span></code> file containing the <code class="docutils literal"><span class="pre">Main</span></code>
+module. Note that it is the <code class="docutils literal"><span class="pre">.hs</span></code> filename that must be listed,
+even if that file is generated using a preprocessor. The source file
+must be relative to one of the directories listed in
+<code class="docutils literal"><span class="pre">hs-source-dirs</span></code>.</dd>
+</dl>
+<div class="section" id="running-executables">
+<h4>3.3.2.5.1. Running executables<a class="headerlink" href="#running-executables" title="Permalink to this headline">¶</a></h4>
+<p>You can have Cabal build and run your executables by using the <code class="docutils literal"><span class="pre">run</span></code>
+command:</p>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">$</span> cabal run EXECUTABLE <span class="o">[</span>-- EXECUTABLE_FLAGS<span class="o">]</span>
+</pre></div>
+</div>
+<p>This command will configure, build and run the executable
+<code class="docutils literal"><span class="pre">EXECUTABLE</span></code>. The double dash separator is required to distinguish
+executable flags from <code class="docutils literal"><span class="pre">run</span></code>&#8216;s own flags. If there is only one
+executable defined in the whole package, the executable&#8217;s name can be
+omitted. See the output of <code class="docutils literal"><span class="pre">cabal</span> <span class="pre">help</span> <span class="pre">run</span></code> for a list of options you
+can pass to <code class="docutils literal"><span class="pre">cabal</span> <span class="pre">run</span></code>.</p>
+</div>
+</div>
+<div class="section" id="test-suites">
+<h3>3.3.2.6. Test suites<a class="headerlink" href="#test-suites" title="Permalink to this headline">¶</a></h3>
+<p>Test suite sections (if present) describe package test suites and must
+have an argument after the section label, which defines the name of the
+test suite. This is a freeform argument, but may not contain spaces. It
+should be unique among the names of the package&#8217;s other test suites, the
+package&#8217;s executables, and the package itself. Using test suite sections
+requires at least Cabal version 1.9.2.</p>
+<p>The test suite may be described using the following fields, as well as
+build information fields (see the section on <a class="reference external" href="#build-information">build
+information</a>).</p>
+<dl class="docutils">
+<dt><code class="docutils literal"><span class="pre">type:</span></code> <em>interface</em> (required)</dt>
+<dd>The interface type and version of the test suite. Cabal supports two
+test suite interfaces, called <code class="docutils literal"><span class="pre">exitcode-stdio-1.0</span></code> and
+<code class="docutils literal"><span class="pre">detailed-0.9</span></code>. Each of these types may require or disallow other
+fields as described below.</dd>
+</dl>
+<p>Test suites using the <code class="docutils literal"><span class="pre">exitcode-stdio-1.0</span></code> interface are executables
+that indicate test failure with a non-zero exit code when run; they may
+provide human-readable log information through the standard output and
+error channels. The <code class="docutils literal"><span class="pre">exitcode-stdio-1.0</span></code> type requires the <code class="docutils literal"><span class="pre">main-is</span></code>
+field.</p>
+<dl class="docutils">
+<dt><code class="docutils literal"><span class="pre">main-is:</span></code> <em>filename</em> (required: <code class="docutils literal"><span class="pre">exitcode-stdio-1.0</span></code>, disallowed: <code class="docutils literal"><span class="pre">detailed-0.9</span></code>)</dt>
+<dd>The name of the <code class="docutils literal"><span class="pre">.hs</span></code> or <code class="docutils literal"><span class="pre">.lhs</span></code> file containing the <code class="docutils literal"><span class="pre">Main</span></code>
+module. Note that it is the <code class="docutils literal"><span class="pre">.hs</span></code> filename that must be listed,
+even if that file is generated using a preprocessor. The source file
+must be relative to one of the directories listed in
+<code class="docutils literal"><span class="pre">hs-source-dirs</span></code>. This field is analogous to the <code class="docutils literal"><span class="pre">main-is</span></code> field
+of an executable section.</dd>
+</dl>
+<p>Test suites using the <code class="docutils literal"><span class="pre">detailed-0.9</span></code> interface are modules exporting
+the symbol <code class="docutils literal"><span class="pre">tests</span> <span class="pre">::</span> <span class="pre">IO</span> <span class="pre">[Test]</span></code>. The <code class="docutils literal"><span class="pre">Test</span></code> type is exported by the
+module <code class="docutils literal"><span class="pre">Distribution.TestSuite</span></code> provided by Cabal. For more details,
+see the example below.</p>
+<p>The <code class="docutils literal"><span class="pre">detailed-0.9</span></code> interface allows Cabal and other test agents to
+inspect a test suite&#8217;s results case by case, producing detailed human-
+and machine-readable log files. The <code class="docutils literal"><span class="pre">detailed-0.9</span></code> interface requires
+the <code class="docutils literal"><span class="pre">test-module</span></code> field.</p>
+<dl class="docutils">
+<dt><code class="docutils literal"><span class="pre">test-module:</span></code> <em>identifier</em> (required: <code class="docutils literal"><span class="pre">detailed-0.9</span></code>, disallowed: <code class="docutils literal"><span class="pre">exitcode-stdio-1.0</span></code>)</dt>
+<dd>The module exporting the <code class="docutils literal"><span class="pre">tests</span></code> symbol.</dd>
+</dl>
+<div class="section" id="example-package-using-exitcode-stdio-1-0-interface">
+<h4>3.3.2.6.1. Example: Package using <code class="docutils literal"><span class="pre">exitcode-stdio-1.0</span></code> interface<a class="headerlink" href="#example-package-using-exitcode-stdio-1-0-interface" title="Permalink to this headline">¶</a></h4>
+<p>The example package description and executable source file below
+demonstrate the use of the <code class="docutils literal"><span class="pre">exitcode-stdio-1.0</span></code> interface.</p>
+<div class="literal-block-wrapper container" id="foo-cabal">
+<div class="code-block-caption"><span class="caption-text">foo.cabal</span><a class="headerlink" href="#foo-cabal" title="Permalink to this code">¶</a></div>
+<div class="highlight-cabal"><div class="highlight"><pre><span></span><span class="k">Name</span><span class="p">:</span>           foo
+<span class="k">Version</span><span class="p">:</span>        1.0
+<span class="k">License</span><span class="p">:</span>        BSD3
+<span class="k">Cabal-Version</span><span class="p">:</span>  <span class="o">&gt;=</span> 1.9.2
+<span class="k">Build-Type</span><span class="p">:</span>     Simple
+
+<span class="k">Test-Suite</span> test-foo
+<span class="w">    </span><span class="k">type</span><span class="p">:</span>       exitcode-stdio-1.0
+<span class="w">    </span><span class="k">main-is</span><span class="p">:</span>    test-foo.hs
+<span class="w">    </span><span class="k">build-depends</span><span class="p">:</span> base
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper container" id="test-foo-hs">
+<div class="code-block-caption"><span class="caption-text">test-foo.hs</span><a class="headerlink" href="#test-foo-hs" title="Permalink to this code">¶</a></div>
+<div class="highlight-haskell"><div class="highlight"><pre><span></span><span class="kr">module</span> <span class="nn">Main</span> <span class="kr">where</span>
+
+<span class="kr">import</span> <span class="nn">System.Exit</span> <span class="p">(</span><span class="nf">exitFailure</span><span class="p">)</span>
+
+<span class="nf">main</span> <span class="ow">=</span> <span class="kr">do</span>
+    <span class="n">putStrLn</span> <span class="s">&quot;This test always fails!&quot;</span>
+    <span class="n">exitFailure</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="example-package-using-detailed-0-9-interface">
+<h4>3.3.2.6.2. Example: Package using <code class="docutils literal"><span class="pre">detailed-0.9</span></code> interface<a class="headerlink" href="#example-package-using-detailed-0-9-interface" title="Permalink to this headline">¶</a></h4>
+<p>The example package description and test module source file below
+demonstrate the use of the <code class="docutils literal"><span class="pre">detailed-0.9</span></code> interface. The test module
+also develops a simple implementation of the interface set by
+<code class="docutils literal"><span class="pre">Distribution.TestSuite</span></code>, but in actual usage the implementation would
+be provided by the library that provides the testing facility.</p>
+<div class="literal-block-wrapper container" id="bar-cabal">
+<div class="code-block-caption"><span class="caption-text">bar.cabal</span><a class="headerlink" href="#bar-cabal" title="Permalink to this code">¶</a></div>
+<div class="highlight-cabal"><div class="highlight"><pre><span></span><span class="k">Name</span><span class="p">:</span>           bar
+<span class="k">Version</span><span class="p">:</span>        1.0
+<span class="k">License</span><span class="p">:</span>        BSD3
+<span class="k">Cabal-Version</span><span class="p">:</span>  <span class="o">&gt;=</span> 1.9.2
+<span class="k">Build-Type</span><span class="p">:</span>     Simple
+
+<span class="k">Test-Suite</span> test-bar
+<span class="w">    </span><span class="k">type</span><span class="p">:</span>       detailed-0.9
+<span class="w">    </span><span class="k">test-module</span><span class="p">:</span> Bar
+<span class="w">    </span><span class="k">build-depends</span><span class="p">:</span> base<span class="p">,</span> Cabal <span class="o">&gt;=</span> 1.9.2
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper container" id="bar-hs">
+<div class="code-block-caption"><span class="caption-text">Bar.hs</span><a class="headerlink" href="#bar-hs" title="Permalink to this code">¶</a></div>
+<div class="highlight-haskell"><div class="highlight"><pre><span></span><span class="kr">module</span> <span class="nn">Bar</span> <span class="p">(</span> <span class="nf">tests</span> <span class="p">)</span> <span class="kr">where</span>
+
+<span class="kr">import</span> <span class="nn">Distribution.TestSuite</span>
+
+<span class="nf">tests</span> <span class="ow">::</span> <span class="kt">IO</span> <span class="p">[</span><span class="kt">Test</span><span class="p">]</span>
+<span class="nf">tests</span> <span class="ow">=</span> <span class="n">return</span> <span class="p">[</span> <span class="kt">Test</span> <span class="n">succeeds</span><span class="p">,</span> <span class="kt">Test</span> <span class="n">fails</span> <span class="p">]</span>
+  <span class="kr">where</span>
+    <span class="n">succeeds</span> <span class="ow">=</span> <span class="kt">TestInstance</span>
+        <span class="p">{</span> <span class="n">run</span> <span class="ow">=</span> <span class="n">return</span> <span class="o">$</span> <span class="kt">Finished</span> <span class="kt">Pass</span>
+        <span class="p">,</span> <span class="n">name</span> <span class="ow">=</span> <span class="s">&quot;succeeds&quot;</span>
+        <span class="p">,</span> <span class="n">tags</span> <span class="ow">=</span> <span class="kt">[]</span>
+        <span class="p">,</span> <span class="n">options</span> <span class="ow">=</span> <span class="kt">[]</span>
+        <span class="p">,</span> <span class="n">setOption</span> <span class="ow">=</span> <span class="nf">\</span><span class="kr">_</span> <span class="kr">_</span> <span class="ow">-&gt;</span> <span class="kt">Right</span> <span class="n">succeeds</span>
+        <span class="p">}</span>
+    <span class="n">fails</span> <span class="ow">=</span> <span class="kt">TestInstance</span>
+        <span class="p">{</span> <span class="n">run</span> <span class="ow">=</span> <span class="n">return</span> <span class="o">$</span> <span class="kt">Finished</span> <span class="o">$</span> <span class="kt">Fail</span> <span class="s">&quot;Always fails!&quot;</span>
+        <span class="p">,</span> <span class="n">name</span> <span class="ow">=</span> <span class="s">&quot;fails&quot;</span>
+        <span class="p">,</span> <span class="n">tags</span> <span class="ow">=</span> <span class="kt">[]</span>
+        <span class="p">,</span> <span class="n">options</span> <span class="ow">=</span> <span class="kt">[]</span>
+        <span class="p">,</span> <span class="n">setOption</span> <span class="ow">=</span> <span class="nf">\</span><span class="kr">_</span> <span class="kr">_</span> <span class="ow">-&gt;</span> <span class="kt">Right</span> <span class="n">fails</span>
+        <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="running-test-suites">
+<h4>3.3.2.6.3. Running test suites<a class="headerlink" href="#running-test-suites" title="Permalink to this headline">¶</a></h4>
+<p>You can have Cabal run your test suites using its built-in test runner:</p>
+<div class="highlight-cabal"><div class="highlight"><pre><span></span>$ cabal configure --enable-tests
+$ cabal build
+$ cabal test
+</pre></div>
+</div>
+<p>See the output of <code class="docutils literal"><span class="pre">cabal</span> <span class="pre">help</span> <span class="pre">test</span></code> for a list of options you can pass
+to <code class="docutils literal"><span class="pre">cabal</span> <span class="pre">test</span></code>.</p>
+</div>
+</div>
+<div class="section" id="benchmarks">
+<h3>3.3.2.7. Benchmarks<a class="headerlink" href="#benchmarks" title="Permalink to this headline">¶</a></h3>
+<p>Benchmark sections (if present) describe benchmarks contained in the
+package and must have an argument after the section label, which defines
+the name of the benchmark. This is a freeform argument, but may not
+contain spaces. It should be unique among the names of the package&#8217;s
+other benchmarks, the package&#8217;s test suites, the package&#8217;s executables,
+and the package itself. Using benchmark sections requires at least Cabal
+version 1.9.2.</p>
+<p>The benchmark may be described using the following fields, as well as
+build information fields (see the section on <a class="reference external" href="#build-information">build
+information</a>).</p>
+<dl class="docutils">
+<dt><code class="docutils literal"><span class="pre">type:</span></code> <em>interface</em> (required)</dt>
+<dd>The interface type and version of the benchmark. At the moment Cabal
+only support one benchmark interface, called <code class="docutils literal"><span class="pre">exitcode-stdio-1.0</span></code>.</dd>
+</dl>
+<p>Benchmarks using the <code class="docutils literal"><span class="pre">exitcode-stdio-1.0</span></code> interface are executables
+that indicate failure to run the benchmark with a non-zero exit code
+when run; they may provide human-readable information through the
+standard output and error channels.</p>
+<dl class="docutils">
+<dt><code class="docutils literal"><span class="pre">main-is:</span></code> <em>filename</em> (required: <code class="docutils literal"><span class="pre">exitcode-stdio-1.0</span></code>)</dt>
+<dd>The name of the <code class="docutils literal"><span class="pre">.hs</span></code> or <code class="docutils literal"><span class="pre">.lhs</span></code> file containing the <code class="docutils literal"><span class="pre">Main</span></code>
+module. Note that it is the <code class="docutils literal"><span class="pre">.hs</span></code> filename that must be listed,
+even if that file is generated using a preprocessor. The source file
+must be relative to one of the directories listed in
+<code class="docutils literal"><span class="pre">hs-source-dirs</span></code>. This field is analogous to the <code class="docutils literal"><span class="pre">main-is</span></code> field
+of an executable section.</dd>
+</dl>
+<div class="section" id="id1">
+<h4>3.3.2.7.1. Example: Package using <code class="docutils literal"><span class="pre">exitcode-stdio-1.0</span></code> interface<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
+<p>The example package description and executable source file below
+demonstrate the use of the <code class="docutils literal"><span class="pre">exitcode-stdio-1.0</span></code> interface.</p>
+<div class="literal-block-wrapper container" id="foo-bench-cabal">
+<div class="code-block-caption"><span class="caption-text">foo.cabal</span><a class="headerlink" href="#foo-bench-cabal" title="Permalink to this code">¶</a></div>
+<div class="highlight-cabal"><div class="highlight"><pre><span></span><span class="k">Name</span><span class="p">:</span>           foo
+<span class="k">Version</span><span class="p">:</span>        1.0
+<span class="k">License</span><span class="p">:</span>        BSD3
+<span class="k">Cabal-Version</span><span class="p">:</span>  <span class="o">&gt;=</span> 1.9.2
+<span class="k">Build-Type</span><span class="p">:</span>     Simple
+
+<span class="k">Benchmark</span> bench-foo
+<span class="w">    </span><span class="k">type</span><span class="p">:</span>       exitcode-stdio-1.0
+<span class="w">    </span><span class="k">main-is</span><span class="p">:</span>    bench-foo.hs
+<span class="w">    </span><span class="k">build-depends</span><span class="p">:</span> base<span class="p">,</span> time
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper container" id="bench-foo-hs">
+<div class="code-block-caption"><span class="caption-text">bench-foo.hs</span><a class="headerlink" href="#bench-foo-hs" title="Permalink to this code">¶</a></div>
+<div class="highlight-haskell"><div class="highlight"><pre><span></span><span class="cm">{-# LANGUAGE BangPatterns #-}</span>
+<span class="kr">module</span> <span class="nn">Main</span> <span class="kr">where</span>
+
+<span class="kr">import</span> <span class="nn">Data.Time.Clock</span>
+
+<span class="nf">fib</span> <span class="mi">0</span> <span class="ow">=</span> <span class="mi">1</span>
+<span class="nf">fib</span> <span class="mi">1</span> <span class="ow">=</span> <span class="mi">1</span>
+<span class="nf">fib</span> <span class="n">n</span> <span class="ow">=</span> <span class="n">fib</span> <span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">fib</span> <span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="nf">main</span> <span class="ow">=</span> <span class="kr">do</span>
+    <span class="n">start</span> <span class="ow">&lt;-</span> <span class="n">getCurrentTime</span>
+    <span class="kr">let</span> <span class="o">!</span><span class="n">r</span> <span class="ow">=</span> <span class="n">fib</span> <span class="mi">20</span>
+    <span class="n">end</span> <span class="ow">&lt;-</span> <span class="n">getCurrentTime</span>
+    <span class="n">putStrLn</span> <span class="o">$</span> <span class="s">&quot;fib 20 took &quot;</span> <span class="o">++</span> <span class="n">show</span> <span class="p">(</span><span class="n">diffUTCTime</span> <span class="n">end</span> <span class="n">start</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="running-benchmarks">
+<h4>3.3.2.7.2. Running benchmarks<a class="headerlink" href="#running-benchmarks" title="Permalink to this headline">¶</a></h4>
+<p>You can have Cabal run your benchmark using its built-in benchmark
+runner:</p>
+<div class="highlight-cabal"><div class="highlight"><pre><span></span>$ cabal configure --enable-benchmarks
+$ cabal build
+$ cabal bench
+</pre></div>
+</div>
+<p>See the output of <code class="docutils literal"><span class="pre">cabal</span> <span class="pre">help</span> <span class="pre">bench</span></code> for a list of options you can
+pass to <code class="docutils literal"><span class="pre">cabal</span> <span class="pre">bench</span></code>.</p>
+</div>
+</div>
+<div class="section" id="build-information">
+<h3>3.3.2.8. Build information<a class="headerlink" href="#build-information" title="Permalink to this headline">¶</a></h3>
+<p>The following fields may be optionally present in a library, executable,
+test suite or benchmark section, and give information for the building
+of the corresponding library or executable. See also the sections on
+<a class="reference external" href="#system-dependent-parameters">system-dependent parameters</a> and
+<a class="reference external" href="#configurations">configurations</a> for a way to supply
+system-dependent values for these fields.</p>
+<dl class="docutils">
+<dt><code class="docutils literal"><span class="pre">build-depends:</span></code> <em>package list</em></dt>
+<dd><p class="first">A list of packages needed to build this one. Each package can be
+annotated with a version constraint.</p>
+<p>Version constraints use the operators <code class="docutils literal"><span class="pre">==,</span> <span class="pre">&gt;=,</span> <span class="pre">&gt;,</span> <span class="pre">&lt;,</span> <span class="pre">&lt;=</span></code> and a
+version number. Multiple constraints can be combined using <code class="docutils literal"><span class="pre">&amp;&amp;</span></code> or
+<code class="docutils literal"><span class="pre">||</span></code>. If no version constraint is specified, any version is
+assumed to be acceptable. For example:</p>
+<div class="highlight-cabal"><div class="highlight"><pre><span></span><span class="k">library</span>
+<span class="w">  </span><span class="k">build-depends</span><span class="p">:</span>
+    base <span class="o">&gt;=</span> 2<span class="p">,</span>
+    foo <span class="o">&gt;=</span> 1.2.3 <span class="o">&amp;&amp;</span> <span class="o">&lt;</span> 1.3<span class="p">,</span>
+    bar
+</pre></div>
+</div>
+<p>Dependencies like <code class="docutils literal"><span class="pre">foo</span> <span class="pre">&gt;=</span> <span class="pre">1.2.3</span> <span class="pre">&amp;&amp;</span> <span class="pre">&lt;</span> <span class="pre">1.3</span></code> turn out to be very
+common because it is recommended practise for package versions to
+correspond to API versions (see <a class="reference external" href="http://pvp.haskell.org/">PVP</a>).</p>
+<p>Since Cabal 1.6, there is a special wildcard syntax to help with
+such ranges</p>
+<div class="highlight-cabal"><div class="highlight"><pre><span></span><span class="k">build-depends</span><span class="p">:</span> foo <span class="o">==</span>1.2.*
+</pre></div>
+</div>
+<p>It is only syntactic sugar. It is exactly equivalent to
+<code class="docutils literal"><span class="pre">foo</span> <span class="pre">&gt;=</span> <span class="pre">1.2</span> <span class="pre">&amp;&amp;</span> <span class="pre">&lt;</span> <span class="pre">1.3</span></code>.</p>
+<p>Starting with Cabal 2.0, there&#8217;s a new syntactic sugar to support
+<a class="reference external" href="http://pvp.haskell.org/">PVP</a>-style
+major upper bounds conveniently, and is inspired by similiar
+syntactic sugar found in other language ecosystems where it&#8217;s often
+called the &#8220;Caret&#8221; operator:</p>
+<div class="highlight-cabal"><div class="highlight"><pre><span></span><span class="k">build-depends</span><span class="p">:</span> foo ^<span class="o">&gt;=</span> 1.2.3.4<span class="p">,</span>
+               bar ^<span class="o">&gt;=</span> 1
+</pre></div>
+</div>
+<p>The declaration above is exactly equivalent to</p>
+<div class="highlight-cabal"><div class="highlight"><pre><span></span><span class="k">build-depends</span><span class="p">:</span> foo <span class="o">&gt;=</span> 1.2.3.4 <span class="o">&amp;&amp;</span> <span class="o">&lt;</span> 1.3<span class="p">,</span>
+               bar <span class="o">&gt;=</span> 1 <span class="o">&amp;&amp;</span> <span class="o">&lt;</span> 1.1
+</pre></div>
+</div>
+<p>Note: Prior to Cabal 1.8, <code class="docutils literal"><span class="pre">build-depends</span></code> specified in each
+section were global to all sections. This was unintentional, but
+some packages were written to depend on it, so if you need your
+<code class="docutils literal"><span class="pre">build-depends</span></code> to be local to each section, you must specify at
+least <code class="docutils literal"><span class="pre">Cabal-Version:</span> <span class="pre">&gt;=</span> <span class="pre">1.8</span></code> in your <code class="docutils literal"><span class="pre">.cabal</span></code> file.</p>
+<p class="last">Note: Cabal 1.20 experimentally supported module thinning and
+renaming in <code class="docutils literal"><span class="pre">build-depends</span></code>; however, this support has since been
+removed and should not be used.</p>
+</dd>
+<dt><code class="docutils literal"><span class="pre">other-modules:</span></code> <em>identifier list</em></dt>
+<dd><p class="first">A list of modules used by the component but not exposed to users.
+For a library component, these would be hidden modules of the
+library. For an executable, these would be auxiliary modules to be
+linked with the file named in the <code class="docutils literal"><span class="pre">main-is</span></code> field.</p>
+<p class="last">Note: Every module in the package <em>must</em> be listed in one of
+<code class="docutils literal"><span class="pre">other-modules</span></code>, <code class="docutils literal"><span class="pre">exposed-modules</span></code> or <code class="docutils literal"><span class="pre">main-is</span></code> fields.</p>
+</dd>
+<dt><code class="docutils literal"><span class="pre">hs-source-dirs:</span></code> <em>directory list</em> (default: &#8220;<code class="docutils literal"><span class="pre">.</span></code>&#8221;)</dt>
+<dd><p class="first">Root directories for the module hierarchy.</p>
+<p class="last">For backwards compatibility, the old variant <code class="docutils literal"><span class="pre">hs-source-dir</span></code> is
+also recognized.</p>
+</dd>
+<dt><code class="docutils literal"><span class="pre">default-extensions:</span></code> <em>identifier list</em></dt>
+<dd>A list of Haskell extensions used by every module. These determine
+corresponding compiler options enabled for all files. Extension
+names are the constructors of the
+<a class="reference external" href="../release/cabal-latest/doc/API/Cabal/Language-Haskell-Extension.html#t:Extension">Extension</a>
+type. For example, <code class="docutils literal"><span class="pre">CPP</span></code> specifies that Haskell source files are
+to be preprocessed with a C preprocessor.</dd>
+<dt><code class="docutils literal"><span class="pre">other-extensions:</span></code> <em>identifier list</em></dt>
+<dd><p class="first">A list of Haskell extensions used by some (but not necessarily all)
+modules. From GHC version 6.6 onward, these may be specified by
+placing a <code class="docutils literal"><span class="pre">LANGUAGE</span></code> pragma in the source files affected e.g.</p>
+<div class="highlight-haskell"><div class="highlight"><pre><span></span><span class="cm">{-# LANGUAGE CPP, MultiParamTypeClasses #-}</span>
+</pre></div>
+</div>
+<p>In Cabal-1.24 the dependency solver will use this and
+<code class="docutils literal"><span class="pre">default-extensions</span></code> information. Cabal prior to 1.24 will abort
+compilation if the current compiler doesn&#8217;t provide the extensions.</p>
+<p>If you use some extensions conditionally, using CPP or conditional
+module lists, it is good to replicate the condition in
+<code class="docutils literal"><span class="pre">other-extensions</span></code> declarations:</p>
+<div class="highlight-cabal"><div class="highlight"><pre><span></span><span class="k">other-extensions</span><span class="p">:</span> CPP
+<span class="k">if</span> impl(ghc <span class="o">&gt;=</span> 7.5)
+<span class="w">  </span><span class="k">other-extensions</span><span class="p">:</span> PolyKinds
+</pre></div>
+</div>
+<p class="last">You could also omit the conditionally used extensions, as they are
+for information only, but it is recommended to replicate them in
+<code class="docutils literal"><span class="pre">other-extensions</span></code> declarations.</p>
+</dd>
+<dt><code class="docutils literal"><span class="pre">build-tools:</span></code> <em>program list</em></dt>
+<dd>A list of programs, possibly annotated with versions, needed to
+build this package, e.g. <code class="docutils literal"><span class="pre">c2hs</span> <span class="pre">&gt;=</span> <span class="pre">0.15,</span> <span class="pre">cpphs</span></code>. If no version
+constraint is specified, any version is assumed to be acceptable.
+<code class="docutils literal"><span class="pre">build-tools</span></code> can refer to locally defined executables, in which
+case Cabal will make sure that executable is built first and add it
+to the PATH upon invocations to the compiler.</dd>
+<dt><code class="docutils literal"><span class="pre">buildable:</span></code> <em>boolean</em> (default: <code class="docutils literal"><span class="pre">True</span></code>)</dt>
+<dd>Is the component buildable? Like some of the other fields below,
+this field is more useful with the slightly more elaborate form of
+the simple build infrastructure described in the section on
+<a class="reference external" href="#system-dependent-parameters">system-dependent parameters</a>.</dd>
+<dt><code class="docutils literal"><span class="pre">ghc-options:</span></code> <em>token list</em></dt>
+<dd><p class="first">Additional options for GHC. You can often achieve the same effect
+using the <code class="docutils literal"><span class="pre">extensions</span></code> field, which is preferred.</p>
+<p>Options required only by one module may be specified by placing an
+<code class="docutils literal"><span class="pre">OPTIONS_GHC</span></code> pragma in the source file affected.</p>
+<p class="last">As with many other fields, whitespace can be escaped by using
+Haskell string syntax. Example:
+<code class="docutils literal"><span class="pre">ghc-options:</span> <span class="pre">-Wcompat</span> <span class="pre">&quot;-with-rtsopts=-T</span> <span class="pre">-I1&quot;</span> <span class="pre">-Wall</span></code>.</p>
+</dd>
+<dt><code class="docutils literal"><span class="pre">ghc-prof-options:</span></code> <em>token list</em></dt>
+<dd><p class="first">Additional options for GHC when the package is built with profiling
+enabled.</p>
+<p>Note that as of Cabal-1.24, the default profiling detail level
+defaults to <code class="docutils literal"><span class="pre">exported-functions</span></code> for libraries and
+<code class="docutils literal"><span class="pre">toplevel-functions</span></code> for executables. For GHC these correspond to
+the flags <code class="docutils literal"><span class="pre">-fprof-auto-exported</span></code> and <code class="docutils literal"><span class="pre">-fprof-auto-top</span></code>. Prior to
+Cabal-1.24 the level defaulted to <code class="docutils literal"><span class="pre">none</span></code>. These levels can be
+adjusted by the person building the package with the
+<code class="docutils literal"><span class="pre">--profiling-detail</span></code> and <code class="docutils literal"><span class="pre">--library-profiling-detail</span></code> flags.</p>
+<p class="last">It is typically better for the person building the package to pick
+the profiling detail level rather than for the package author. So
+unless you have special needs it is probably better not to specify
+any of the GHC <code class="docutils literal"><span class="pre">-fprof-auto*</span></code> flags here. However if you wish to
+override the profiling detail level, you can do so using the
+<code class="docutils literal"><span class="pre">ghc-prof-options</span></code> field: use <code class="docutils literal"><span class="pre">-fno-prof-auto</span></code> or one of the
+other <code class="docutils literal"><span class="pre">-fprof-auto*</span></code> flags.</p>
+</dd>
+<dt><code class="docutils literal"><span class="pre">ghc-shared-options:</span></code> <em>token list</em></dt>
+<dd>Additional options for GHC when the package is built as shared
+library. The options specified via this field are combined with the
+ones specified via <code class="docutils literal"><span class="pre">ghc-options</span></code>, and are passed to GHC during
+both the compile and link phases.</dd>
+<dt><code class="docutils literal"><span class="pre">includes:</span></code> <em>filename list</em></dt>
+<dd><p class="first">A list of header files to be included in any compilations via C.
+This field applies to both header files that are already installed
+on the system and to those coming with the package to be installed.
+The former files should be found in absolute paths, while the latter
+files should be found in paths relative to the top of the source
+tree or relative to one of the directories listed in
+<code class="docutils literal"><span class="pre">include-dirs</span></code>.</p>
+<p class="last">These files typically contain function prototypes for foreign
+imports used by the package. This is in contrast to
+<code class="docutils literal"><span class="pre">install-includes</span></code>, which lists header files that are intended to
+be exposed to other packages that transitively depend on this
+library.</p>
+</dd>
+<dt><code class="docutils literal"><span class="pre">install-includes:</span></code> <em>filename list</em></dt>
+<dd><p class="first">A list of header files from this package to be installed into
+<code class="docutils literal"><span class="pre">$libdir/includes</span></code> when the package is installed. Files listed in
+<code class="docutils literal"><span class="pre">install-includes:</span></code> should be found in relative to the top of the
+source tree or relative to one of the directories listed in
+<code class="docutils literal"><span class="pre">include-dirs</span></code>.</p>
+<p><code class="docutils literal"><span class="pre">install-includes</span></code> is typically used to name header files that
+contain prototypes for foreign imports used in Haskell code in this
+package, for which the C implementations are also provided with the
+package. For example, here is a <code class="docutils literal"><span class="pre">.cabal</span></code> file for a hypothetical
+<code class="docutils literal"><span class="pre">bindings-clib</span></code> package that bundles the C source code for
+<code class="docutils literal"><span class="pre">clib</span></code>:</p>
+<div class="highlight-cabal"><div class="highlight"><pre><span></span><span class="k">include-dirs</span><span class="p">:</span>     cbits
+<span class="k">c-sources</span><span class="p">:</span>        clib.c
+<span class="k">install-includes</span><span class="p">:</span> clib.h
+</pre></div>
+</div>
+<p>Now any package that depends (directly or transitively) on the
+<code class="docutils literal"><span class="pre">bindings-clib</span></code> library can use <code class="docutils literal"><span class="pre">clib.h</span></code>.</p>
+<p class="last">Note that in order for files listed in <code class="docutils literal"><span class="pre">install-includes</span></code> to be
+usable when compiling the package itself, they need to be listed in
+the <code class="docutils literal"><span class="pre">includes:</span></code> field as well.</p>
+</dd>
+<dt><code class="docutils literal"><span class="pre">include-dirs:</span></code> <em>directory list</em></dt>
+<dd>A list of directories to search for header files, when preprocessing
+with <code class="docutils literal"><span class="pre">c2hs</span></code>, <code class="docutils literal"><span class="pre">hsc2hs</span></code>, <code class="docutils literal"><span class="pre">cpphs</span></code> or the C preprocessor, and also
+when compiling via C. Directories can be absolute paths (e.g., for
+system directories) or paths that are relative to the top of the
+source tree. Cabal looks in these directories when attempting to
+locate files listed in <code class="docutils literal"><span class="pre">includes</span></code> and <code class="docutils literal"><span class="pre">install-includes</span></code>.</dd>
+<dt><code class="docutils literal"><span class="pre">c-sources:</span></code> <em>filename list</em></dt>
+<dd>A list of C source files to be compiled and linked with the Haskell
+files.</dd>
+<dt><code class="docutils literal"><span class="pre">js-sources:</span></code> <em>filename list</em></dt>
+<dd>A list of JavaScript source files to be linked with the Haskell
+files (only for JavaScript targets).</dd>
+<dt><code class="docutils literal"><span class="pre">extra-libraries:</span></code> <em>token list</em></dt>
+<dd>A list of extra libraries to link with.</dd>
+<dt><code class="docutils literal"><span class="pre">extra-ghci-libraries:</span></code> <em>token list</em></dt>
+<dd>A list of extra libraries to be used instead of &#8216;extra-libraries&#8217;
+when the package is loaded with GHCi.</dd>
+<dt><code class="docutils literal"><span class="pre">extra-lib-dirs:</span></code> <em>directory list</em></dt>
+<dd>A list of directories to search for libraries.</dd>
+<dt><code class="docutils literal"><span class="pre">cc-options:</span></code> <em>token list</em></dt>
+<dd>Command-line arguments to be passed to the C compiler. Since the
+arguments are compiler-dependent, this field is more useful with the
+setup described in the section on <a class="reference external" href="#system-dependent-parameters">system-dependent
+parameters</a>.</dd>
+<dt><code class="docutils literal"><span class="pre">cpp-options:</span></code> <em>token list</em></dt>
+<dd>Command-line arguments for pre-processing Haskell code. Applies to
+haskell source and other pre-processed Haskell source like .hsc
+.chs. Does not apply to C code, that&#8217;s what cc-options is for.</dd>
+<dt><code class="docutils literal"><span class="pre">ld-options:</span></code> <em>token list</em></dt>
+<dd>Command-line arguments to be passed to the linker. Since the
+arguments are compiler-dependent, this field is more useful with the
+setup described in the section on <a class="reference external" href="#system-dependent-parameters">system-dependent
+parameters</a>&gt;.</dd>
+<dt><code class="docutils literal"><span class="pre">pkgconfig-depends:</span></code> <em>package list</em></dt>
+<dd><p class="first">A list of
+<a class="reference external" href="http://www.freedesktop.org/wiki/Software/pkg-config/">pkg-config</a>
+packages, needed to build this package. They can be annotated with
+versions, e.g. <code class="docutils literal"><span class="pre">gtk+-2.0</span> <span class="pre">&gt;=</span> <span class="pre">2.10,</span> <span class="pre">cairo</span> <span class="pre">&gt;=</span> <span class="pre">1.0</span></code>. If no version
+constraint is specified, any version is assumed to be acceptable.
+Cabal uses <code class="docutils literal"><span class="pre">pkg-config</span></code> to find if the packages are available on
+the system and to find the extra compilation and linker options
+needed to use the packages.</p>
+<p class="last">If you need to bind to a C library that supports <code class="docutils literal"><span class="pre">pkg-config</span></code> (use
+<code class="docutils literal"><span class="pre">pkg-config</span> <span class="pre">--list-all</span></code> to find out if it is supported) then it is
+much preferable to use this field rather than hard code options into
+the other fields.</p>
+</dd>
+<dt><code class="docutils literal"><span class="pre">frameworks:</span></code> <em>token list</em></dt>
+<dd>On Darwin/MacOS X, a list of frameworks to link to. See Apple&#8217;s
+developer documentation for more details on frameworks. This entry
+is ignored on all other platforms.</dd>
+<dt><code class="docutils literal"><span class="pre">extra-frameworks-dirs:</span></code> <em>directory list</em></dt>
+<dd>On Darwin/MacOS X, a list of directories to search for frameworks.
+This entry is ignored on all other platforms.</dd>
+</dl>
+</div>
+<div class="section" id="configurations">
+<h3>3.3.2.9. Configurations<a class="headerlink" href="#configurations" title="Permalink to this headline">¶</a></h3>
+<p>Library and executable sections may include conditional blocks, which
+test for various system parameters and configuration flags. The flags
+mechanism is rather generic, but most of the time a flag represents
+certain feature, that can be switched on or off by the package user.
+Here is an example package description file using configurations:</p>
+<div class="section" id="id2">
+<h4>3.3.2.9.1. Example: A package containing a library and executable programs<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-cabal"><div class="highlight"><pre><span></span><span class="k">Name</span><span class="p">:</span> Test1
+<span class="k">Version</span><span class="p">:</span> 0.0.1
+<span class="k">Cabal-Version</span><span class="p">:</span> <span class="o">&gt;=</span> 1.2
+<span class="k">License</span><span class="p">:</span> BSD3
+<span class="k">Author</span><span class="p">:</span>  Jane Doe
+<span class="k">Synopsis</span><span class="p">:</span> Test package to test configurations
+<span class="k">Category</span><span class="p">:</span> Example
+
+<span class="k">Flag</span> Debug
+<span class="w">  </span><span class="k">Description</span><span class="p">:</span> Enable debug support
+<span class="w">  </span><span class="k">Default</span><span class="p">:</span>     False
+
+<span class="k">Flag</span> WebFrontend
+<span class="w">  </span><span class="k">Description</span><span class="p">:</span> Include API for web frontend.
+<span class="c1">  -- Cabal checks if the configuration is possible, first</span>
+<span class="c1">  -- with this flag set to True and if not it tries with False</span>
+
+<span class="k">Library</span>
+<span class="w">  </span><span class="k">Build-Depends</span><span class="p">:</span>   base
+<span class="w">  </span><span class="k">Exposed-Modules</span><span class="p">:</span> Testing.Test1
+<span class="w">  </span><span class="k">Extensions</span><span class="p">:</span>      CPP
+
+  if flag(debug)
+<span class="w">    </span><span class="k">GHC-Options</span><span class="p">:</span> -DDEBUG
+    if !os(windows)
+<span class="w">      </span><span class="k">CC-Options</span><span class="p">:</span> &quot;-DDEBUG&quot;
+    else
+<span class="w">      </span><span class="k">CC-Options</span><span class="p">:</span> &quot;-DNDEBUG&quot;
+
+  if flag(webfrontend)
+<span class="w">    </span><span class="k">Build-Depends</span><span class="p">:</span> cgi <span class="o">&gt;</span> 0.42
+<span class="w">    </span><span class="k">Other-Modules</span><span class="p">:</span> Testing.WebStuff
+
+<span class="k">Executable</span> test1
+<span class="w">  </span><span class="k">Main-is</span><span class="p">:</span> T1.hs
+<span class="w">  </span><span class="k">Other-Modules</span><span class="p">:</span> Testing.Test1
+<span class="w">  </span><span class="k">Build-Depends</span><span class="p">:</span> base
+
+  if flag(debug)
+<span class="w">    </span><span class="k">CC-Options</span><span class="p">:</span> &quot;-DDEBUG&quot;
+<span class="w">    </span><span class="k">GHC-Options</span><span class="p">:</span> -DDEBUG
+</pre></div>
+</div>
+</div>
+<div class="section" id="layout">
+<h4>3.3.2.9.2. Layout<a class="headerlink" href="#layout" title="Permalink to this headline">¶</a></h4>
+<p>Flags, conditionals, library and executable sections use layout to
+indicate structure. This is very similar to the Haskell layout rule.
+Entries in a section have to all be indented to the same level which
+must be more than the section header. Tabs are not allowed to be used
+for indentation.</p>
+<p>As an alternative to using layout you can also use explicit braces
+<code class="docutils literal"><span class="pre">{}</span></code>. In this case the indentation of entries in a section does not
+matter, though different fields within a block must be on different
+lines. Here is a bit of the above example again, using braces:</p>
+</div>
+<div class="section" id="example-using-explicit-braces-rather-than-indentation-for-layout">
+<h4>3.3.2.9.3. Example: Using explicit braces rather than indentation for layout<a class="headerlink" href="#example-using-explicit-braces-rather-than-indentation-for-layout" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-cabal"><div class="highlight"><pre><span></span><span class="k">Name</span><span class="p">:</span> Test1
+<span class="k">Version</span><span class="p">:</span> 0.0.1
+<span class="k">Cabal-Version</span><span class="p">:</span> <span class="o">&gt;=</span> 1.2
+<span class="k">License</span><span class="p">:</span> BSD3
+<span class="k">Author</span><span class="p">:</span>  Jane Doe
+<span class="k">Synopsis</span><span class="p">:</span> Test package to test configurations
+<span class="k">Category</span><span class="p">:</span> Example
+
+<span class="k">Flag</span> Debug <span class="p">{</span>
+<span class="w">  </span><span class="k">Description</span><span class="p">:</span> Enable debug support
+<span class="w">  </span><span class="k">Default</span><span class="p">:</span>     False
+<span class="p">}</span>
+
+<span class="k">Library</span> <span class="p">{</span>
+<span class="w">  </span><span class="k">Build-Depends</span><span class="p">:</span>   base
+<span class="w">  </span><span class="k">Exposed-Modules</span><span class="p">:</span> Testing.Test1
+<span class="w">  </span><span class="k">Extensions</span><span class="p">:</span>      CPP
+  if flag(debug) <span class="p">{</span>
+<span class="w">    </span><span class="k">GHC-Options</span><span class="p">:</span> -DDEBUG
+    if !os(windows) <span class="p">{</span>
+<span class="w">      </span><span class="k">CC-Options</span><span class="p">:</span> &quot;-DDEBUG&quot;
+    <span class="p">}</span> else <span class="p">{</span>
+<span class="w">      </span><span class="k">CC-Options</span><span class="p">:</span> &quot;-DNDEBUG&quot;
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="configuration-flags">
+<h4>3.3.2.9.4. Configuration Flags<a class="headerlink" href="#configuration-flags" title="Permalink to this headline">¶</a></h4>
+<p>A flag section takes the flag name as an argument and may contain the
+following fields.</p>
+<dl class="docutils">
+<dt><code class="docutils literal"><span class="pre">description:</span></code> <em>freeform</em></dt>
+<dd>The description of this flag.</dd>
+<dt><code class="docutils literal"><span class="pre">default:</span></code> <em>boolean</em> (default: <code class="docutils literal"><span class="pre">True</span></code>)</dt>
+<dd><p class="first">The default value of this flag.</p>
+<p class="last">Note that this value may be <a class="reference external" href="installing-packages.html#controlling-flag-assignments">overridden in several
+ways</a>. The
+rationale for having flags default to True is that users usually
+want new features as soon as they are available. Flags representing
+features that are not (yet) recommended for most users (such as
+experimental features or debugging support) should therefore
+explicitly override the default to False.</p>
+</dd>
+<dt><code class="docutils literal"><span class="pre">manual:</span></code> <em>boolean</em> (default: <code class="docutils literal"><span class="pre">False</span></code>)</dt>
+<dd>By default, Cabal will first try to satisfy dependencies with the
+default flag value and then, if that is not possible, with the
+negated value. However, if the flag is manual, then the default
+value (which can be overridden by commandline flags) will be used.</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="conditional-blocks">
+<h3>3.3.2.10. Conditional Blocks<a class="headerlink" href="#conditional-blocks" title="Permalink to this headline">¶</a></h3>
+<p>Conditional blocks may appear anywhere inside a library or executable
+section. They have to follow rather strict formatting rules. Conditional
+blocks must always be of the shape</p>
+<div class="highlight-cabal"><div class="highlight"><pre><span></span><span class="k">if</span> condition
+   property-descriptions-or-conditionals
+</pre></div>
+</div>
+<p>or</p>
+<div class="highlight-cabal"><div class="highlight"><pre><span></span><span class="k">if</span> condition
+     property-descriptions-or-conditionals
+<span class="k">else</span>
+     property-descriptions-or-conditionals
+</pre></div>
+</div>
+<p>Note that the <code class="docutils literal"><span class="pre">if</span></code> and the condition have to be all on the same line.</p>
+<div class="section" id="conditions">
+<h4>3.3.2.10.1. Conditions<a class="headerlink" href="#conditions" title="Permalink to this headline">¶</a></h4>
+<p>Conditions can be formed using boolean tests and the boolean operators
+<code class="docutils literal"><span class="pre">||</span></code> (disjunction / logical &#8220;or&#8221;), <code class="docutils literal"><span class="pre">&amp;&amp;</span></code> (conjunction / logical
+&#8220;and&#8221;), or <code class="docutils literal"><span class="pre">!</span></code> (negation / logical &#8220;not&#8221;). The unary <code class="docutils literal"><span class="pre">!</span></code> takes
+highest precedence, <code class="docutils literal"><span class="pre">||</span></code> takes lowest. Precedence levels may be
+overridden through the use of parentheses. For example,
+<code class="docutils literal"><span class="pre">os(darwin)</span> <span class="pre">&amp;&amp;</span> <span class="pre">!arch(i386)</span> <span class="pre">||</span> <span class="pre">os(freebsd)</span></code> is equivalent to
+<code class="docutils literal"><span class="pre">(os(darwin)</span> <span class="pre">&amp;&amp;</span> <span class="pre">!(arch(i386)))</span> <span class="pre">||</span> <span class="pre">os(freebsd)</span></code>.</p>
+<p>The following tests are currently supported.</p>
+<dl class="docutils">
+<dt><code class="docutils literal"><span class="pre">os(</span></code><em>name</em><code class="docutils literal"><span class="pre">)</span></code></dt>
+<dd>Tests if the current operating system is <em>name</em>. The argument is
+tested against <code class="docutils literal"><span class="pre">System.Info.os</span></code> on the target system. There is
+unfortunately some disagreement between Haskell implementations
+about the standard values of <code class="docutils literal"><span class="pre">System.Info.os</span></code>. Cabal canonicalises
+it so that in particular <code class="docutils literal"><span class="pre">os(windows)</span></code> works on all
+implementations. If the canonicalised os names match, this test
+evaluates to true, otherwise false. The match is case-insensitive.</dd>
+<dt><code class="docutils literal"><span class="pre">arch(</span></code><em>name</em><code class="docutils literal"><span class="pre">)</span></code></dt>
+<dd>Tests if the current architecture is <em>name</em>. The argument is matched
+against <code class="docutils literal"><span class="pre">System.Info.arch</span></code> on the target system. If the arch names
+match, this test evaluates to true, otherwise false. The match is
+case-insensitive.</dd>
+<dt><code class="docutils literal"><span class="pre">impl(</span></code><em>compiler</em><code class="docutils literal"><span class="pre">)</span></code></dt>
+<dd><p class="first">Tests for the configured Haskell implementation. An optional version
+constraint may be specified (for example <code class="docutils literal"><span class="pre">impl(ghc</span> <span class="pre">&gt;=</span> <span class="pre">6.6.1)</span></code>). If
+the configured implementation is of the right type and matches the
+version constraint, then this evaluates to true, otherwise false.
+The match is case-insensitive.</p>
+<p>Note that including a version constraint in an <code class="docutils literal"><span class="pre">impl</span></code> test causes
+it to check for two properties:</p>
+<ul class="simple">
+<li>The current compiler has the specified name, and</li>
+<li>The compiler&#8217;s version satisfied the specified version constraint</li>
+</ul>
+<p>As a result, <code class="docutils literal"><span class="pre">!impl(ghc</span> <span class="pre">&gt;=</span> <span class="pre">x.y.z)</span></code> is not entirely equivalent to
+<code class="docutils literal"><span class="pre">impl(ghc</span> <span class="pre">&lt;</span> <span class="pre">x.y.z)</span></code>. The test <code class="docutils literal"><span class="pre">!impl(ghc</span> <span class="pre">&gt;=</span> <span class="pre">x.y.z)</span></code> checks that:</p>
+<ul class="last simple">
+<li>The current compiler is not GHC, or</li>
+<li>The version of GHC is earlier than version x.y.z.</li>
+</ul>
+</dd>
+<dt><code class="docutils literal"><span class="pre">flag(</span></code><em>name</em><code class="docutils literal"><span class="pre">)</span></code></dt>
+<dd>Evaluates to the current assignment of the flag of the given name.
+Flag names are case insensitive. Testing for flags that have not
+been introduced with a flag section is an error.</dd>
+<dt><code class="docutils literal"><span class="pre">true</span></code></dt>
+<dd>Constant value true.</dd>
+<dt><code class="docutils literal"><span class="pre">false</span></code></dt>
+<dd>Constant value false.</dd>
+</dl>
+</div>
+<div class="section" id="resolution-of-conditions-and-flags">
+<h4>3.3.2.10.2. Resolution of Conditions and Flags<a class="headerlink" href="#resolution-of-conditions-and-flags" title="Permalink to this headline">¶</a></h4>
+<p>If a package descriptions specifies configuration flags the package user
+can <a class="reference external" href="installing-packages.html#controlling-flag-assignments">control these in several
+ways</a>. If the
+user does not fix the value of a flag, Cabal will try to find a flag
+assignment in the following way.</p>
+<ul class="simple">
+<li>For each flag specified, it will assign its default value, evaluate
+all conditions with this flag assignment, and check if all
+dependencies can be satisfied. If this check succeeded, the package
+will be configured with those flag assignments.</li>
+<li>If dependencies were missing, the last flag (as by the order in which
+the flags were introduced in the package description) is tried with
+its alternative value and so on. This continues until either an
+assignment is found where all dependencies can be satisfied, or all
+possible flag assignments have been tried.</li>
+</ul>
+<p>To put it another way, Cabal does a complete backtracking search to find
+a satisfiable package configuration. It is only the dependencies
+specified in the <code class="docutils literal"><span class="pre">build-depends</span></code> field in conditional blocks that
+determine if a particular flag assignment is satisfiable
+(<code class="docutils literal"><span class="pre">build-tools</span></code> are not considered). The order of the declaration and
+the default value of the flags determines the search order. Flags
+overridden on the command line fix the assignment of that flag, so no
+backtracking will be tried for that flag.</p>
+<p>If no suitable flag assignment could be found, the configuration phase
+will fail and a list of missing dependencies will be printed. Note that
+this resolution process is exponential in the worst case (i.e., in the
+case where dependencies cannot be satisfied). There are some
+optimizations applied internally, but the overall complexity remains
+unchanged.</p>
+</div>
+</div>
+<div class="section" id="meaning-of-field-values-when-using-conditionals">
+<h3>3.3.2.11. Meaning of field values when using conditionals<a class="headerlink" href="#meaning-of-field-values-when-using-conditionals" title="Permalink to this headline">¶</a></h3>
+<p>During the configuration phase, a flag assignment is chosen, all
+conditionals are evaluated, and the package description is combined into
+a flat package descriptions. If the same field both inside a conditional
+and outside then they are combined using the following rules.</p>
+<ul>
+<li><p class="first">Boolean fields are combined using conjunction (logical &#8220;and&#8221;).</p>
+</li>
+<li><p class="first">List fields are combined by appending the inner items to the outer
+items, for example</p>
+<div class="highlight-cabal"><div class="highlight"><pre><span></span><span class="k">other-extensions</span><span class="p">:</span> CPP
+<span class="k">if</span> impl(ghc)
+<span class="w">  </span><span class="k">other-extensions</span><span class="p">:</span> MultiParamTypeClasses
+</pre></div>
+</div>
+<p>when compiled using GHC will be combined to</p>
+<div class="highlight-cabal"><div class="highlight"><pre><span></span><span class="k">other-extensions</span><span class="p">:</span> CPP<span class="p">,</span> MultiParamTypeClasses
+</pre></div>
+</div>
+<p>Similarly, if two conditional sections appear at the same nesting
+level, properties specified in the latter will come after properties
+specified in the former.</p>
+</li>
+<li><p class="first">All other fields must not be specified in ambiguous ways. For example</p>
+<div class="highlight-cabal"><div class="highlight"><pre><span></span><span class="k">Main-is</span><span class="p">:</span> Main.hs
+<span class="k">if</span> flag(useothermain)
+<span class="w">  </span><span class="k">Main-is</span><span class="p">:</span> OtherMain.hs
+</pre></div>
+</div>
+<p>will lead to an error. Instead use</p>
+<div class="highlight-cabal"><div class="highlight"><pre><span></span><span class="k">if</span> flag(useothermain)
+<span class="w">  </span><span class="k">Main-is</span><span class="p">:</span> OtherMain.hs
+<span class="k">else</span>
+<span class="w">  </span><span class="k">Main-is</span><span class="p">:</span> Main.hs
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="source-repositories">
+<h3>3.3.2.12. Source Repositories<a class="headerlink" href="#source-repositories" title="Permalink to this headline">¶</a></h3>
+<p>It is often useful to be able to specify a source revision control
+repository for a package. Cabal lets you specifying this information in
+a relatively structured form which enables other tools to interpret and
+make effective use of the information. For example the information
+should be sufficient for an automatic tool to checkout the sources.</p>
+<p>Cabal supports specifying different information for various common
+source control systems. Obviously not all automated tools will support
+all source control systems.</p>
+<p>Cabal supports specifying repositories for different use cases. By
+declaring which case we mean automated tools can be more useful. There
+are currently two kinds defined:</p>
+<ul class="simple">
+<li>The <code class="docutils literal"><span class="pre">head</span></code> kind refers to the latest development branch of the
+package. This may be used for example to track activity of a project
+or as an indication to outside developers what sources to get for
+making new contributions.</li>
+<li>The <code class="docutils literal"><span class="pre">this</span></code> kind refers to the branch and tag of a repository that
+contains the sources for this version or release of a package. For
+most source control systems this involves specifying a tag, id or
+hash of some form and perhaps a branch. The purpose is to be able to
+reconstruct the sources corresponding to a particular package
+version. This might be used to indicate what sources to get if
+someone needs to fix a bug in an older branch that is no longer an
+active head branch.</li>
+</ul>
+<p>You can specify one kind or the other or both. As an example here are
+the repositories for the Cabal library. Note that the <code class="docutils literal"><span class="pre">this</span></code> kind of
+repository specifies a tag.</p>
+<div class="highlight-cabal"><div class="highlight"><pre><span></span><span class="k">source-repository</span> head
+<span class="w">  </span><span class="k">type</span><span class="p">:</span>     darcs
+<span class="w">  </span><span class="k">location</span><span class="p">:</span> http<span class="p">:</span>//darcs.haskell.org/cabal/
+
+<span class="k">source-repository</span> this
+<span class="w">  </span><span class="k">type</span><span class="p">:</span>     darcs
+<span class="w">  </span><span class="k">location</span><span class="p">:</span> http<span class="p">:</span>//darcs.haskell.org/cabal-branches/cabal-1.6/
+<span class="w">  </span><span class="k">tag</span><span class="p">:</span>      1.6.1
+</pre></div>
+</div>
+<p>The exact fields are as follows:</p>
+<dl class="docutils">
+<dt><code class="docutils literal"><span class="pre">type:</span></code> <em>token</em></dt>
+<dd><p class="first">The name of the source control system used for this repository. The
+currently recognised types are:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">darcs</span></code></li>
+<li><code class="docutils literal"><span class="pre">git</span></code></li>
+<li><code class="docutils literal"><span class="pre">svn</span></code></li>
+<li><code class="docutils literal"><span class="pre">cvs</span></code></li>
+<li><code class="docutils literal"><span class="pre">mercurial</span></code> (or alias <code class="docutils literal"><span class="pre">hg</span></code>)</li>
+<li><code class="docutils literal"><span class="pre">bazaar</span></code> (or alias <code class="docutils literal"><span class="pre">bzr</span></code>)</li>
+<li><code class="docutils literal"><span class="pre">arch</span></code></li>
+<li><code class="docutils literal"><span class="pre">monotone</span></code></li>
+</ul>
+<p class="last">This field is required.</p>
+</dd>
+<dt><code class="docutils literal"><span class="pre">location:</span></code> <em>URL</em></dt>
+<dd><p class="first">The location of the repository. The exact form of this field depends
+on the repository type. For example:</p>
+<ul class="simple">
+<li>for darcs: <code class="docutils literal"><span class="pre">http://code.haskell.org/foo/</span></code></li>
+<li>for git: <code class="docutils literal"><span class="pre">git://github.com/foo/bar.git</span></code></li>
+<li>for CVS: <code class="docutils literal"><span class="pre">anoncvs&#64;cvs.foo.org:/cvs</span></code></li>
+</ul>
+<p class="last">This field is required.</p>
+</dd>
+<dt><code class="docutils literal"><span class="pre">module:</span></code> <em>token</em></dt>
+<dd><p class="first">CVS requires a named module, as each CVS server can host multiple
+named repositories.</p>
+<p class="last">This field is required for the CVS repository type and should not be
+used otherwise.</p>
+</dd>
+<dt><code class="docutils literal"><span class="pre">branch:</span></code> <em>token</em></dt>
+<dd><p class="first">Many source control systems support the notion of a branch, as a
+distinct concept from having repositories in separate locations. For
+example CVS, SVN and git use branches while for darcs uses different
+locations for different branches. If you need to specify a branch to
+identify a your repository then specify it in this field.</p>
+<p class="last">This field is optional.</p>
+</dd>
+<dt><code class="docutils literal"><span class="pre">tag:</span></code> <em>token</em></dt>
+<dd><p class="first">A tag identifies a particular state of a source repository. The tag
+can be used with a <code class="docutils literal"><span class="pre">this</span></code> repository kind to identify the state of
+a repository corresponding to a particular package version or
+release. The exact form of the tag depends on the repository type.</p>
+<p class="last">This field is required for the <code class="docutils literal"><span class="pre">this</span></code> repository kind.</p>
+</dd>
+<dt><code class="docutils literal"><span class="pre">subdir:</span></code> <em>directory</em></dt>
+<dd><p class="first">Some projects put the sources for multiple packages under a single
+source repository. This field lets you specify the relative path
+from the root of the repository to the top directory for the
+package, i.e. the directory containing the package&#8217;s <code class="docutils literal"><span class="pre">.cabal</span></code>
+file.</p>
+<p class="last">This field is optional. It default to empty which corresponds to the
+root directory of the repository.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="downloading-a-package-s-source">
+<h3>3.3.2.13. Downloading a package&#8217;s source<a class="headerlink" href="#downloading-a-package-s-source" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal"><span class="pre">cabal</span> <span class="pre">get</span></code> command allows to access a package&#8217;s source code -
+either by unpacking a tarball downloaded from Hackage (the default) or
+by checking out a working copy from the package&#8217;s source repository.</p>
+<div class="highlight-cabal"><div class="highlight"><pre><span></span>$ cabal get [FLAGS] PACKAGES
+</pre></div>
+</div>
+<p>The <code class="docutils literal"><span class="pre">get</span></code> command supports the following options:</p>
+<dl class="docutils">
+<dt><code class="docutils literal"><span class="pre">-d</span> <span class="pre">--destdir</span></code> <em>PATH</em></dt>
+<dd>Where to place the package source, defaults to (a subdirectory of)
+the current directory.</dd>
+<dt><code class="docutils literal"><span class="pre">-s</span> <span class="pre">--source-repository</span></code> <em>[head|this|...]</em></dt>
+<dd>Fork the package&#8217;s source repository using the appropriate version
+control system. The optional argument allows to choose a specific
+repository kind.</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="custom-setup-scripts">
+<h2>3.3.3. Custom setup scripts<a class="headerlink" href="#custom-setup-scripts" title="Permalink to this headline">¶</a></h2>
+<p>The optional <code class="docutils literal"><span class="pre">custom-setup</span></code> stanza contains information needed for the
+compilation of custom <code class="docutils literal"><span class="pre">Setup.hs</span></code> scripts,</p>
+<div class="highlight-cabal"><div class="highlight"><pre><span></span><span class="k">custom-setup</span>
+<span class="w">  </span><span class="k">setup-depends</span><span class="p">:</span>
+    base <span class="o">&gt;=</span> 4.5 <span class="o">&amp;&amp;</span> <span class="o">&lt;</span> 4.11<span class="p">,</span>
+    Cabal <span class="o">&lt;</span> 1.25
+</pre></div>
+</div>
+<dl class="docutils">
+<dt><code class="docutils literal"><span class="pre">setup-depends:</span></code> <em>package list</em></dt>
+<dd>The dependencies needed to compile <code class="docutils literal"><span class="pre">Setup.hs</span></code>. See the
+<code class="docutils literal"><span class="pre">`build-depends</span></code> &lt;#build-information&gt;`__ section for a description
+of the syntax expected by this field.</dd>
+</dl>
+</div>
+<div class="section" id="autogenerated-modules">
+<h2>3.3.4. Autogenerated modules<a class="headerlink" href="#autogenerated-modules" title="Permalink to this headline">¶</a></h2>
+<p>Modules that are built automatically at setup, created with a custom
+setup script, must appear on <code class="docutils literal"><span class="pre">other-modules</span></code> for the library,
+executable, test-suite or benchmark stanzas or also on
+<code class="docutils literal"><span class="pre">exposed-modules</span></code> for libraries to be used, but are not really on the
+package when distributed. This makes commands like sdist fail because
+the file is not found.</p>
+<p>This special modules must appear again on the <code class="docutils literal"><span class="pre">autogen-modules</span></code> field
+of the stanza that is using it, besides <code class="docutils literal"><span class="pre">other-modules</span></code> or
+<code class="docutils literal"><span class="pre">exposed-modules</span></code>. With this there is no need to create complex build
+hooks for this poweruser case.</p>
+<p>Right now <code class="docutils literal"><span class="pre">main-is</span></code> modules are not supported on <code class="docutils literal"><span class="pre">autogen-modules</span></code>.</p>
+<div class="highlight-cabal"><div class="highlight"><pre><span></span><span class="k">Library</span>
+<span class="w">    </span><span class="k">default-language</span><span class="p">:</span> Haskell2010
+<span class="w">    </span><span class="k">build-depends</span><span class="p">:</span> base
+<span class="w">    </span><span class="k">exposed-modules</span><span class="p">:</span>
+        MyLibrary
+        MyLibHelperModule
+<span class="w">    </span><span class="k">other-modules</span><span class="p">:</span>
+        MyLibModule
+<span class="w">    </span><span class="k">autogen-modules</span><span class="p">:</span>
+        MyLibHelperModule
+
+<span class="k">Executable</span> Exe
+<span class="w">    </span><span class="k">default-language</span><span class="p">:</span> Haskell2010
+<span class="w">    </span><span class="k">main-is</span><span class="p">:</span> Dummy.hs
+<span class="w">    </span><span class="k">build-depends</span><span class="p">:</span> base
+<span class="w">    </span><span class="k">other-modules</span><span class="p">:</span>
+        MyExeModule
+        MyExeHelperModule
+<span class="w">    </span><span class="k">autogen-modules</span><span class="p">:</span>
+        MyExeHelperModule
+</pre></div>
+</div>
+</div>
+<div class="section" id="accessing-data-files-from-package-code">
+<h2>3.3.5. Accessing data files from package code<a class="headerlink" href="#accessing-data-files-from-package-code" title="Permalink to this headline">¶</a></h2>
+<p>The placement on the target system of files listed in the <code class="docutils literal"><span class="pre">data-files</span></code>
+field varies between systems, and in some cases one can even move
+packages around after installation (see <a class="reference external" href="installing-packages.html#prefix-independence">prefix
+independence</a>). To
+enable packages to find these files in a portable way, Cabal generates a
+module called <code class="docutils literal"><span class="pre">Paths_</span></code><em>pkgname</em> (with any hyphens in <em>pkgname</em>
+replaced by underscores) during building, so that it may be imported by
+modules of the package. This module defines a function</p>
+<div class="highlight-haskell"><div class="highlight"><pre><span></span><span class="nf">getDataFileName</span> <span class="ow">::</span> <span class="kt">FilePath</span> <span class="ow">-&gt;</span> <span class="kt">IO</span> <span class="kt">FilePath</span>
+</pre></div>
+</div>
+<p>If the argument is a filename listed in the <code class="docutils literal"><span class="pre">data-files</span></code> field, the
+result is the name of the corresponding file on the system on which the
+program is running.</p>
+<p>Note: If you decide to import the <code class="docutils literal"><span class="pre">Paths_</span></code><em>pkgname</em> module then it
+<em>must</em> be listed in the <code class="docutils literal"><span class="pre">other-modules</span></code> field just like any other
+module in your package and on <code class="docutils literal"><span class="pre">autogen-modules</span></code> as the file is
+autogenerated.</p>
+<p>The <code class="docutils literal"><span class="pre">Paths_</span></code><em>pkgname</em> module is not platform independent, as any
+other autogenerated module, so it does not get included in the source
+tarballs generated by <code class="docutils literal"><span class="pre">sdist</span></code>.</p>
+<p>The <code class="docutils literal"><span class="pre">Paths_</span></code><em>pkgname</em> module also includes some other useful
+functions and values, which record the version of the package and some
+other directories which the package has been configured to be installed
+into (e.g. data files live in <code class="docutils literal"><span class="pre">getDataDir</span></code>):</p>
+<div class="highlight-haskell"><div class="highlight"><pre><span></span><span class="nf">version</span> <span class="ow">::</span> <span class="kt">Version</span>
+
+<span class="nf">getBinDir</span> <span class="ow">::</span> <span class="kt">IO</span> <span class="kt">FilePath</span>
+<span class="nf">getLibDir</span> <span class="ow">::</span> <span class="kt">IO</span> <span class="kt">FilePath</span>
+<span class="nf">getDataDir</span> <span class="ow">::</span> <span class="kt">IO</span> <span class="kt">FilePath</span>
+<span class="nf">getLibexecDir</span> <span class="ow">::</span> <span class="kt">IO</span> <span class="kt">FilePath</span>
+<span class="nf">getSysconfDir</span> <span class="ow">::</span> <span class="kt">IO</span> <span class="kt">FilePath</span>
+</pre></div>
+</div>
+<p>The actual location of all these directories can be individually
+overridden at runtime using environment variables of the form
+<code class="docutils literal"><span class="pre">pkg_name_var</span></code>, where <code class="docutils literal"><span class="pre">pkg_name</span></code> is the name of the package with all
+hyphens converted into underscores, and <code class="docutils literal"><span class="pre">var</span></code> is either <code class="docutils literal"><span class="pre">bindir</span></code>,
+<code class="docutils literal"><span class="pre">libdir</span></code>, <code class="docutils literal"><span class="pre">datadir</span></code>, <code class="docutils literal"><span class="pre">libexedir</span></code> or <code class="docutils literal"><span class="pre">sysconfdir</span></code>. For example,
+the configured data directory for <code class="docutils literal"><span class="pre">pretty-show</span></code> is controlled with the
+<code class="docutils literal"><span class="pre">pretty_show_datadir</span></code> environment variable.</p>
+<div class="section" id="accessing-the-package-version">
+<h3>3.3.5.1. Accessing the package version<a class="headerlink" href="#accessing-the-package-version" title="Permalink to this headline">¶</a></h3>
+<p>The aforementioned auto generated <code class="docutils literal"><span class="pre">Paths_</span></code><em>pkgname</em> module also
+exports the constant <code class="docutils literal"><span class="pre">version</span> <span class="pre">::</span></code>
+<a class="reference external" href="http://hackage.haskell.org/package/base/docs/Data-Version.html">Version</a>
+which is defined as the version of your package as specified in the
+<code class="docutils literal"><span class="pre">version</span></code> field.</p>
+</div>
+</div>
+<div class="section" id="system-dependent-parameters">
+<h2>3.3.6. System-dependent parameters<a class="headerlink" href="#system-dependent-parameters" title="Permalink to this headline">¶</a></h2>
+<p>For some packages, especially those interfacing with C libraries,
+implementation details and the build procedure depend on the build
+environment. The <code class="docutils literal"><span class="pre">build-type</span></code> <code class="docutils literal"><span class="pre">Configure</span></code> can be used to handle many
+such situations. In this case, <code class="docutils literal"><span class="pre">Setup.hs</span></code> should be:</p>
+<div class="highlight-haskell"><div class="highlight"><pre><span></span><span class="kr">import</span> <span class="nn">Distribution.Simple</span>
+<span class="nf">main</span> <span class="ow">=</span> <span class="n">defaultMainWithHooks</span> <span class="n">autoconfUserHooks</span>
+</pre></div>
+</div>
+<p>Most packages, however, would probably do better using the <code class="docutils literal"><span class="pre">Simple</span></code>
+build type and <a class="reference external" href="#configurations">configurations</a>.</p>
+<p>The <code class="docutils literal"><span class="pre">build-type</span></code> <code class="docutils literal"><span class="pre">Configure</span></code> differs from <code class="docutils literal"><span class="pre">Simple</span></code> in two ways:</p>
+<ul class="simple">
+<li>The package root directory must contain a shell script called
+<code class="docutils literal"><span class="pre">configure</span></code>. The configure step will run the script. This
+<code class="docutils literal"><span class="pre">configure</span></code> script may be produced by
+<a class="reference external" href="http://www.gnu.org/software/autoconf/">autoconf</a> or may be
+hand-written. The <code class="docutils literal"><span class="pre">configure</span></code> script typically discovers
+information about the system and records it for later steps, e.g. by
+generating system-dependent header files for inclusion in C source
+files and preprocessed Haskell source files. (Clearly this won&#8217;t work
+for Windows without MSYS or Cygwin: other ideas are needed.)</li>
+<li>If the package root directory contains a file called
+<em>package</em><code class="docutils literal"><span class="pre">.buildinfo</span></code> after the configuration step, subsequent
+steps will read it to obtain additional settings for <a class="reference external" href="#build-information">build
+information</a> fields,to be merged with the ones
+given in the <code class="docutils literal"><span class="pre">.cabal</span></code> file. In particular, this file may be
+generated by the <code class="docutils literal"><span class="pre">configure</span></code> script mentioned above, allowing these
+settings to vary depending on the build environment.</li>
+</ul>
+<p>The build information file should have the following structure:</p>
+<blockquote>
+<div><p><em>buildinfo</em></p>
+<p><code class="docutils literal"><span class="pre">executable:</span></code> <em>name</em> <em>buildinfo</em></p>
+<p><code class="docutils literal"><span class="pre">executable:</span></code> <em>name</em> <em>buildinfo</em> ...</p>
+</div></blockquote>
+<p>where each <em>buildinfo</em> consists of settings of fields listed in the
+section on <a class="reference external" href="#build-information">build information</a>. The first one (if
+present) relates to the library, while each of the others relate to the
+named executable. (The names must match the package description, but you
+don&#8217;t have to have entries for all of them.)</p>
+<p>Neither of these files is required. If they are absent, this setup
+script is equivalent to <code class="docutils literal"><span class="pre">defaultMain</span></code>.</p>
+<div class="section" id="example-using-autoconf">
+<h3>3.3.6.1. Example: Using autoconf<a class="headerlink" href="#example-using-autoconf" title="Permalink to this headline">¶</a></h3>
+<p>This example is for people familiar with the
+<a class="reference external" href="http://www.gnu.org/software/autoconf/">autoconf</a> tools.</p>
+<p>In the X11 package, the file <code class="docutils literal"><span class="pre">configure.ac</span></code> contains:</p>
+<div class="highlight-shell"><div class="highlight"><pre><span></span>AC_INIT<span class="o">([</span>Haskell X11 package<span class="o">]</span>, <span class="o">[</span>1.1<span class="o">]</span>, <span class="o">[</span>libraries@haskell.org<span class="o">]</span>, <span class="o">[</span>X11<span class="o">])</span>
+
+<span class="c1"># Safety check: Ensure that we are in the correct source directory.</span>
+AC_CONFIG_SRCDIR<span class="o">([</span>X11.cabal<span class="o">])</span>
+
+<span class="c1"># Header file to place defines in</span>
+AC_CONFIG_HEADERS<span class="o">([</span>include/HsX11Config.h<span class="o">])</span>
+
+<span class="c1"># Check for X11 include paths and libraries</span>
+AC_PATH_XTRA
+AC_TRY_CPP<span class="o">([</span><span class="c1">#include &lt;X11/Xlib.h&gt;],,[no_x=yes])</span>
+
+<span class="c1"># Build the package if we found X11 stuff</span>
+<span class="k">if</span> <span class="nb">test</span> <span class="s2">&quot;</span><span class="nv">$no_x</span><span class="s2">&quot;</span> <span class="o">=</span> yes
+<span class="k">then</span> <span class="nv">BUILD_PACKAGE_BOOL</span><span class="o">=</span>False
+<span class="k">else</span> <span class="nv">BUILD_PACKAGE_BOOL</span><span class="o">=</span>True
+<span class="k">fi</span>
+AC_SUBST<span class="o">([</span>BUILD_PACKAGE_BOOL<span class="o">])</span>
+
+AC_CONFIG_FILES<span class="o">([</span>X11.buildinfo<span class="o">])</span>
+AC_OUTPUT
+</pre></div>
+</div>
+<p>Then the setup script will run the <code class="docutils literal"><span class="pre">configure</span></code> script, which checks
+for the presence of the X11 libraries and substitutes for variables in
+the file <code class="docutils literal"><span class="pre">X11.buildinfo.in</span></code>:</p>
+<div class="highlight-cabal"><div class="highlight"><pre><span></span><span class="k">buildable</span><span class="p">:</span> @BUILD_PACKAGE_BOOL@
+<span class="k">cc-options</span><span class="p">:</span> @X_CFLAGS@
+<span class="k">ld-options</span><span class="p">:</span> @X_LIBS@
+</pre></div>
+</div>
+<p>This generates a file <code class="docutils literal"><span class="pre">X11.buildinfo</span></code> supplying the parameters needed
+by later stages:</p>
+<div class="highlight-cabal"><div class="highlight"><pre><span></span><span class="k">buildable</span><span class="p">:</span> True
+<span class="k">cc-options</span><span class="p">:</span>  -I/usr/X11R6/include
+<span class="k">ld-options</span><span class="p">:</span>  -L/usr/X11R6/lib
+</pre></div>
+</div>
+<p>The <code class="docutils literal"><span class="pre">configure</span></code> script also generates a header file
+<code class="docutils literal"><span class="pre">include/HsX11Config.h</span></code> containing C preprocessor defines recording
+the results of various tests. This file may be included by C source
+files and preprocessed Haskell source files in the package.</p>
+<p>Note: Packages using these features will also need to list additional
+files such as <code class="docutils literal"><span class="pre">configure</span></code>, templates for <code class="docutils literal"><span class="pre">.buildinfo</span></code> files, files
+named only in <code class="docutils literal"><span class="pre">.buildinfo</span></code> files, header files and so on in the
+<code class="docutils literal"><span class="pre">extra-source-files</span></code> field to ensure that they are included in source
+distributions. They should also list files and directories generated by
+<code class="docutils literal"><span class="pre">configure</span></code> in the <code class="docutils literal"><span class="pre">extra-tmp-files</span></code> field to ensure that they are
+removed by <code class="docutils literal"><span class="pre">setup</span> <span class="pre">clean</span></code>.</p>
+<p>Quite often the files generated by <code class="docutils literal"><span class="pre">configure</span></code> need to be listed
+somewhere in the package description (for example, in the
+<code class="docutils literal"><span class="pre">install-includes</span></code> field). However, we usually don&#8217;t want generated
+files to be included in the source tarball. The solution is again
+provided by the <code class="docutils literal"><span class="pre">.buildinfo</span></code> file. In the above example, the following
+line should be added to <code class="docutils literal"><span class="pre">X11.buildinfo</span></code>:</p>
+<div class="highlight-cabal"><div class="highlight"><pre><span></span><span class="k">install-includes</span><span class="p">:</span> HsX11Config.h
+</pre></div>
+</div>
+<p>In this way, the generated <code class="docutils literal"><span class="pre">HsX11Config.h</span></code> file won&#8217;t be included in
+the source tarball in addition to <code class="docutils literal"><span class="pre">HsX11Config.h.in</span></code>, but it will be
+copied to the right location during the install process. Packages that
+use custom <code class="docutils literal"><span class="pre">Setup.hs</span></code> scripts can update the necessary fields
+programmatically instead of using the <code class="docutils literal"><span class="pre">.buildinfo</span></code> file.</p>
+</div>
+</div>
+<div class="section" id="conditional-compilation">
+<h2>3.3.7. Conditional compilation<a class="headerlink" href="#conditional-compilation" title="Permalink to this headline">¶</a></h2>
+<p>Sometimes you want to write code that works with more than one version
+of a dependency. You can specify a range of versions for the dependency
+in the <code class="docutils literal"><span class="pre">build-depends</span></code>, but how do you then write the code that can
+use different versions of the API?</p>
+<p>Haskell lets you preprocess your code using the C preprocessor (either
+the real C preprocessor, or <code class="docutils literal"><span class="pre">cpphs</span></code>). To enable this, add
+<code class="docutils literal"><span class="pre">extensions:</span> <span class="pre">CPP</span></code> to your package description. When using CPP, Cabal
+provides some pre-defined macros to let you test the version of
+dependent packages; for example, suppose your package works with either
+version 3 or version 4 of the <code class="docutils literal"><span class="pre">base</span></code> package, you could select the
+available version in your Haskell modules like this:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="cp">#if MIN_VERSION_base(4,0,0)</span>
+<span class="p">...</span> <span class="n">code</span> <span class="n">that</span> <span class="n">works</span> <span class="n">with</span> <span class="n">base</span><span class="o">-</span><span class="mi">4</span> <span class="p">...</span>
+<span class="cp">#else</span>
+<span class="p">...</span> <span class="n">code</span> <span class="n">that</span> <span class="n">works</span> <span class="n">with</span> <span class="n">base</span><span class="o">-</span><span class="mi">3</span> <span class="p">...</span>
+<span class="cp">#endif</span>
+</pre></div>
+</div>
+<p>In general, Cabal supplies a macro
+<code class="docutils literal"><span class="pre">MIN_VERSION_</span></code><em>``package``</em><code class="docutils literal"><span class="pre">_(A,B,C)</span></code> for each package depended
+on via <code class="docutils literal"><span class="pre">build-depends</span></code>. This macro is true if the actual version of
+the package in use is greater than or equal to <code class="docutils literal"><span class="pre">A.B.C</span></code> (using the
+conventional ordering on version numbers, which is lexicographic on the
+sequence, but numeric on each component, so for example 1.2.0 is greater
+than 1.0.3).</p>
+<p>Since version 1.20, there is also the <code class="docutils literal"><span class="pre">MIN_TOOL_VERSION_</span></code><em>``tool``</em>
+family of macros for conditioning on the version of build tools used to
+build the program (e.g. <code class="docutils literal"><span class="pre">hsc2hs</span></code>).</p>
+<p>Cabal places the definitions of these macros into an
+automatically-generated header file, which is included when
+preprocessing Haskell source code by passing options to the C
+preprocessor.</p>
+<p>Cabal also allows to detect when the source code is being used for
+generating documentation. The <code class="docutils literal"><span class="pre">__HADDOCK_VERSION__</span></code> macro is defined
+only when compiling via <a class="reference external" href="http://www.haskell.org/haddock/">Haddock</a>
+instead of a normal Haskell compiler. The value of the
+<code class="docutils literal"><span class="pre">__HADDOCK_VERSION__</span></code> macro is defined as <code class="docutils literal"><span class="pre">A*1000</span> <span class="pre">+</span> <span class="pre">B*10</span> <span class="pre">+</span> <span class="pre">C</span></code>, where
+<code class="docutils literal"><span class="pre">A.B.C</span></code> is the Haddock version. This can be useful for working around
+bugs in Haddock or generating prettier documentation in some special
+cases.</p>
+</div>
+<div class="section" id="more-complex-packages">
+<h2>3.3.8. More complex packages<a class="headerlink" href="#more-complex-packages" title="Permalink to this headline">¶</a></h2>
+<p>For packages that don&#8217;t fit the simple schemes described above, you have
+a few options:</p>
+<ul>
+<li><p class="first">By using the <code class="docutils literal"><span class="pre">build-type</span></code> <code class="docutils literal"><span class="pre">Custom</span></code>, you can supply your own
+<code class="docutils literal"><span class="pre">Setup.hs</span></code> file, and customize the simple build infrastructure
+using <em>hooks</em>. These allow you to perform additional actions before
+and after each command is run, and also to specify additional
+preprocessors. A typical <code class="docutils literal"><span class="pre">Setup.hs</span></code> may look like this:</p>
+<div class="highlight-haskell"><div class="highlight"><pre><span></span><span class="kr">import</span> <span class="nn">Distribution.Simple</span>
+<span class="nf">main</span> <span class="ow">=</span> <span class="n">defaultMainWithHooks</span> <span class="n">simpleUserHooks</span> <span class="p">{</span> <span class="n">postHaddock</span> <span class="ow">=</span> <span class="n">posthaddock</span> <span class="p">}</span>
+
+<span class="nf">posthaddock</span> <span class="n">args</span> <span class="n">flags</span> <span class="n">desc</span> <span class="n">info</span> <span class="ow">=</span> <span class="o">....</span>
+</pre></div>
+</div>
+<p>See <code class="docutils literal"><span class="pre">UserHooks</span></code> in
+<a class="reference external" href="../release/cabal-latest/doc/API/Cabal/Distribution-Simple.html">Distribution.Simple</a>
+for the details, but note that this interface is experimental, and
+likely to change in future releases.</p>
+<p>If you use a custom <code class="docutils literal"><span class="pre">Setup.hs</span></code> file you should strongly consider
+adding a <code class="docutils literal"><span class="pre">custom-setup</span></code> stanza with a <code class="docutils literal"><span class="pre">setup-depends</span></code> field to
+ensure that your setup script does not break with future dependency
+versions.</p>
+</li>
+<li><p class="first">You could delegate all the work to <code class="docutils literal"><span class="pre">make</span></code>, though this is unlikely
+to be very portable. Cabal supports this with the <code class="docutils literal"><span class="pre">build-type</span></code>
+<code class="docutils literal"><span class="pre">Make</span></code> and a trivial setup library
+<a class="reference external" href="../release/cabal-latest/doc/API/Cabal/Distribution-Make.html">Distribution.Make</a>,
+which simply parses the command line arguments and invokes <code class="docutils literal"><span class="pre">make</span></code>.
+Here <code class="docutils literal"><span class="pre">Setup.hs</span></code> should look like this:</p>
+<div class="highlight-haskell"><div class="highlight"><pre><span></span><span class="kr">import</span> <span class="nn">Distribution.Make</span>
+<span class="nf">main</span> <span class="ow">=</span> <span class="n">defaultMain</span>
+</pre></div>
+</div>
+<p>The root directory of the package should contain a <code class="docutils literal"><span class="pre">configure</span></code>
+script, and, after that has run, a <code class="docutils literal"><span class="pre">Makefile</span></code> with a default target
+that builds the package, plus targets <code class="docutils literal"><span class="pre">install</span></code>, <code class="docutils literal"><span class="pre">register</span></code>,
+<code class="docutils literal"><span class="pre">unregister</span></code>, <code class="docutils literal"><span class="pre">clean</span></code>, <code class="docutils literal"><span class="pre">dist</span></code> and <code class="docutils literal"><span class="pre">docs</span></code>. Some options to
+commands are passed through as follows:</p>
+<ul>
+<li><p class="first">The <code class="docutils literal"><span class="pre">--with-hc-pkg</span></code>, <code class="docutils literal"><span class="pre">--prefix</span></code>, <code class="docutils literal"><span class="pre">--bindir</span></code>, <code class="docutils literal"><span class="pre">--libdir</span></code>,
+<code class="docutils literal"><span class="pre">--datadir</span></code>, <code class="docutils literal"><span class="pre">--libexecdir</span></code> and <code class="docutils literal"><span class="pre">--sysconfdir</span></code> options to
+the <code class="docutils literal"><span class="pre">configure</span></code> command are passed on to the <code class="docutils literal"><span class="pre">configure</span></code>
+script. In addition the value of the <code class="docutils literal"><span class="pre">--with-compiler</span></code> option is
+passed in a <code class="docutils literal"><span class="pre">--with-hc</span></code> option and all options specified with
+<code class="docutils literal"><span class="pre">--configure-option=</span></code> are passed on.</p>
+</li>
+<li><p class="first">The <code class="docutils literal"><span class="pre">--destdir</span></code> option to the <code class="docutils literal"><span class="pre">copy</span></code> command becomes a setting
+of a <code class="docutils literal"><span class="pre">destdir</span></code> variable on the invocation of <code class="docutils literal"><span class="pre">make</span> <span class="pre">copy</span></code>. The
+supplied <code class="docutils literal"><span class="pre">Makefile</span></code> should provide a <code class="docutils literal"><span class="pre">copy</span></code> target, which will
+probably look like this:</p>
+<div class="highlight-make"><div class="highlight"><pre><span></span><span class="nf">copy </span><span class="o">:</span>
+        <span class="k">$(</span>MAKE<span class="k">)</span> install <span class="nv">prefix</span><span class="o">=</span><span class="k">$(</span>destdir<span class="k">)</span>/<span class="k">$(</span>prefix<span class="k">)</span> <span class="se">\</span>
+                        <span class="nv">bindir</span><span class="o">=</span><span class="k">$(</span>destdir<span class="k">)</span>/<span class="k">$(</span>bindir<span class="k">)</span> <span class="se">\</span>
+                        <span class="nv">libdir</span><span class="o">=</span><span class="k">$(</span>destdir<span class="k">)</span>/<span class="k">$(</span>libdir<span class="k">)</span> <span class="se">\</span>
+                        <span class="nv">datadir</span><span class="o">=</span><span class="k">$(</span>destdir<span class="k">)</span>/<span class="k">$(</span>datadir<span class="k">)</span> <span class="se">\</span>
+                        <span class="nv">libexecdir</span><span class="o">=</span><span class="k">$(</span>destdir<span class="k">)</span>/<span class="k">$(</span>libexecdir<span class="k">)</span> <span class="se">\</span>
+                        <span class="nv">sysconfdir</span><span class="o">=</span><span class="k">$(</span>destdir<span class="k">)</span>/<span class="k">$(</span>sysconfdir<span class="k">)</span> <span class="se">\</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p class="first">Finally, with the <code class="docutils literal"><span class="pre">build-type</span></code> <code class="docutils literal"><span class="pre">Custom</span></code>, you can also write your
+own setup script from scratch. It must conform to the interface
+described in the section on <a class="reference external" href="installing-packages.html">building and installing
+packages</a>, and you may use the Cabal
+library for all or part of the work. One option is to copy the source
+of <code class="docutils literal"><span class="pre">Distribution.Simple</span></code>, and alter it for your needs. Good luck.</p>
+</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="bugs-and-stability.html" class="btn btn-neutral float-right" title="4. Reporting Bugs and Stability of Cabal Interfaces" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="concepts-and-development.html" class="btn btn-neutral" title="3. Package Concepts and Development" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Cabal Team.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.25',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
