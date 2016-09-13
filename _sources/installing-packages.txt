@@ -751,10 +751,10 @@ For the simple build system, the following defaults apply:
       - Windows Default
     * - :option:`--prefix` (global)
       - ``/usr/local``
-      - ``C:\Program Files\Haskell``
+      - ``%PROGRAMFILES%\Haskell``
     * - :option:`--prefix` (per-user)
       - ``$HOME/.cabal``
-      - ``C:\Documents And Settings\user\Application Data\cabal``
+      - ``%APPDATA%\cabal``
     * - :option:`--bindir`
       - ``$prefix/bin``
       - ``$prefix\bin``
